@@ -1,72 +1,49 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        volpe-ambiental
-      </h1>
-      <h2 class="subtitle">
-        Website da Volpe Ambiental
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+  <div>
+    <div class="page-hero --home">
+      <h1>Volpe Ambiental</h1>
+    </div>
+    <div class="container">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
+        exercitationem quidem error, beatae, incidunt doloribus quaerat
+        veritatis amet magnam autem cumque nisi quas? Tempore praesentium quas
+        nihil id temporibus inventore?
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
-export default {
-  components: {
-    Logo
-  }
-}
+export default {};
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style lang="scss">
+h1 {
+  text-indent: -9999px;
+  overflow: hidden;
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("~assets/volpe_logotipo.png");
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+  max-width: 879px;
 
-.links {
-  padding-top: 15px;
+  width: 90%;
+  height: 186px;
+
+  @media (min-width: 576px) {
+    width: 80%;
+    height: 225px;
+  }
+
+  @media (min-width: 768px) {
+    width: 70%;
+    height: 325px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 53%;
+  }
 }
 </style>
