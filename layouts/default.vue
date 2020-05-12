@@ -2,32 +2,53 @@
   <div>
     <div class="container">
       <b-navbar toggleable="lg" type="dark">
-        <b-navbar-brand href="#">Volpe Ambiental</b-navbar-brand>
+        <b-navbar-brand href="/">Volpe Ambiental</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
             <li class="nav-item">
-              <a href="/" class="nav-link active" target="_self">Home</a>
+              <a
+                href="/"
+                class="nav-link"
+                :class="{ active: $store.state.active === 'home' }"
+                target="_self"
+                >Home</a
+              >
               <hr />
             </li>
             <li class="nav-item">
-              <a href="/quem-somos" class="nav-link" target="_self">
+              <a
+                href="/quem-somos"
+                class="nav-link"
+                :class="{ active: $store.state.active === 'about-us' }"
+                target="_self"
+              >
                 Quem Somos
               </a>
               <hr />
             </li>
             <li class="nav-item">
-              <a href="/servicos" class="nav-link" target="_self">Serviços</a>
+              <a
+                href="/servicos"
+                class="nav-link"
+                :class="{ active: $store.state.active === 'services' }"
+                target="_self"
+                >Serviços</a
+              >
               <hr />
             </li>
             <li class="nav-item">
-              <a href="/contato" class="nav-link" target="_self">Contato</a>
+              <a
+                href="/contatos"
+                :class="{ active: $store.state.active === 'contacts' }"
+                class="nav-link"
+                target="_self"
+                >Contato</a
+              >
               <hr />
             </li>
-            <!-- <b-nav-item href="#" class="three"></b-nav-item>
-            <b-nav-item href="#" class="four"></b-nav-item> -->
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -37,11 +58,10 @@
   </div>
 </template>
 
-<style lang="scss">
-html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
+<style lang="scss" scoped>
+.container {
+  position: relative;
+  z-index: 9;
 }
 
 .navbar {
@@ -106,22 +126,6 @@ html {
   .nav-item {
     width: fit-content;
     margin-top: 20px;
-  }
-}
-
-.page-hero {
-  margin-top: -112px;
-  background: #333;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  &.--home {
-    background-image: url("~assets/bkg-home.jpg");
   }
 }
 </style>

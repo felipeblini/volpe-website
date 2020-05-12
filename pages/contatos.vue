@@ -77,6 +77,9 @@ export default {
       }
     };
   },
+  create() {
+    this.$store.commit("setMenu", "contacts");
+  },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
