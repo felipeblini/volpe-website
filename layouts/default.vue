@@ -2,50 +2,55 @@
   <div>
     <div class="container">
       <b-navbar toggleable="lg" type="dark">
-        <b-navbar-brand href="/">Volpe Ambiental</b-navbar-brand>
+        <nuxt-link to="/" class="navbar-brand" target="_self">
+          Volpe Ambiental
+        </nuxt-link>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
             <li class="nav-item">
-              <a
-                href="/"
+              <nuxt-link
+                to="/"
                 class="nav-link"
                 :class="{ active: $store.state.active === 'home' }"
                 target="_self"
-                >Home</a
               >
+                Home
+              </nuxt-link>
               <hr />
             </li>
             <li class="nav-item">
-              <a
-                href="/quem-somos"
+              <nuxt-link
+                to="/quem-somos"
                 class="nav-link"
                 :class="{ active: $store.state.active === 'about-us' }"
                 target="_self"
               >
                 Quem Somos
-              </a>
+              </nuxt-link>
               <hr />
             </li>
             <li class="nav-item">
-              <a
-                href="/servicos"
+              <nuxt-link
+                to="/servicos"
                 class="nav-link"
                 :class="{ active: $store.state.active === 'services' }"
                 target="_self"
-                >Serviços</a
               >
+                Serviços
+              </nuxt-link>
               <hr />
             </li>
             <li class="nav-item">
-              <a
-                href="/contatos"
+              <nuxt-link
+                to="/contatos"
                 :class="{ active: $store.state.active === 'contacts' }"
                 class="nav-link"
                 target="_self"
-                >Contato</a
+              >
+                Contato</nuxt-link
               >
               <hr />
             </li>
@@ -80,7 +85,7 @@
     height: 89px;
     background-size: contain;
     background-repeat: no-repeat;
-    background-image: url("~assets/volpe_logotipo.png");
+    background-image: url("~assets/img/volpe_logotipo.png");
     filter: grayscale(100%);
   }
 

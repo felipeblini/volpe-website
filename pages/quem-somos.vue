@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHero pageName="home" pageTitle="Home" />
+    <PageHero pageName="quemsomos" pageTitle="Quem Somos" />
 
     <div class="container mt-5">
       <p>
