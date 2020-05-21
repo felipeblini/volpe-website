@@ -23,7 +23,10 @@ export default {
   /*
   ** Global CSS
   */
-  css: ['~/assets/css/global.scss'],
+  css: ['~/assets/scss/global.scss'],
+  styleResources: {
+    scss: ['~/assets/scss/_colors.scss']
+  },
   /*
   ** Plugins to load before mounting the App
   */
@@ -47,38 +50,16 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/style-resources',
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
-    proxy: true
-  },
-  proxy: {
-    '/api/contact': {
-      target: process.env.URL,
-      pathRewrite: { '^/api/': '/' },
-      changeOrigin: true,
-      onProxyReq: function log(proxyReq, req, res) {
-        console.log({ bodyyyyyyyyyyyyyyyyyyyyyyyyyyy: req.body })
-        console.log(proxyReq.getHeader('Content-Type'))
-
-        if (!req.body || !Object.keys(req.body).length) {
-          return
-        }
-
-        const contentType = proxyReq.getHeader('Content-Type')
-        const writeBody = (bodyData) => {
-          proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData))
-          proxyReq.write(bodyData)
-        }
-        if (contentType.includes('application/json') || contentType.includes('application/x-www-form-urlencoded')) {
-          writeBody(JSON.stringify(req.body))
-        }
-      }
-    }
-  },
+  axios: {},
+  /*
+  ** Server Middleware endpoints
+  */
   serverMiddleware: [
     '~/api/contact',
   ],

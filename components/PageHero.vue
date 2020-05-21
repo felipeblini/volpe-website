@@ -2,21 +2,25 @@
   <div
     class="parallax-container"
     :style="{
-      backgroundColor: require(`~/assets/img/${pageName}_background.jpg?lqip-colors`)[0]
+      backgroundColor: require(`~/assets/img/${$route.name}/hero-background.jpg?lqip-colors`)[0]
     }"
   >
-    <div class="parallax-title" :class="pageName">
+    <div class="container parallax-title" :class="$route.name">
       <h1>{{ pageTitle }}</h1>
     </div>
 
-    <div v-if="showParallax" v-lazy-container="{ selector: 'img' }">
+    <div
+      class="parallax-image"
+      v-if="showParallax"
+      v-lazy-container="{ selector: 'img' }"
+    >
       <client-only>
-        <parallax no-ssr :speed-factor="0.5" breakpoint="(min-width: 80px)">
+        <parallax :speed-factor="0.5" breakpoint="(min-width: 80px)">
           <img
             :data-srcSet="imagesSizesSet.srcSet"
             :data-src="imagesSizesSet.src"
             :data-loading="
-              require(`~/assets/img/${pageName}_background.jpg?lqip`)
+              require(`~/assets/img/${$route.name}/hero-background.jpg?lqip`)
             "
           />
         </parallax>
@@ -36,17 +40,17 @@ export default {
     return { showParallax: true };
   },
   props: {
-    pageName: String,
     pageTitle: String
   },
   computed: {
     imagesSizesSet() {
-      return require(`~/assets/img/${this.pageName}_background.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=900&sizes[]=1200&sizes[]=1500&sizes[]=1800&sizes[]=1920`);
+      return require(`~/assets/img/${this.$route.name}/hero-background.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=900&sizes[]=1200&sizes[]=1500&sizes[]=1800&sizes[]=1920`);
     }
   },
   mounted() {
     window.onresize = () => {
       this.showParallax = false;
+
       setTimeout(() => {
         this.showParallax = true;
       }, 100);
@@ -58,21 +62,7 @@ export default {
 <style lang="scss" scoped>
 .parallax-container {
   position: relative;
-  top: -112px;
-  z-index: 0;
-
-  height: 70vh;
-
-  @media (min-width: 768px) {
-    height: 100vh;
-  }
-}
-.parallax-title {
-  position: absolute;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 1;
 
   height: 70vh;
 
@@ -80,33 +70,61 @@ export default {
     height: 100vh;
   }
 
-  h1 {
-    color: #f39e27;
-  }
+  .parallax-title {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 
-  &.home {
+    height: 70vh;
+
+    @media (min-width: 768px) {
+      height: 100vh;
+    }
+
     h1 {
-      text-indent: -9999px;
-      overflow: hidden;
+      color: $yellow-1;
+      font-size: 153px;
+      font-weight: 900;
+    }
 
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-image: url("~assets/img/volpe_logotipo.png");
-
-      max-width: 879px;
-
-      width: 80%;
-      height: 225px;
-
-      @media (min-width: 768px) {
-        width: 70%;
-        height: 325px;
-      }
-
-      @media (min-width: 1200px) {
-        width: 53%;
+    &.quem-somos {
+      h1 {
+        font-size: 123px;
       }
     }
+
+    &.index {
+      justify-content: center;
+
+      h1 {
+        text-indent: -9999px;
+        overflow: hidden;
+
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-image: url("~assets/img/volpe_logotipo.png");
+
+        max-width: 879px;
+
+        width: 80%;
+        height: 225px;
+
+        @media (min-width: 768px) {
+          width: 70%;
+          height: 325px;
+        }
+
+        @media (min-width: 1200px) {
+          width: 53%;
+        }
+      }
+    }
+  }
+
+  .parallax-image {
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 }
 </style>

@@ -18,19 +18,21 @@ const validateAndSanitize = (key, value) => {
   return rejectFunctions.has(key) && !rejectFunctions.get(key)(value) && xssFilters.inHTMLData(value)
 }
 
-const sendMail = (name, phone, email, msg) => {
-  console.log('sendmail', name, phone, email, msg);
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
+const sendMail = async (name, phone, email, msg) => {
+  const transporter = nodemailer.createTransport({
+    host: "mail.volpeambiental.com.br",
+    port: 587,
+    secure: false, // true for 465, false for other ports
     auth: {
-      user: 'felipe.blini@gmail.com',
-      pass: 'Protectedjourney36912!!!'
-    }
+      user: "contato@volpeambiental.com.br",
+      pass: "RLi^#Igtpmcm1"
+    },
+    tls: { rejectUnauthorized: false }
   });
 
-  var mailOptions = {
-    from: 'felipe.blini@gmail.com',
-    to: 'felipe.blini@gmail.com',
+  const mailOptions = {
+    from: 'contato@volpeambiental.com.br',
+    to: 'contato@volpeambiental.com.br',
     subject: 'Novo contato enviado pelo site',
     html: `<h1>Nova mensagem:</h1>
             <p><b>Nome:</b> ${name}</p>
@@ -39,16 +41,18 @@ const sendMail = (name, phone, email, msg) => {
             <p><b>Mensagem:</b> ${msg}</p>`
   };
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log({ error });
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve('Email sent: ' + info.response);
+      }
+    });
+  })
 }
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
   // Validate, sanitize and send
   const attributes = ['name', 'phone', 'email', 'msg']
 
@@ -63,7 +67,9 @@ app.post('/', (req, res) => {
   }
 
   sendMail(...sanitizedAttributes)
-  res.status(200).json({ 'message': 'Email enviado' })
+    .then(response => res.status(200).json({ 'message': response }))
+    .catch(e => res.status(500).json({ 'message': e }))
+
 })
 
 export default {

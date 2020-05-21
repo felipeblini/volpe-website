@@ -11,45 +11,25 @@
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
             <li class="nav-item">
-              <nuxt-link
-                to="/"
-                class="nav-link"
-                :class="{ active: $store.state.active === 'home' }"
-                target="_self"
-              >
+              <nuxt-link to="/" class="nav-link" target="_self">
                 Home
               </nuxt-link>
               <hr />
             </li>
             <li class="nav-item">
-              <nuxt-link
-                to="/quem-somos"
-                class="nav-link"
-                :class="{ active: $store.state.active === 'about-us' }"
-                target="_self"
-              >
+              <nuxt-link to="/quem-somos" class="nav-link" target="_self">
                 Quem Somos
               </nuxt-link>
               <hr />
             </li>
             <li class="nav-item">
-              <nuxt-link
-                to="/servicos"
-                class="nav-link"
-                :class="{ active: $store.state.active === 'services' }"
-                target="_self"
-              >
+              <nuxt-link to="/servicos" class="nav-link" target="_self">
                 Serviços
               </nuxt-link>
               <hr />
             </li>
             <li class="nav-item">
-              <nuxt-link
-                to="/contatos"
-                :class="{ active: $store.state.active === 'contacts' }"
-                class="nav-link"
-                target="_self"
-              >
+              <nuxt-link to="/contatos" class="nav-link" target="_self">
                 Contato</nuxt-link
               >
               <hr />
@@ -65,7 +45,9 @@
 
 <style lang="scss" scoped>
 .container {
-  position: relative;
+  position: absolute;
+  right: 0;
+  left: 0;
   z-index: 9;
 }
 
@@ -91,7 +73,7 @@
 
   ul.navbar-nav {
     &:hover {
-      a.active ~ hr {
+      a.nuxt-link-exact-active ~ hr {
         width: 0 !important;
       }
     }
@@ -103,14 +85,14 @@
       a.nav-link {
         font-size: 22px;
         text-transform: uppercase;
-        color: #fff !important;
+        color: $nav-link !important;
 
         &:hover ~ hr,
-        &.active ~ hr {
+        &.nuxt-link-exact-active ~ hr {
           width: 100%;
         }
 
-        &.active:hover ~ hr {
+        &.nuxt-link-exact-active:hover ~ hr {
           width: 100% !important;
         }
       }
@@ -119,7 +101,7 @@
         height: 0.25rem;
         width: 0;
         margin: 0;
-        background: white;
+        background: $white;
         border: none;
         transition: 0.3s ease-in-out;
       }
