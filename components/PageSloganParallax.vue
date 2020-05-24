@@ -1,12 +1,11 @@
 <template>
   <div v-if="showParallax" v-lazy-container="{ selector: 'img' }">
     <client-only>
-      <parallax
-        :fixed="true"
-        :speed-factor="0.5"
-        breakpoint="(min-width: 80px)"
-      >
+      <parallax :fixed="true" :speed-factor="0.5">
         <img
+          :style="{
+            backgroundColor: require(`~/assets/img/${$route.name}/slogan-background.jpg?lqip-colors`)[0]
+          }"
           :data-srcSet="imagesSizesSet.srcSet"
           :data-src="imagesSizesSet.src"
           :data-loading="
@@ -34,13 +33,13 @@ export default {
     }
   },
   mounted() {
-    window.onresize = () => {
+    window.addEventListener("resize", () => {
       this.showParallax = false;
 
       setTimeout(() => {
         this.showParallax = true;
       }, 100);
-    };
+    });
   }
 };
 </script>

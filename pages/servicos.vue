@@ -2,7 +2,7 @@
   <div>
     <PageHero pageTitle="Serviços" />
 
-    <div class="page-main-content --dark">
+    <div class="page-content-theme --dark">
       <div class="container">
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo ab non

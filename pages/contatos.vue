@@ -2,7 +2,7 @@
   <div>
     <PageHero pageTitle="Contatos" />
 
-    <div class="page-main-content --dark py-4">
+    <div class="page-content-theme --dark py-4">
       <div class="container">
         <b-alert v-model="resultDone" :variant="resultStatus" dismissible>
           <span v-html="resultMessage"></span>

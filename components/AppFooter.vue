@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-wrapper --dark py-4">
+  <div class="footer-wrapper page-content-theme --dark py-4">
     <div class="container">
       <p>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt

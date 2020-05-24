@@ -101,7 +101,7 @@
         height: 0.25rem;
         width: 0;
         margin: 0;
-        background: $white;
+        background: $nav-link-underline;
         border: none;
         transition: 0.3s ease-in-out;
       }

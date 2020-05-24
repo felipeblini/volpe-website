@@ -2,7 +2,7 @@
   <div>
     <PageHero pageTitle="Quem Somos" />
 
-    <div class="page-main-content --light py-4">
+    <div class="page-content-theme --light py-4">
       <div class="container">
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quo ab non

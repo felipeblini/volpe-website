@@ -7,9 +7,19 @@ body {
 
 $page-slogan-height: 439px;
 
-.--dark {
-  background-color: $content-bkg-dark;
-  color: $paragraph-dark;
+.page-main-content {
+  .row {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .highlight-text {
+    max-width: 618px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 45px;
+  }
 
   h1,
   h2,
@@ -17,27 +27,66 @@ $page-slogan-height: 439px;
   h4,
   h5,
   h6 {
-    color: $title-dark;
+    font-weight: 900;
+  }
+
+  h2 {
+    font-size: 70px;
+  }
+
+  h3 {
+    font-size: 25px;
+  }
+
+  p {
+    max-width: 680px;
+    text-align: center;
   }
 }
 
-.--light,
-.--yellow {
-  background-color: $content-bkg-light;
-  color: $paragraph-light;
+.page-content-theme {
+  &.--dark {
+    background-color: $content-bkg-dark;
+    color: $paragraph-dark;
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: $title-light;
+    h1,
+    h2 {
+      color: $title-dark;
+    }
+
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $subtitle-dark;
+    }
+
+    .highlight-text {
+      color: $highlight-2;
+    }
   }
-}
 
-.--yellow {
-  background-color: $yellow-1;
+  &.--light,
+  &.--yellow {
+    color: $paragraph-light;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $title-light;
+    }
+  }
+
+  &.--light {
+    background-color: $content-bkg-light;
+  }
+
+  &.--yellow {
+    background-color: $title-dark;
+  }
 }
 
 .page-slogan {
