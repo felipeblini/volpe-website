@@ -1,0 +1,26 @@
+@mixin dark-box-shadow {
+  -webkit-box-shadow: 10px 10px 39px 16px rgba(26, 26, 26, 1);
+  -moz-box-shadow: 10px 10px 39px 16px rgba(26, 26, 26, 1);
+  box-shadow: 10px 10px 39px 16px rgba(26, 26, 26, 1);
+}
+@mixin light-box-shadow {
+  -webkit-box-shadow: 10px 10px 83px 25px rgba(188,188,188,1);
+  -moz-box-shadow: 10px 10px 83px 25px rgba(188,188,188,1);
+  box-shadow: 10px 10px 83px 25px rgba(188,188,188,1);
+}
+@mixin nav-brand-link($m-width, $m-height, $d-width, $d-height) {
+  display: block;
+  text-indent: -9999px;
+  overflow: hidden;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("~assets/img/volpe_logotipo.png");
+
+  width: $m-width;
+  height: $m-height;
+  @media (min-width: 768px) {
+    width: $d-width;
+    height: $d-height;
+  }
+}

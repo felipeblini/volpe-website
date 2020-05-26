@@ -1,0 +1,49 @@
+.content-theme {
+  &.--dark {
+    background-color: $content-bkg-dark;
+    color: $paragraph-dark;
+
+    h1,
+    h2 {
+      color: $title-dark;
+    }
+
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $subtitle-dark;
+    }
+
+    .highlight-text {
+      color: $highlight-2;
+    }
+  }
+
+  &.--light,
+  &.--yellow {
+    color: $paragraph-light;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $title-light;
+    }
+  }
+
+  &.--light {
+    background-color: $content-bkg-light;
+
+    a.volpe-btn {
+      color: $paragraph-light;
+      @include light-box-shadow
+    }
+  }
+
+  &.--yellow {
+    background-color: $title-dark;
+  }
+}

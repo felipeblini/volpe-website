@@ -1,5 +1,9 @@
 <template>
-  <div v-if="showParallax" v-lazy-container="{ selector: 'img' }">
+  <div
+    v-if="showParallax"
+    class="parallax-container"
+    v-lazy-container="{ selector: 'img' }"
+  >
     <client-only>
       <parallax :fixed="true" :speed-factor="0.5">
         <img
@@ -46,21 +50,6 @@ export default {
 
 <style lang="scss" scoped>
 .parallax-container {
-  position: relative;
-  z-index: 0;
-
-  height: 439px;
-
-  .parallax-slogan {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
-    p {
-      font-size: 23px;
-      color: $nav-link;
-    }
-  }
+  position: absolute;
 }
 </style>

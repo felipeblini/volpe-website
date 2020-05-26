@@ -1,12 +1,16 @@
 <template>
-  <div>
+  <div id="top">
     <div class="container">
       <b-navbar toggleable="lg" type="dark">
         <nuxt-link to="/" class="navbar-brand" target="_self">
           Volpe Ambiental
         </nuxt-link>
 
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-navbar-toggle target="nav-collapse">
+          <template v-slot>
+            <img width="35px" src="~assets/img/nav-toggler.svg" alt="" />
+          </template>
+        </b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav class="ml-auto">
@@ -60,15 +64,11 @@
   }
 
   a.navbar-brand {
-    display: block;
-    text-indent: -9999px;
-    overflow: hidden;
-    width: 220px;
-    height: 89px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-image: url("~assets/img/volpe_logotipo.png");
+    @include nav-brand-link(91px, 35px, 220px, 85px);
     filter: grayscale(100%);
+    @media (min-width: 768px) {
+      margin-top: 40px;
+    }
   }
 
   ul.navbar-nav {
@@ -109,7 +109,17 @@
   }
 }
 
+.navbar-toggler {
+  border: none;
+  outline: none;
+}
+
 .navbar-collapse.collapse {
+  @media (max-width: 991px) {
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+  }
+
   .nav-item {
     width: fit-content;
     margin-top: 20px;

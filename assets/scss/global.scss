@@ -1,13 +1,16 @@
 @import url( 'https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,900;1,400;1,900&display=swap');
+@import 'page-content-themes';
+@import 'buttons';
 
 body {
   font-family: 'Raleway', sans-serif;
   font-size: 16px;
 }
 
-$page-slogan-height: 439px;
-
 .page-main-content {
+  text-align: center;
+  position: relative;
+
   .row {
     align-items: center;
     justify-content: center;
@@ -15,10 +18,21 @@ $page-slogan-height: 439px;
 
   .highlight-text {
     max-width: 618px;
-    text-align: center;
-    font-size: 40px;
     font-weight: 900;
-    line-height: 45px;
+
+    font-size: 6vw;
+    line-height: 7vw;
+    padding: 0 25px;
+    @media (min-width: 500px) {
+      font-size: 4vw;
+      line-height: 6vw;
+      padding: 0 36px;
+    }
+    @media (min-width: 992px) {
+      font-size: 40px;
+      line-height: 45px;
+      padding: 36px;
+    }
   }
 
   h1,
@@ -31,7 +45,10 @@ $page-slogan-height: 439px;
   }
 
   h2 {
-    font-size: 70px;
+    font-size: 12vw;
+    @media (min-width: 500px) {
+      font-size: 70px;
+    }
   }
 
   h3 {
@@ -40,77 +57,102 @@ $page-slogan-height: 439px;
 
   p {
     max-width: 680px;
-    text-align: center;
+    padding: 0 20px;
   }
 }
 
-.page-content-theme {
-  &.--dark {
-    background-color: $content-bkg-dark;
-    color: $paragraph-dark;
-
-    h1,
-    h2 {
-      color: $title-dark;
-    }
-
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: $subtitle-dark;
-    }
-
-    .highlight-text {
-      color: $highlight-2;
-    }
-  }
-
-  &.--light,
-  &.--yellow {
-    color: $paragraph-light;
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: $title-light;
-    }
-  }
-
-  &.--light {
-    background-color: $content-bkg-light;
-  }
-
-  &.--yellow {
-    background-color: $title-dark;
-  }
-}
-
-.page-slogan {
-  height: $page-slogan-height;
-  position: absolute;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-
-  h4 {
-    color: $nav-link;
-    font-size: 80px;
-    font-weight: 900;
-    text-align: center;
-  }
-}
-
-.page-slogan-parallax {
+.page-footer-wrapper {
   position: relative;
-}
 
-.page-footer-content {
-  position: absolute;
-  width: 100%;
-  top: $page-slogan-height;
+  .page-slogan {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+    height: 264px;
+    @media (min-width: 768px) {
+      height: 439px;
+    }
+
+    h4 {
+      color: $nav-link;
+      font-size: 10vw;
+      line-height: 10vw;
+      font-weight: 900;
+      text-align: center;
+      @media (min-width: 1200px) {
+        font-size: 80px;
+        line-height: 85px;
+      }
+
+    }
+  }
+
+  .page-footer-content {
+    .logo-wrapper {
+      padding: 30px 0;
+
+      img {
+        width: 100%;
+        padding: 0 20px;
+      }
+    }
+
+    .page-footer-highlight-content {
+      width: 100%;
+      @media (min-width: 992px) {
+        padding: 0 3rem;
+      }
+
+      .container {
+        display: flex;
+        justify-content: flex-end;
+
+        .icon-gap,
+        .page-footer-icon {
+          display: none;
+          @media (min-width: 992px) {
+            display: flex;
+            margin-right: 12px;
+            width: 69px;
+
+            img {
+              width: 100%;
+            }
+          }
+        }
+
+        p {
+          width: 100%;
+          max-width: 793px;
+          font-size: 28px;
+          line-height: 40px;
+          @media (min-width: 992px) {
+            padding-left: 23px;
+          }
+        }
+      }
+    }
+
+    .bottom-gap {
+      height: 110px;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 30px;
+
+      a.back-to-top-link {
+        outline: none;
+        width: 50px;
+        transform: rotate(-90deg);
+        background: url('~assets/img/circle-arrow.svg') no-repeat center right;
+        text-indent: -9999px;
+        overflow: hidden;
+        display: block;
+        @media(min-width: 992px) {
+          display: none;
+        }
+      }
+    }
+  }
 }

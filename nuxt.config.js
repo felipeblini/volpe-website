@@ -25,12 +25,16 @@ export default {
   */
   css: ['~/assets/scss/global.scss'],
   styleResources: {
-    scss: ['~/assets/scss/_colors.scss']
+    scss: ['~/assets/scss/_colors.scss', '~/assets/scss/_mixins.scss']
   },
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [{ src: '~/plugins/vue-lazyload', ssr: false }, { src: '~/plugins/vue-lazyload', ssr: false }],
+  plugins: [
+    { src: '~/plugins/vue-lazyload', ssr: false },
+    { src: '~/plugins/vue-lazyload', ssr: false },
+    { src: '~/plugins/global-js', ssr: false }
+  ],
   /*
   ** Nuxt.js dev-modules
   */

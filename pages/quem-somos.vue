@@ -17,11 +17,11 @@
       </div>
     </div>
 
-    <div class="page-slogan px-4">
-      <h4>Frase sobre a empresa</h4>
-    </div>
+    <div class="page-footer-wrapper">
+      <div class="page-slogan px-4">
+        <h4>Frase sobre a empresa</h4>
+      </div>
 
-    <div class="page-slogan-parallax">
       <PageSloganParallax />
 
       <div class="page-footer-content --dark py-4">
