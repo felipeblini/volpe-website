@@ -82,7 +82,7 @@ export default {
     }
 
     h1 {
-      color: $title-dark;
+      color: $dark-title;
       font-size: 153px;
       font-weight: 900;
     }

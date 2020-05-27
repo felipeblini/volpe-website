@@ -3,26 +3,26 @@
     <PageHero pageTitle="Home" />
 
     <div class="page-main-content --index content-theme --dark py-5">
-      <div class="container">
-        <div class="row">
+      <b-container>
+        <b-row>
           <p class="highlight-text">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore
           </p>
-        </div>
-        <div
-          class="row img-responsive-wrapper"
-          v-if="showResponsiveImg"
+        </b-row>
+        <b-row
+          class="img-responsive-wrapper"
           v-lazy-container="{ selector: 'img' }"
         >
           <img
+            v-if="showResponsiveImg"
             :data-srcSet="contentImgSizesSet.srcSet"
             :data-src="contentImgSizesSet.src"
             :data-loading="require(`~/assets/img/index/cacamba.png?lqip`)"
             alt=""
           />
-        </div>
-        <div class="row mt-5">
+        </b-row>
+        <b-row class="mt-5">
           <h2>Nossa Atuação</h2>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -30,12 +30,12 @@
             ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
             accumsan lacus vel facilisis.
           </p>
-        </div>
+        </b-row>
 
         <ul class="row content-list my-5">
           <li class="col-lg-4">
             <div class="p-4">
-              <img src="~/assets/img/index/atividade-1.svg" alt="" />
+              <img src="~assets/img/index/atividade-1.svg" alt="" />
               <h3 class="mt-3">Atividades Ambientais</h3>
             </div>
           </li>
@@ -52,7 +52,7 @@
             </div>
           </li>
         </ul>
-      </div>
+      </b-container>
     </div>
 
     <div class="page-footer-wrapper">
@@ -66,7 +66,7 @@
         <PageFooterContentLogo />
 
         <div class="page-footer-highlight-content">
-          <div class="container mt-4">
+          <b-container class="mt-4">
             <icon class="page-footer-icon">
               <img src="~/assets/img/index/footer-icon.svg" alt="" />
             </icon>
@@ -76,16 +76,16 @@
               ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
               accumsan lacus vel facilisis.
             </p>
-          </div>
+          </b-container>
 
-          <div class="container mt-4">
+          <b-container class="mt-4">
             <icon class="icon-gap"></icon>
             <p>
-              <nuxt-link class="volpe-btn" to="/servicos">
+              <nuxt-link class="volpe-btn" to="/quem-somos">
                 Saiba Mais
               </nuxt-link>
             </p>
-          </div>
+          </b-container>
         </div>
 
         <div class="bottom-gap">
@@ -139,10 +139,12 @@ export default {
 
 <style lang="scss" scoped>
 .page-main-content.--index {
-  background-image: url("~assets/img/index/main-content-background.jpg");
-  background-repeat: no-repeat;
-  background-position-x: right;
-  background-size: contain;
+  @media (min-width: 768px) {
+    background-image: url("~assets/img/index/main-content-background.jpg");
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-size: contain;
+  }
 
   .img-responsive-wrapper {
     min-height: 200px;
@@ -184,9 +186,9 @@ export default {
       }
 
       div {
-        background: $content-bkg-dark;
+        background: $dark-background;
         @include dark-box-shadow;
-        border-radius: 50px;
+        @include box-border;
 
         img {
           width: 69px;
