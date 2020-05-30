@@ -178,7 +178,7 @@
               </p>
 
               <footer class="d-flex justify-content-end">
-                <a href="#">
+                <a href="#" @click.prevent="openModal = true">
                   <img src="~assets/img/servicos/popup-open-icon.svg" />
                 </a>
               </footer>
@@ -200,9 +200,9 @@
 
         <div class="page-footer-highlight-content pb-5">
           <b-container class="mt-4">
-            <icon class="page-footer-icon">
+            <div class="page-footer-icon">
               <img src="~/assets/img/servicos/shield.svg" alt="" />
-            </icon>
+            </div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
@@ -211,8 +211,10 @@
             </p>
           </b-container>
 
+          <ServicePopup :show="openModal" />
+
           <b-container class="mt-4">
-            <icon class="icon-gap"></icon>
+            <div class="icon-gap"></div>
             <p>
               <nuxt-link class="volpe-btn" to="/servicos">
                 Saiba Mais
@@ -236,6 +238,7 @@ import PageSloganParallax from "~/components/PageSloganParallax";
 import PageFooterContentLogo from "~/components/PageFooterContentLogo";
 import ScrollTopButton from "~/components/ScrollTopButton";
 import AppFooter from "~/components/AppFooter";
+import ServicePopup from "~/components/ServicePopup";
 
 export default {
   components: {
@@ -243,11 +246,13 @@ export default {
     PageSloganParallax,
     PageFooterContentLogo,
     ScrollTopButton,
-    AppFooter
+    AppFooter,
+    ServicePopup
   },
   data() {
     return {
-      showResponsiveImg: true
+      showResponsiveImg: true,
+      openModal: false
     };
   },
   computed: {

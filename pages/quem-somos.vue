@@ -82,9 +82,9 @@
 
         <div class="page-footer-highlight-content">
           <b-container class="mt-4">
-            <icon class="page-footer-icon">
+            <div class="page-footer-icon">
               <img src="~/assets/img/quem-somos/footer-icon.svg" alt="" />
-            </icon>
+            </div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
@@ -94,7 +94,7 @@
           </b-container>
 
           <b-container class="mt-4">
-            <icon class="icon-gap"></icon>
+            <div class="icon-gap"></div>
             <p>
               <nuxt-link class="volpe-btn" to="/servicos">
                 Saiba Mais
