@@ -2,21 +2,26 @@
   <div>
     <PageHero pageTitle="Quem Somos" />
 
-    <div class="page-main-content --quem-somos content-theme --light py-5">
+    <div
+      id="sobre"
+      class="page-main-content --quem-somos content-theme --light py-5"
+    >
       <b-container>
         <b-row class="mt-5">
-          <p class="text-left">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-            ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-            accumsan lacus vel facilisis.
-          </p>
+          <b-col class="content-center">
+            <p class="text-left --bigger">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
+              ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
+              accumsan lacus vel facilisis.
+            </p>
+          </b-col>
         </b-row>
 
         <b-container class="content-box-container">
-          <b-row class="justify-content-start">
+          <b-row id="missao">
             <b-col class="content-box mt-5">
-              <h2>Missão</h2>
+              <h2 class="--bold">Missão</h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut sis. sit amet, consectetur
@@ -25,9 +30,9 @@
             </b-col>
           </b-row>
 
-          <b-row class="justify-content-end">
+          <b-row id="visao">
             <b-col class="content-box mt-5">
-              <h2>Visão</h2>
+              <h2 class="--bold">Visão</h2>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut sis. sit amet, consectetur
@@ -41,20 +46,26 @@
           class="img-responsive-wrapper mt-5"
           v-lazy-container="{ selector: 'img' }"
         >
-          <img
-            v-if="showResponsiveImg"
-            :data-srcSet="contentImgSizesSet.srcSet"
-            :data-src="contentImgSizesSet.src"
-            :data-loading="require(`~/assets/img/quem-somos/capacete.png?lqip`)"
-            alt=""
-          />
+          <b-col class="content-center">
+            <img
+              v-if="showResponsiveImg"
+              :data-srcSet="contentImgSizesSet.srcSet"
+              :data-src="contentImgSizesSet.src"
+              :data-loading="
+                require(`~/assets/img/quem-somos/capacete.png?lqip`)
+              "
+              alt=""
+            />
+          </b-col>
         </b-row>
 
         <b-row class="mt-5">
-          <h3 class="highlight-text --sub-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eius.
-          </h3>
+          <b-col class="content-center">
+            <h3 class="highlight-text --secondary text-center">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eius.
+            </h3>
+          </b-col>
         </b-row>
       </b-container>
     </div>
@@ -93,12 +104,7 @@
         </div>
 
         <div class="bottom-gap">
-          <a
-            href="#top"
-            class="back-to-top-link"
-            onclick="scrollToTop();return false"
-            >Voltar para o topo</a
-          >
+          <ScrollTopButton />
         </div>
       </div>
     </div>
@@ -110,6 +116,7 @@
 import PageHero from "~/components/PageHero";
 import PageSloganParallax from "~/components/PageSloganParallax";
 import PageFooterContentLogo from "~/components/PageFooterContentLogo";
+import ScrollTopButton from "~/components/ScrollTopButton";
 import AppFooter from "~/components/AppFooter";
 
 export default {
@@ -117,6 +124,7 @@ export default {
     PageHero,
     PageSloganParallax,
     PageFooterContentLogo,
+    ScrollTopButton,
     AppFooter
   },
   data() {
@@ -162,81 +170,11 @@ export default {
     }
 
     & > .row {
-      &::before,
-      &::after {
-        content: "";
-        display: block;
-        width: 33px;
-        height: 41px;
-        position: relative;
-        z-index: 2;
-        left: -63px;
-        background: url("~assets/img/quem-somos/arrow.png") no-repeat;
-      }
-
-      &:nth-child(1) {
-        &::before {
-          align-self: flex-end;
-          top: 59px;
-          left: 72px;
-          transform: rotate(180deg);
-        }
-
-        &::after {
-          display: none;
-        }
-
-        @media (min-width: 960px) {
-          &::before {
-            display: none;
-          }
-
-          &::after {
-            display: block;
-            align-self: flex-end;
-            top: 59px;
-            transform: rotate(180deg);
-          }
-        }
-      }
-
-      &:nth-child(2) {
-        &::before {
-          align-self: flex-start;
-          top: -10px;
-          left: 222px;
-        }
-
-        &::after {
-          display: none;
-        }
-
-        @media (min-width: 960px) {
-          margin-right: -60px;
-
-          &::after {
-            display: none;
-          }
-
-          &::before {
-            display: block;
-            left: 70px;
-            top: -10px;
-          }
-        }
-      }
-
-      @media (min-width: 960px) {
-        &:nth-child(2) {
-          margin-top: -160px;
-        }
-      }
-      & > .content-box {
+      & > .col.content-box {
         @include light-box-shadow;
         @include box-border;
 
         background: $light-background;
-        border-radius: 40px;
         text-align: left;
         padding: 38px 31px;
 
@@ -250,6 +188,101 @@ export default {
           color: $dark-title;
           font-size: 46px;
           text-transform: lowercase;
+        }
+      }
+
+      &::before,
+      &::after {
+        content: "";
+        display: none;
+        width: 33px;
+        height: 41px;
+        position: relative;
+        z-index: 2;
+        background: url("~assets/img/quem-somos/arrow.png") no-repeat;
+      }
+
+      &:nth-child(1) {
+        @media (min-width: 411px) {
+          justify-content: flex-start;
+        }
+
+        &::before,
+        &::after {
+          align-self: flex-end;
+          top: 63px;
+          transform: rotate(180deg);
+        }
+
+        &::before {
+          left: 11px;
+        }
+
+        @media (min-width: 411px) and (max-width: 959px) {
+          &::before {
+            display: block;
+
+            @media (min-width: 768px) {
+              left: 48px;
+            }
+          }
+        }
+
+        @media (min-width: 960px) {
+          &::after {
+            display: block;
+            left: -66px;
+          }
+        }
+
+        & > .col.content-box {
+          @media (min-width: 411px) {
+            margin-left: -33px;
+          }
+        }
+      }
+
+      &:nth-child(2) {
+        @media (min-width: 411px) {
+          justify-content: flex-end;
+        }
+
+        &::before,
+        &::after {
+          top: -13px;
+          align-self: flex-start;
+        }
+
+        &::before {
+          left: 77px;
+        }
+
+        &::after {
+          left: -17px;
+        }
+
+        @media (min-width: 411px) and (max-width: 959px) {
+          &::after {
+            display: block;
+
+            @media (min-width: 768px) {
+              left: -77px;
+            }
+          }
+        }
+
+        @media (min-width: 960px) {
+          margin-top: -160px;
+
+          &::before {
+            display: block;
+          }
+        }
+
+        & > .col.content-box {
+          @media (min-width: 411px) {
+            margin-right: -33px;
+          }
         }
       }
     }

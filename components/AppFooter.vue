@@ -35,38 +35,40 @@
               </h4>
               <ul>
                 <li>
-                  <nuxt-link to="/servicos#servico">
+                  <nuxt-link to="/servicos">
                     Conheça Nossos<br />Serviços
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#servico">
-                    Recebimento de Resíduos de Construção Civil
+                  <nuxt-link
+                    to="/servicos#recebimento-de-resíduos-de-construção-civil"
+                  >
+                    Recebimento de resíduos de construção civil
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#servico">
+                  <nuxt-link to="/servicos#areia-e-agregados-reciclados">
                     Areia e agregados reciclados
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#servico">
+                  <nuxt-link to="/servicos#coleta-de-resíduos">
                     Coleta de resíduos
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#servico">
+                  <nuxt-link to="/servicos#fabricacao-de-artefatos-de-concreto">
                     Fabricação de artefatos de concreto
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#servico">
+                  <nuxt-link to="/servicos#reforma-e-construcao">
                     Reforma e Construção
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#servico">
-                    Demoliçao
+                  <nuxt-link to="/servicos#demolicao">
+                    Demolição
                   </nuxt-link>
                 </li>
               </ul>

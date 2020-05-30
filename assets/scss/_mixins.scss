@@ -1,4 +1,4 @@
-@mixin dark-box-shadow {
+@mixin box-shadow-dark {
   -webkit-box-shadow: 10px 10px 39px 16px rgba(26, 26, 26, 1);
   -moz-box-shadow: 10px 10px 39px 16px rgba(26, 26, 26, 1);
   box-shadow: 10px 10px 39px 16px rgba(26, 26, 26, 1);
@@ -9,7 +9,7 @@
   box-shadow: 10px 10px 83px 25px rgba(188,188,188,1);
 }
 @mixin box-border {
-  border-radius: 50px;
+  border-radius: 30px;
 }
 @mixin nav-brand-link($m-width, $m-height, $d-width, $d-height) {
   display: block;

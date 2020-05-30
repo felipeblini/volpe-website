@@ -5,50 +5,61 @@
     <div class="page-main-content --index content-theme --dark py-5">
       <b-container>
         <b-row>
-          <p class="highlight-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore
-          </p>
+          <b-col class="content-center">
+            <p class="highlight-text text-center">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore
+            </p>
+          </b-col>
         </b-row>
         <b-row
           class="img-responsive-wrapper"
           v-lazy-container="{ selector: 'img' }"
         >
-          <img
-            v-if="showResponsiveImg"
-            :data-srcSet="contentImgSizesSet.srcSet"
-            :data-src="contentImgSizesSet.src"
-            :data-loading="require(`~/assets/img/index/cacamba.png?lqip`)"
-            alt=""
-          />
+          <b-col class="content-center">
+            <img
+              v-if="showResponsiveImg"
+              :data-srcSet="contentImgSizesSet.srcSet"
+              :data-src="contentImgSizesSet.src"
+              :data-loading="require(`~/assets/img/index/cacamba.png?lqip`)"
+              alt=""
+            />
+          </b-col>
         </b-row>
+
         <b-row class="mt-5">
-          <h2>Nossa Atuação</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-            ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-            accumsan lacus vel facilisis.
-          </p>
+          <b-col class="text-center">
+            <h2 class="--bold">Nossa Atuação</h2>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col class="content-center">
+            <p class="text-center">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
+              ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
+              accumsan lacus vel facilisis.
+            </p>
+          </b-col>
         </b-row>
 
         <ul class="row content-list my-5">
           <li class="col-lg-4">
             <div class="p-4">
               <img src="~assets/img/index/atividade-1.svg" alt="" />
-              <h3 class="mt-3">Atividades Ambientais</h3>
+              <h3 class="--bold mt-3">Atividades Ambientais</h3>
             </div>
           </li>
           <li class="col-lg-4">
             <div class="p-4">
               <img src="~/assets/img/index/atividade-2.svg" alt="" />
-              <h3 class="mt-3">Atividades Comerciais</h3>
+              <h3 class="--bold mt-3">Atividades Comerciais</h3>
             </div>
           </li>
           <li class="col-lg-4">
             <div class="p-4">
               <img src="~/assets/img/index/atividade-3.svg" alt="" />
-              <h3 class="mt-3">Atividades Socioambientais</h3>
+              <h3 class="--bold mt-3">Atividades Socioambientais</h3>
             </div>
           </li>
         </ul>
@@ -89,12 +100,7 @@
         </div>
 
         <div class="bottom-gap">
-          <a
-            href="#top"
-            class="back-to-top-link"
-            onclick="scrollToTop();return false"
-            >Voltar para o topo</a
-          >
+          <ScrollTopButton />
         </div>
       </div>
     </div>
@@ -106,6 +112,7 @@
 import PageHero from "~/components/PageHero";
 import PageSloganParallax from "~/components/PageSloganParallax";
 import PageFooterContentLogo from "~/components/PageFooterContentLogo";
+import ScrollTopButton from "~/components/ScrollTopButton";
 import AppFooter from "~/components/AppFooter";
 
 export default {
@@ -113,6 +120,7 @@ export default {
     PageHero,
     PageSloganParallax,
     PageFooterContentLogo,
+    ScrollTopButton,
     AppFooter
   },
   data() {
@@ -187,7 +195,7 @@ export default {
 
       div {
         background: $dark-background;
-        @include dark-box-shadow;
+        @include box-shadow-dark;
         @include box-border;
 
         img {

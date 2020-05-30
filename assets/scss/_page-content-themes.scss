@@ -21,7 +21,7 @@
 
     a.volpe-btn {
       color: $dark-paragraph;
-      @include dark-box-shadow
+      @include box-shadow-dark
     }
   }
 

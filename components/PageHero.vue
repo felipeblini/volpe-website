@@ -5,7 +5,7 @@
       backgroundColor: require(`~/assets/img/${$route.name}/hero-background.jpg?lqip-colors`)[0]
     }"
   >
-    <div class="container parallax-title" :class="$route.name">
+    <div class="container parallax-title" :class="`--${$route.name}`">
       <h1>{{ pageTitle }}</h1>
     </div>
 
@@ -60,40 +60,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$parallax-desktop-height: 100vh;
+$parallax-mobile-height: 70vh;
+
 .parallax-container {
   position: relative;
   z-index: 1;
 
-  height: 70vh;
+  height: $parallax-mobile-height;
 
   @media (min-width: 768px) {
-    height: 100vh;
+    height: $parallax-desktop-height;
   }
 
   .parallax-title {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-
-    height: 70vh;
+    justify-content: center;
+    height: $parallax-mobile-height;
 
     @media (min-width: 768px) {
-      height: 100vh;
+      justify-content: flex-end;
+      height: $parallax-desktop-height;
     }
 
     h1 {
       color: $dark-title;
-      font-size: 153px;
+      font-size: 16vw;
+
+      @media (min-width: 992px) {
+        font-size: 153px;
+      }
+
       font-weight: 900;
     }
 
-    &.quem-somos {
+    &.--quem-somos {
       h1 {
-        font-size: 123px;
+        font-size: 10vw;
+
+        @media (min-width: 992px) {
+          font-size: 123px;
+        }
       }
     }
 
-    &.index {
+    &.--index {
       justify-content: center;
 
       h1 {
