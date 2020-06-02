@@ -38,147 +38,23 @@
         </b-row>
 
         <ul class="row services-list my-5">
-          <li class="col" id="recebimento-de-resíduos-de-construção-civil">
+          <li
+            class="col"
+            v-for="service in servicesList"
+            :key="service.id"
+            :id="`service-${service.id}`"
+          >
             <div class="p-4">
               <img
                 class="service-icon"
-                src="~assets/img/servicos/residuos.svg"
-                alt="Recebimento de Resíduos de Construção Civil"
+                :src="service.icon"
+                :alt="service.title"
               />
-              <h3>Recebimento de resíduos de construção civil</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                ipsum suspendisse ultrices gravida. Risus commodo viverra
-                maecenas accumsan lacus vel facilisis.
-              </p>
+              <h3>{{ service.title }}</h3>
+              <p v-html="service.desc"></p>
 
               <footer class="d-flex justify-content-end">
-                <a href="#">
-                  <img src="~assets/img/servicos/popup-open-icon.svg" />
-                </a>
-              </footer>
-            </div>
-          </li>
-
-          <div class="w-100 d-md-none"></div>
-
-          <li class="col" id="areia-e-agregados-reciclados">
-            <div class="p-4">
-              <img
-                class="service-icon"
-                src="~/assets/img/servicos/sand.svg"
-                alt="Areia e agregados reciclados"
-              />
-              <h3>Areia e agregados reciclados</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                ipsum suspendisse ultrices.
-              </p>
-
-              <footer class="d-flex justify-content-end">
-                <a href="#">
-                  <img src="~assets/img/servicos/popup-open-icon.svg" />
-                </a>
-              </footer>
-            </div>
-          </li>
-
-          <div class="w-100 d-md-none"></div>
-          <div class="w-100 d-none d-md-block d-lg-none"></div>
-
-          <li class="col" id="coleta-de-resíduos">
-            <div class="p-4">
-              <img
-                class="service-icon"
-                src="~/assets/img/servicos/cacamba.svg"
-                alt="Coleta de resíduos"
-              />
-              <h3>Coleta de resíduos</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod.
-              </p>
-
-              <footer class="d-flex justify-content-end">
-                <a href="#">
-                  <img src="~assets/img/servicos/popup-open-icon.svg" />
-                </a>
-              </footer>
-            </div>
-          </li>
-
-          <div class="w-100 d-md-none"></div>
-          <div class="w-100 d-none d-lg-block"></div>
-
-          <li class="col" id="fabricacao-de-artefatos-de-concreto">
-            <div class="p-4">
-              <img
-                class="service-icon"
-                src="~assets/img/servicos/factoring.svg"
-                alt="Fabricação de artefatos de concreto"
-              />
-              <h3>Fabricação de artefatos de concreto</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                ipsum suspendisse ultrices.
-              </p>
-
-              <footer class="d-flex justify-content-end">
-                <a href="#">
-                  <img src="~assets/img/servicos/popup-open-icon.svg" />
-                </a>
-              </footer>
-            </div>
-          </li>
-
-          <div class="w-100 d-md-none"></div>
-          <div class="w-100 d-none d-md-block d-lg-none"></div>
-
-          <li class="col" id="reforma-e-construcao">
-            <div class="p-4">
-              <img
-                class="service-icon"
-                src="~/assets/img/servicos/construction.svg"
-                alt="Reforma e Construção"
-              />
-              <h3>Reforma e Construção</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt. Quis ipsum suspendisse ultrices
-                gravida. Risus commodo viverra maecenas accumsan lacus vel
-                facilisis.
-              </p>
-
-              <footer class="d-flex justify-content-end">
-                <a href="#">
-                  <img src="~assets/img/servicos/popup-open-icon.svg" />
-                </a>
-              </footer>
-            </div>
-          </li>
-
-          <div class="w-100 d-md-none"></div>
-
-          <li class="col" id="demolicao">
-            <div class="p-4">
-              <img
-                class="service-icon"
-                src="~/assets/img/servicos/demolition.svg"
-                alt="Demoliçao"
-              />
-              <h3>Demoliçao</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                ipsum suspendisse ultrices gravida. Risus commodo viverra
-                maecenas accumsan lacus vel facilisis.
-              </p>
-
-              <footer class="d-flex justify-content-end">
-                <a href="#" @click.prevent="openModal = true">
+                <a href="#" @click.prevent="openServiceModal(service)">
                   <img src="~assets/img/servicos/popup-open-icon.svg" />
                 </a>
               </footer>
@@ -211,8 +87,6 @@
             </p>
           </b-container>
 
-          <ServicePopup :show="openModal" />
-
           <b-container class="mt-4">
             <div class="icon-gap"></div>
             <p>
@@ -228,6 +102,8 @@
         </div>
       </div>
     </div>
+
+    <ServicePopup :show="openModal" :service="openedService" />
     <AppFooter />
   </div>
 </template>
@@ -252,7 +128,58 @@ export default {
   data() {
     return {
       showResponsiveImg: true,
-      openModal: false
+      openModal: false,
+      openedService: {},
+      servicesList: [
+        {
+          id: 1,
+          title: "Recebimento de Resíduos de Construção Civil",
+          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          icon: "/service-1/icon.svg",
+          img1: "/service-1/img001.jpg",
+          img2: "/service-1/img002.jpg"
+        },
+        {
+          id: 2,
+          title: "Areia e agregados reciclados",
+          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          icon: "/service-2/icon.svg",
+          img1: "/service-2/img001.jpg",
+          img2: "/service-2/img002.jpg"
+        },
+        {
+          id: 3,
+          title: "Coleta de resíduos",
+          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          icon: "/service-3/icon.svg",
+          img1: "/service-3/img001.jpg",
+          img2: "/service-3/img002.jpg"
+        },
+        {
+          id: 4,
+          title: "Fabricação de artefatos de concreto",
+          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          icon: "/service-4/icon.svg",
+          img1: "/service-4/img001.jpg",
+          img2: "/service-4/img002.jpg"
+        },
+        {
+          id: 5,
+          title: "Reforma e Construção",
+          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          icon: "/service-5/icon.svg",
+          img1: "/service-5/img001.jpg",
+          img2: "/service-5/img002.jpg"
+        },
+        {
+          id: 6,
+          title: "Demoliçao",
+          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          icon: "/service-6/icon.svg",
+          img1: "/service-6/img001.jpg",
+          img2: "/service-6/img002.jpg"
+        }
+      ]
     };
   },
   computed: {
@@ -268,6 +195,12 @@ export default {
         this.showResponsiveImg = true;
       }, 100);
     });
+  },
+  methods: {
+    openServiceModal(service) {
+      this.openedService = service;
+      this.openModal = true;
+    }
   }
 };
 </script>
@@ -311,6 +244,12 @@ export default {
       @include box-border;
       @include box-shadow-dark;
 
+      min-width: 45%;
+
+      @media (min-width: 780px) {
+        min-width: 30%;
+      }
+
       display: flex;
       margin: 18px;
       list-style: none;
@@ -318,6 +257,7 @@ export default {
       & > div {
         display: flex;
         flex-direction: column;
+        width: 100%;
 
         img.service-icon {
           width: 74px;
