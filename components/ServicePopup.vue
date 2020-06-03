@@ -1,8 +1,20 @@
 <template>
   <b-modal v-model="show" :size="modalSize">
-    <a class="close-service-modal" href="#" @click.prevent="show = false">X</a>
+    <a
+      class="close-service-modal"
+      href="#"
+      @click.prevent="$emit('popup-close')"
+      >X</a
+    >
 
     <b-row class="service-content-wrapper content-theme --dark">
+      <b-col class="col-service-text p-0">
+        <div class="service-text">
+          <h2>{{ service.title }}</h2>
+          <p v-html="service.desc"></p>
+        </div>
+      </b-col>
+
       <b-col class="col-service-photos">
         <div class="row-service-photos --line1">
           <div class="service-icon">
@@ -16,13 +28,6 @@
 
         <div class="row-service-photos --line2">
           <img class="service-photo" v-lazy="service.img2" />
-        </div>
-      </b-col>
-
-      <b-col class="col-service-text p-0">
-        <div class="service-text">
-          <h2>{{ service.title }}</h2>
-          <p v-html="service.desc"></p>
         </div>
       </b-col>
     </b-row>
@@ -92,7 +97,7 @@ export default {
   background-size: contain;
 }
 .service-content-wrapper {
-  flex-direction: column;
+  flex-direction: column-reverse;
 
   @media (max-width: 600px) {
     height: 100vh;
@@ -104,7 +109,7 @@ export default {
   }
 
   @media (min-width: 1200px) {
-    flex-direction: row-reverse;
+    flex-direction: row;
   }
 
   .col-service-photos {

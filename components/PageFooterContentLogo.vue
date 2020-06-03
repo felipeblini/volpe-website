@@ -19,7 +19,12 @@ export default {
   },
   computed: {
     footerLogoImgSizesSet() {
-      return require(`~/assets/img/${this.$route.name}/highlight-logo.jpg?resize&sizes[]=450&sizes[]=680&sizes[]=900&sizes[]=1306`);
+      return require(`~/assets/img/${this.$route.name
+        .split("-")[0]
+        .replace(
+          /\//gm,
+          ""
+        )}/highlight-logo.jpg?resize&sizes[]=450&sizes[]=680&sizes[]=900&sizes[]=1306`);
     }
   },
   mounted() {

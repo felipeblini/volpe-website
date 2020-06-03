@@ -15,17 +15,25 @@
           <b-row>
             <b-col lg="4" class="nav-group-wrapper">
               <h4>
-                <nuxt-link to="/quem-somos">Quem Somos</nuxt-link>
+                <nuxt-link to="/quemsomos/volpe-ambiental"
+                  >Quem Somos</nuxt-link
+                >
               </h4>
               <ul>
                 <li>
-                  <nuxt-link to="/quem-somos#sobre">Sobre Nós</nuxt-link>
+                  <nuxt-link to="/quemsomos/volpe-ambiental#sobre"
+                    >Sobre Nós</nuxt-link
+                  >
                 </li>
                 <li>
-                  <nuxt-link to="/quem-somos#missao">Nossa Missão</nuxt-link>
+                  <nuxt-link to="/quemsomos/volpe-ambiental#missao"
+                    >Nossa Missão</nuxt-link
+                  >
                 </li>
                 <li>
-                  <nuxt-link to="/quem-somos#visao">Nossa Visão</nuxt-link>
+                  <nuxt-link to="/quemsomos/volpe-ambiental#visao"
+                    >Nossa Visão</nuxt-link
+                  >
                 </li>
               </ul>
             </b-col>
@@ -41,33 +49,35 @@
                 </li>
                 <li>
                   <nuxt-link
-                    to="/servicos#recebimento-de-resíduos-de-construção-civil"
+                    to="/servicos/1/recebimento-de-resíduos-de-construção-civil"
                   >
                     Recebimento de resíduos de construção civil
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#areia-e-agregados-reciclados">
+                  <nuxt-link to="/servicos/2/areia-e-agregados-reciclados">
                     Areia e agregados reciclados
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#coleta-de-resíduos">
+                  <nuxt-link to="/servicos/3/coleta-de-resíduos">
                     Coleta de resíduos
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#fabricacao-de-artefatos-de-concreto">
+                  <nuxt-link
+                    to="/servicos/4/fabricacao-de-artefatos-de-concreto"
+                  >
                     Fabricação de artefatos de concreto
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#reforma-e-construcao">
+                  <nuxt-link to="/servicos/5/reforma-e-construcao">
                     Reforma e Construção
                   </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/servicos#demolicao">
+                  <nuxt-link to="/servicos/6/demolicao">
                     Demolição
                   </nuxt-link>
                 </li>

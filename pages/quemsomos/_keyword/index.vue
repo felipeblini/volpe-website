@@ -4,7 +4,7 @@
 
     <div
       id="sobre"
-      class="page-main-content --quem-somos content-theme --light py-5"
+      class="page-main-content --quemsomos content-theme --light py-5"
     >
       <b-container>
         <b-row class="mt-5">
@@ -52,7 +52,7 @@
               :data-srcSet="contentImgSizesSet.srcSet"
               :data-src="contentImgSizesSet.src"
               :data-loading="
-                require(`~/assets/img/quem-somos/capacete.png?lqip`)
+                require(`~/assets/img/quemsomos/capacete.png?lqip`)
               "
               alt=""
             />
@@ -83,7 +83,7 @@
         <div class="page-footer-highlight-content">
           <b-container class="mt-4">
             <div class="page-footer-icon">
-              <img src="~/assets/img/quem-somos/footer-icon.svg" alt="" />
+              <img src="~/assets/img/quemsomos/footer-icon.svg" alt="" />
             </div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -134,7 +134,7 @@ export default {
   },
   computed: {
     contentImgSizesSet() {
-      return require(`~/assets/img/quem-somos/capacete.png?resize&sizes[]=450&sizes[]=680&sizes[]=979`);
+      return require(`~/assets/img/quemsomos/capacete.png?resize&sizes[]=450&sizes[]=680&sizes[]=979`);
     }
   },
   mounted() {
@@ -150,9 +150,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-main-content.--quem-somos {
+.page-main-content.--quemsomos {
   @media (min-width: 768px) {
-    background-image: url("~assets/img/quem-somos/main-content-background.jpg");
+    background-image: url("~assets/img/quemsomos/main-content-background.jpg");
     background-repeat: no-repeat;
     background-position-x: right;
     background-size: contain;
@@ -199,7 +199,7 @@ export default {
         height: 41px;
         position: relative;
         z-index: 2;
-        background: url("~assets/img/quem-somos/arrow.png") no-repeat;
+        background: url("~assets/img/quemsomos/arrow.png") no-repeat;
       }
 
       &:nth-child(1) {

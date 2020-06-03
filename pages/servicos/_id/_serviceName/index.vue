@@ -1,6 +1,11 @@
 <template>
   <div>
     <PageHero pageTitle="Serviços" />
+    <ServicePopup
+      :show="openModal"
+      :service="openedService"
+      @popup-close="openModal = false"
+    />
 
     <div
       id="sobre"
@@ -102,8 +107,6 @@
         </div>
       </div>
     </div>
-
-    <ServicePopup :show="openModal" :service="openedService" />
     <AppFooter />
   </div>
 </template>
@@ -125,61 +128,75 @@ export default {
     AppFooter,
     ServicePopup
   },
+  async asyncData({ context, params }) {
+    const servicesList = [
+      {
+        id: 1,
+        title: "Recebimento de Resíduos de Construção Civil",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        icon: "/service-1/icon.svg",
+        img1: "/service-1/img001.jpg",
+        img2: "/service-1/img002.jpg"
+      },
+      {
+        id: 2,
+        title: "Areia e agregados reciclados",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        icon: "/service-2/icon.svg",
+        img1: "/service-2/img001.jpg",
+        img2: "/service-2/img002.jpg"
+      },
+      {
+        id: 3,
+        title: "Coleta de resíduos",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        icon: "/service-3/icon.svg",
+        img1: "/service-3/img001.jpg",
+        img2: "/service-3/img002.jpg"
+      },
+      {
+        id: 4,
+        title: "Fabricação de artefatos de concreto",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        icon: "/service-4/icon.svg",
+        img1: "/service-4/img001.jpg",
+        img2: "/service-4/img002.jpg"
+      },
+      {
+        id: 5,
+        title: "Reforma e Construção",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        icon: "/service-5/icon.svg",
+        img1: "/service-5/img001.jpg",
+        img2: "/service-5/img002.jpg"
+      },
+      {
+        id: 6,
+        title: "Demoliçao",
+        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        icon: "/service-6/icon.svg",
+        img1: "/service-6/img001.jpg",
+        img2: "/service-6/img002.jpg"
+      }
+    ];
+
+    let openedService = {},
+      openModal = false;
+
+    if (params.id) {
+      openedService = servicesList.filter(x => x.id == params.id)[0] || {};
+      openModal = openedService.hasOwnProperty("id");
+    }
+
+    return {
+      servicesList,
+      openModal,
+      openedService
+    };
+  },
   data() {
     return {
-      showResponsiveImg: true,
-      openModal: false,
-      openedService: {},
-      servicesList: [
-        {
-          id: 1,
-          title: "Recebimento de Resíduos de Construção Civil",
-          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          icon: "/service-1/icon.svg",
-          img1: "/service-1/img001.jpg",
-          img2: "/service-1/img002.jpg"
-        },
-        {
-          id: 2,
-          title: "Areia e agregados reciclados",
-          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          icon: "/service-2/icon.svg",
-          img1: "/service-2/img001.jpg",
-          img2: "/service-2/img002.jpg"
-        },
-        {
-          id: 3,
-          title: "Coleta de resíduos",
-          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          icon: "/service-3/icon.svg",
-          img1: "/service-3/img001.jpg",
-          img2: "/service-3/img002.jpg"
-        },
-        {
-          id: 4,
-          title: "Fabricação de artefatos de concreto",
-          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          icon: "/service-4/icon.svg",
-          img1: "/service-4/img001.jpg",
-          img2: "/service-4/img002.jpg"
-        },
-        {
-          id: 5,
-          title: "Reforma e Construção",
-          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          icon: "/service-5/icon.svg",
-          img1: "/service-5/img001.jpg",
-          img2: "/service-5/img002.jpg"
-        },
-        {
-          id: 6,
-          title: "Demoliçao",
-          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          icon: "/service-6/icon.svg",
-          img1: "/service-6/img001.jpg",
-          img2: "/service-6/img002.jpg"
-        }
-      ]
+      showResponsiveImg: true
     };
   },
   computed: {
@@ -198,8 +215,14 @@ export default {
   },
   methods: {
     openServiceModal(service) {
-      this.openedService = service;
-      this.openModal = true;
+      console.log("open");
+      this.openedService = {};
+      this.openModal = false;
+
+      setTimeout(() => {
+        this.openedService = service;
+        this.openModal = true;
+      }, 200);
     }
   }
 };

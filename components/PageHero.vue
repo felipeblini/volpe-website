@@ -2,10 +2,15 @@
   <div
     class="parallax-container"
     :style="{
-      backgroundColor: require(`~/assets/img/${$route.name}/hero-background.jpg?lqip-colors`)[0]
+      backgroundColor: require(`~/assets/img/${$route.name
+        .split('-')[0]
+        .replace(/\//gm, '')}/hero-background.jpg?lqip-colors`)[0]
     }"
   >
-    <div class="container parallax-title" :class="`--${$route.name}`">
+    <div
+      class="container parallax-title"
+      :class="`--${$route.name.split('-')[0].replace(/\//gm, '')}`"
+    >
       <h1>{{ pageTitle }}</h1>
     </div>
 
@@ -20,7 +25,9 @@
             :data-srcSet="imagesSizesSet.srcSet"
             :data-src="imagesSizesSet.src"
             :data-loading="
-              require(`~/assets/img/${$route.name}/hero-background.jpg?lqip`)
+              require(`~/assets/img/${$route.name
+                .split('-')[0]
+                .replace(/\//gm, '')}/hero-background.jpg?lqip`)
             "
           />
         </parallax>
@@ -44,7 +51,12 @@ export default {
   },
   computed: {
     imagesSizesSet() {
-      return require(`~/assets/img/${this.$route.name}/hero-background.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=900&sizes[]=1200&sizes[]=1500&sizes[]=1800&sizes[]=1920`);
+      return require(`~/assets/img/${this.$route.name
+        .split("-")[0]
+        .replace(
+          /\//gm,
+          ""
+        )}/hero-background.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=900&sizes[]=1200&sizes[]=1500&sizes[]=1800&sizes[]=1920`);
     }
   },
   mounted() {
@@ -95,7 +107,7 @@ $parallax-mobile-height: 70vh;
       font-weight: 900;
     }
 
-    &.--quem-somos {
+    &.--quemsomos {
       h1 {
         font-size: 10vw;
 

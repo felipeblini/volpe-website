@@ -8,12 +8,16 @@
       <parallax :fixed="true" :speed-factor="0.5">
         <img
           :style="{
-            backgroundColor: require(`~/assets/img/${$route.name}/slogan-background.jpg?lqip-colors`)[0]
+            backgroundColor: require(`~/assets/img/${$route.name
+              .split('-')[0]
+              .replace(/\//gm, '')}/slogan-background.jpg?lqip-colors`)[0]
           }"
           :data-srcSet="imagesSizesSet.srcSet"
           :data-src="imagesSizesSet.src"
           :data-loading="
-            require(`~/assets/img/${$route.name}/slogan-background.jpg?lqip`)
+            require(`~/assets/img/${$route.name
+              .split('-')[0]
+              .replace(/\//gm, '')}/slogan-background.jpg?lqip`)
           "
         />
       </parallax>
@@ -33,7 +37,12 @@ export default {
   },
   computed: {
     imagesSizesSet() {
-      return require(`~/assets/img/${this.$route.name}/slogan-background.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=900&sizes[]=1200&sizes[]=1500&sizes[]=1800&sizes[]=1920`);
+      return require(`~/assets/img/${this.$route.name
+        .split("-")[0]
+        .replace(
+          /\//gm,
+          ""
+        )}/slogan-background.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=900&sizes[]=1200&sizes[]=1500&sizes[]=1800&sizes[]=1920`);
     }
   },
   mounted() {

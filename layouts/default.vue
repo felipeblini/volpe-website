@@ -21,7 +21,11 @@
               <hr />
             </li>
             <li class="nav-item">
-              <nuxt-link to="/quem-somos" class="nav-link" target="_self">
+              <nuxt-link
+                to="/quemsomos/volpe-ambiental"
+                class="nav-link"
+                target="_self"
+              >
                 Quem Somos
               </nuxt-link>
               <hr />
