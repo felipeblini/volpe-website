@@ -48,7 +48,7 @@
           <b-col>
             <h1 class="--smaller --bold">Fale com a Volpe</h1>
 
-            <b-form @submit="onSubmit">
+            <form class="contact-form" @submit="onSubmit">
               <b-form-group
                 id="input-group-name"
                 label="Nome:"
@@ -116,14 +116,14 @@
                 ></b-form-textarea>
               </b-form-group>
 
-              <b-button
-                :disabled="!isFormValid()"
+              <button
                 type="submit"
-                variant="primary"
+                :disabled="!isFormValid()"
+                class="volpe-btn"
               >
                 {{ sendingEmail ? "Enviando, aguarde..." : "Enviar" }}
-              </b-button>
-            </b-form>
+              </button>
+            </form>
           </b-col>
         </b-row>
       </b-container>
@@ -172,6 +172,20 @@ export default {
         this.showResponsiveImg = true;
       }, 100);
     });
+
+    document.querySelectorAll(".form-control").forEach(formControl => {
+      formControl.addEventListener("blur", el => {
+        el.target.classList.add("dirty");
+      });
+
+      const groupId = `#input-group-${formControl.id.split("-")[1]}`;
+      formControl.addEventListener("keyup", ({ target: { value } }) => {
+        const inputGroup = document.querySelector(groupId);
+
+        if (value) inputGroup.classList.add("has-value");
+        else inputGroup.classList.remove("has-value");
+      });
+    });
   },
   methods: {
     isFormValid() {
@@ -209,11 +223,86 @@ export default {
         this.sendingEmail = false;
         this.resultDone = true;
         this.$nuxt.$loading.finish();
+
+        document.querySelectorAll(".form-control").forEach(formControl => {
+          formControl.classList.remove("dirty");
+          const groupId = `#input-group-${formControl.id.split("-")[1]}`;
+          const inputGroup = document.querySelector(groupId);
+          inputGroup.classList.remove("has-value");
+        });
       });
     }
   }
 };
 </script>
+
+<style lang="scss">
+.contact-form {
+  .form-group {
+    position: relative;
+
+    label {
+      position: absolute;
+      color: $dark-title;
+      top: 12px;
+      left: 28px;
+      transition: all 0.25;
+    }
+
+    &:focus-within {
+      label {
+        top: 18px;
+        left: 21px;
+        font-size: 12px;
+      }
+
+      input {
+        &#input-name {
+          padding-left: 65px;
+        }
+
+        &#input-phone {
+          padding-left: 80px;
+        }
+
+        &#input-email {
+          padding-left: 60px;
+        }
+      }
+
+      textarea {
+        padding-top: 40px;
+      }
+    }
+
+    &.has-value {
+      label {
+        top: 18px;
+        left: 21px;
+        font-size: 12px;
+      }
+
+      input {
+        &#input-name {
+          padding-left: 65px;
+        }
+
+        &#input-phone {
+          padding-left: 80px;
+        }
+
+        &#input-email {
+          padding-left: 60px;
+        }
+      }
+
+      textarea:not(:placeholder-shown) {
+        padding-top: 40px;
+      }
+    }
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .unity-pin {
@@ -272,6 +361,49 @@ export default {
     &[lazy="loading"] {
       filter: blur(2rem);
     }
+  }
+}
+
+form {
+  input,
+  textarea {
+    border-radius: 30px;
+    padding: 24px;
+    border: solid 2px;
+    color: $dark-paragraph !important;
+
+    @include hide-placeholder;
+    @include input-background-gradient;
+
+    &:focus {
+      @include input-background-gradient;
+      border-color: $dark-background;
+      box-shadow: none;
+    }
+
+    &:placeholder-shown {
+      border-color: $dark-background;
+    }
+
+    &.dirty {
+      &:invalid {
+        border-color: red;
+      }
+
+      &:valid {
+        border-color: $dark-background;
+      }
+    }
+  }
+
+  textarea {
+    overflow-y: hidden;
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
   }
 }
 

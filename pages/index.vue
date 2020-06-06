@@ -92,7 +92,7 @@
           <b-container class="mt-4">
             <div class="icon-gap"></div>
             <p>
-              <nuxt-link class="volpe-btn" to="/quemsomos/volpe-ambiental"/>
+              <nuxt-link class="volpe-btn" to="/quemsomos/volpe-ambiental">
                 Saiba Mais
               </nuxt-link>
             </p>

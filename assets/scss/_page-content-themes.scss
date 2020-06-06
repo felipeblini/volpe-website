@@ -23,6 +23,20 @@
       color: $dark-paragraph;
       @include box-shadow-dark
     }
+
+    button.volpe-btn {
+      background: $dark-title;
+      color: #000;
+
+      &:hover {
+        background: $highlight-text;
+      }
+
+      &[disabled='disabled'] {
+        background: $dark-title !important;
+        opacity: .8;
+      }
+    }
   }
 
   &.--light,
