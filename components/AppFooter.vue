@@ -5,10 +5,13 @@
         <b-col class="footer-logo">
           <nuxt-link to="/">Volpe Ambiental</nuxt-link>
           <p class="mt-1">
-            Rua São Bento, 555<br />
-            CEP 06186-140 | Osasco - SP
+            {{ $store.state.address }}<br />
+            CEP {{ $store.state.cep }} | {{ $store.state.city }}
           </p>
-          <p>(11) 3607-4071 | (11) 3607-2101</p>
+          <p>
+            {{ $store.state.phone1 }} <span v-if="$store.state.phone2">|</span>
+            {{ $store.state.phone2 }}
+          </p>
         </b-col>
 
         <b-col class="footer-nav">
@@ -157,6 +160,10 @@ export default {};
         padding: 10px;
       }
 
+      @media (max-width: 991px) {
+        text-align: right;
+      }
+
       h4 {
         a {
           display: block;
@@ -171,6 +178,8 @@ export default {};
           @media (max-width: 991px) {
             background: url("~assets/img/arrow-right.svg") no-repeat center
               right;
+
+            padding-right: 35px;
           }
 
           &:hover {

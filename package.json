@@ -27,6 +27,7 @@
   "devDependencies": {
     "@aceforth/nuxt-optimized-images": "1.0.1",
     "@babel/runtime-corejs3": "7.9.6",
+    "@nuxt/typescript-build": "1.0.2",
     "@nuxtjs/style-resources": "1.0.0",
     "core-js": "3",
     "imagemin-mozjpeg": "8.0.0",

@@ -55,6 +55,12 @@ body {
     }
   }
 
+  h1 {
+    &.--bigger {
+      font-size: 3.5rem;
+    }
+  }
+
   h2 {
     font-size: 12vw;
     @media (min-width: 500px) {
@@ -73,8 +79,10 @@ body {
     font-size: 25px;
   }
 
-  p.--bigger {
-    font-size: 25px;
+  p {
+    &.--bigger {
+      font-size: 25px;
+    }
   }
 }
 
@@ -118,7 +126,7 @@ body {
     .page-footer-highlight-content {
       width: 100%;
       @media (min-width: 992px) {
-        padding: 0 3rem;
+        padding: 0 3rem 80px;
       }
 
       .container {

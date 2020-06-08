@@ -18,7 +18,7 @@ const validateAndSanitize = (key, value) => {
   return rejectFunctions.has(key) && !rejectFunctions.get(key)(value) && xssFilters.inHTMLData(value)
 }
 
-const sendMail = async (name, phone, email, msg) => {
+const sendMail = async (mailContent) => {
   const transporter = nodemailer.createTransport({
     host: "mail.volpeambiental.com.br",
     port: 587,
@@ -35,10 +35,10 @@ const sendMail = async (name, phone, email, msg) => {
     to: 'contato@volpeambiental.com.br',
     subject: 'Novo contato enviado pelo site',
     html: `<h1>Nova mensagem:</h1>
-            <p><b>Nome:</b> ${name}</p>
-            <p><b>Telefone:</b> ${phone}</p>
-            <p><b>Email:</b> ${email}</p>
-            <p><b>Mensagem:</b> ${msg}</p>`
+            <p><b>Nome:</b> ${mailContent.name}</p>
+            <p><b>Telefone:</b> ${mailContent.phone}</p>
+            <p><b>Email:</b> ${mailContent.email}</p>
+            <p><b>Mensagem:</b> ${mailContent.msg}</p>`
   };
 
   return new Promise((resolve, reject) => {
@@ -66,7 +66,7 @@ app.post('/', async (req, res) => {
     return res.status(422).json({ 'erro': 'Algum campo não é válido!' })
   }
 
-  sendMail(...sanitizedAttributes)
+  sendMail({ ...sanitizedAttributes })
     .then(response => res.status(200).json({ 'message': response }))
     .catch(e => res.status(500).json({ 'message': e }))
 

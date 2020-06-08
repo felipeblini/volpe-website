@@ -18,7 +18,7 @@
         >
           <b-col class="content-center">
             <img
-              v-if="showResponsiveImg"
+              v-if="state.showResponsiveImg"
               :data-srcSet="contentImgSizesSet.srcSet"
               :data-src="contentImgSizesSet.src"
               :data-loading="require(`~/assets/img/index/cacamba.png?lqip`)"
@@ -125,7 +125,9 @@ export default {
   },
   data() {
     return {
-      showResponsiveImg: true
+      state: {
+        showResponsiveImg: true
+      }
     };
   },
   computed: {
@@ -135,10 +137,10 @@ export default {
   },
   mounted() {
     window.addEventListener("resize", () => {
-      this.showResponsiveImg = false;
+      this.state.showResponsiveImg = false;
 
       setTimeout(() => {
-        this.showResponsiveImg = true;
+        this.state.showResponsiveImg = true;
       }, 100);
     });
   }

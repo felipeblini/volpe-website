@@ -48,8 +48,21 @@ export default {
       modalSize: "lg"
     };
   },
-  created() {
-    if (process.client) {
+  mounted() {
+    const windowSize = Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0
+    );
+
+    if (windowSize >= 1800) {
+      this.modalSize = "xl";
+    } else if (windowSize >= 1200) {
+      this.modalSize = "lg";
+    } else {
+      this.modalSize = "md";
+    }
+
+    window.addEventListener("resize", () => {
       const windowSize = Math.max(
         document.documentElement.clientWidth || 0,
         window.innerWidth || 0
@@ -62,22 +75,7 @@ export default {
       } else {
         this.modalSize = "md";
       }
-
-      window.addEventListener("resize", () => {
-        const windowSize = Math.max(
-          document.documentElement.clientWidth || 0,
-          window.innerWidth || 0
-        );
-
-        if (windowSize >= 1800) {
-          this.modalSize = "xl";
-        } else if (windowSize >= 1200) {
-          this.modalSize = "lg";
-        } else {
-          this.modalSize = "md";
-        }
-      });
-    }
+    });
   }
 };
 </script>

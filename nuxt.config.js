@@ -40,6 +40,7 @@ export default {
   */
   buildModules: [
     '@aceforth/nuxt-optimized-images',
+    // '@nuxt/typescript-build'
   ],
 
   optimizedImages: {
