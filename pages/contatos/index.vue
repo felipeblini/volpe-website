@@ -201,10 +201,10 @@ export default {
     if (windowSize > 1024) this.state.mapHeight = 450;
 
     window.addEventListener("resize", () => {
-      this.showResponsiveImg = false;
+      this.state.showResponsiveImg = false;
 
       setTimeout(() => {
-        this.showResponsiveImg = true;
+        this.state.showResponsiveImg = true;
       }, 100);
     });
 

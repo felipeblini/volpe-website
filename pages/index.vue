@@ -6,9 +6,8 @@
       <b-container>
         <b-row>
           <b-col class="content-center">
-            <p class="highlight-text text-center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore
+            <p class="text-center highlight-text">
+              {{ firtTextBlock }}
             </p>
           </b-col>
         </b-row>
@@ -35,15 +34,12 @@
         <b-row>
           <b-col class="content-center">
             <p class="text-center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-              ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-              accumsan lacus vel facilisis.
+              {{ secondTextBlock }}
             </p>
           </b-col>
         </b-row>
 
-        <ul class="row content-list my-5">
+        <ul class="row content-list my-5 justify-content-center">
           <li class="col-lg-4">
             <div class="p-4">
               <img src="~assets/img/index/atividade-1.svg" alt="" />
@@ -68,7 +64,7 @@
 
     <div class="page-footer-wrapper">
       <div class="page-slogan px-4">
-        <h4>Frase com slogan ambiental</h4>
+        <h4>{{ pageSlogan }}</h4>
       </div>
 
       <PageSloganParallax />
@@ -81,12 +77,7 @@
             <div class="page-footer-icon">
               <img src="~/assets/img/index/footer-icon.svg" alt="" />
             </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-              ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-              accumsan lacus vel facilisis.
-            </p>
+            <p v-html="footerTextBlock"></p>
           </b-container>
 
           <b-container class="mt-4">
@@ -122,6 +113,22 @@ export default {
     PageFooterContentLogo,
     ScrollTopButton,
     AppFooter
+  },
+  async asyncData({ $axios }) {
+    const {
+      data: {
+        content: { rendered }
+      }
+    } = await $axios.get("27");
+
+    const splitRendered = rendered.split(/\n\n\n\n/);
+
+    return {
+      firtTextBlock: splitRendered[0],
+      secondTextBlock: splitRendered[1],
+      pageSlogan: splitRendered[2],
+      footerTextBlock: splitRendered[3]
+    };
   },
   data() {
     return {
