@@ -10,10 +10,7 @@
         <b-row class="mt-5">
           <b-col class="content-center">
             <p class="text-left --bigger">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-              ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-              accumsan lacus vel facilisis.
+              {{ firstTextBlock }}
             </p>
           </b-col>
         </b-row>
@@ -23,9 +20,7 @@
             <b-col class="content-box mt-5">
               <h2 class="--bold">Missão</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut sis. sit amet, consectetur
-                adipiscing elit
+                {{ mission }}
               </p>
             </b-col>
           </b-row>
@@ -34,9 +29,7 @@
             <b-col class="content-box mt-5">
               <h2 class="--bold">Visão</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut sis. sit amet, consectetur
-                adipiscing elit
+                {{ vision }}
               </p>
             </b-col>
           </b-row>
@@ -48,7 +41,7 @@
         >
           <b-col class="content-center">
             <img
-              v-if="showResponsiveImg"
+              v-if="state.showResponsiveImg"
               :data-srcSet="contentImgSizesSet.srcSet"
               :data-src="contentImgSizesSet.src"
               :data-loading="
@@ -62,8 +55,7 @@
         <b-row class="mt-5">
           <b-col class="content-center">
             <h3 class="highlight-text --secondary text-center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eius.
+              {{ bottomParagraph }}
             </h3>
           </b-col>
         </b-row>
@@ -72,7 +64,7 @@
 
     <div class="page-footer-wrapper">
       <div class="page-slogan px-4">
-        <h4>Frase sobre a empresa</h4>
+        <h4>{{ pageSlogan }}</h4>
       </div>
 
       <PageSloganParallax />
@@ -86,18 +78,15 @@
               <img src="~/assets/img/quemsomos/footer-icon.svg" alt="" />
             </div>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-              ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-              accumsan lacus vel facilisis.
+              {{ footerTextBlock }}
             </p>
           </b-container>
 
           <b-container class="mt-4">
             <div class="icon-gap"></div>
             <p>
-              <nuxt-link class="volpe-btn" to="/servicos">
-                Saiba Mais
+              <nuxt-link class="volpe-btn" :to="buttonLink">
+                {{ buttonText }}
               </nuxt-link>
             </p>
           </b-container>
@@ -127,9 +116,40 @@ export default {
     ScrollTopButton,
     AppFooter
   },
+  async asyncData({ $axios }) {
+    try {
+      const params = { slug: "quem-somos" };
+      const { data } = await $axios.get("", { params });
+
+      const splitRendered = data[0].content.rendered.split(/\n\n\n\n/);
+
+      return {
+        firstTextBlock: splitRendered[0],
+        mission: splitRendered[1].split("missao:")[1].trim(),
+        vision: splitRendered[2].split("visao:")[1].trim(),
+        bottomParagraph: splitRendered[3],
+        pageSlogan: splitRendered[4],
+        footerTextBlock: splitRendered[5],
+        buttonText: splitRendered[6].split("buttonText:")[1].trim(),
+        buttonLink: splitRendered[7].split("buttonLink:")[1].trim()
+      };
+    } catch (e) {
+      return {};
+    }
+  },
   data() {
     return {
-      showResponsiveImg: true
+      state: {
+        showResponsiveImg: true
+      },
+      firstTextBlock: "",
+      mission: "",
+      vision: "",
+      bottomParagraph: "",
+      pageSlogan: "",
+      footerTextBlock: "",
+      buttonText: "",
+      buttonLink: ""
     };
   },
   computed: {
@@ -139,10 +159,10 @@ export default {
   },
   mounted() {
     window.addEventListener("resize", () => {
-      this.showResponsiveImg = false;
+      this.state.showResponsiveImg = false;
 
       setTimeout(() => {
-        this.showResponsiveImg = true;
+        this.state.showResponsiveImg = true;
       }, 100);
     });
   }

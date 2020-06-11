@@ -62,7 +62,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'https://volpeambiental.com.br/wp-json/wp/v2/posts/'
+    baseURL: 'https://volpeambiental.com.br/wp-json/wp/v2/posts'
   },
   /*
   ** Server Middleware endpoints

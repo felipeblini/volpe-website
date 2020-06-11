@@ -18,25 +18,33 @@
           <b-row>
             <b-col lg="4" class="nav-group-wrapper">
               <h4>
-                <nuxt-link to="/quemsomos/volpe-ambiental"
-                  >Quem Somos</nuxt-link
+                <nuxt-link
+                  to="/quemsomos/construção-civil-reforma-demolição-coleta-de-residuos"
                 >
+                  Quem Somos
+                </nuxt-link>
               </h4>
               <ul>
                 <li>
-                  <nuxt-link to="/quemsomos/volpe-ambiental#sobre"
-                    >Sobre Nós</nuxt-link
+                  <nuxt-link
+                    to="/quemsomos/construção-civil-reforma-demolição-coleta-de-residuos#sobre"
                   >
+                    Sobre Nós
+                  </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/quemsomos/volpe-ambiental#missao"
-                    >Nossa Missão</nuxt-link
+                  <nuxt-link
+                    to="/quemsomos/construção-civil-reforma-demolição-coleta-de-residuos#missao"
                   >
+                    Nossa Missão
+                  </nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/quemsomos/volpe-ambiental#visao"
-                    >Nossa Visão</nuxt-link
+                  <nuxt-link
+                    to="/quemsomos/construção-civil-reforma-demolição-coleta-de-residuos#visao"
                   >
+                    Nossa Visão
+                  </nuxt-link>
                 </li>
               </ul>
             </b-col>
@@ -92,13 +100,17 @@
               </h4>
               <ul>
                 <li>
-                  <nuxt-link to="/contatos#servico">Onde Estamos</nuxt-link>
+                  <nuxt-link to="/contatos#onde-estamos"
+                    >Onde Estamos</nuxt-link
+                  >
                 </li>
                 <li>
-                  <nuxt-link to="/contatos#servico">Fale Conosco</nuxt-link>
+                  <nuxt-link to="/contatos#fale-conosco"
+                    >Fale Conosco</nuxt-link
+                  >
                 </li>
                 <li>
-                  <nuxt-link to="/contatos#servico">Localização</nuxt-link>
+                  <nuxt-link to="/contatos#mapa">Localização</nuxt-link>
                 </li>
               </ul>
             </b-col>

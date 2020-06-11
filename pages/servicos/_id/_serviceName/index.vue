@@ -15,9 +15,7 @@
         <b-row class="mt-5 align-items-center">
           <b-col lg="6">
             <p class="text-left --bigger">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-              ipsum s.
+              {{ firstTextBlock }}
             </p>
           </b-col>
 
@@ -27,7 +25,7 @@
             v-lazy-container="{ selector: 'img' }"
           >
             <img
-              v-if="showResponsiveImg"
+              v-if="state.showResponsiveImg"
               :data-srcSet="contentImgSizesSet.srcSet"
               :data-src="contentImgSizesSet.src"
               :data-loading="require(`~/assets/img/servicos/britador.png?lqip`)"
@@ -71,7 +69,7 @@
 
     <div class="page-footer-wrapper">
       <div class="page-slogan px-4">
-        <h4>Frase sobre a empresa</h4>
+        <h4>{{ pageSlogan }}</h4>
       </div>
 
       <PageSloganParallax />
@@ -85,18 +83,15 @@
               <img src="~/assets/img/servicos/shield.svg" alt="" />
             </div>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-              ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-              accumsan lacus vel facilisis.
+              {{ footerTextBlock }}
             </p>
           </b-container>
 
           <b-container class="mt-4">
             <div class="icon-gap"></div>
             <p>
-              <nuxt-link class="volpe-btn" to="/servicos">
-                Saiba Mais
+              <nuxt-link class="volpe-btn" :to="buttonLink">
+                {{ buttonText }}
               </nuxt-link>
             </p>
           </b-container>
@@ -128,7 +123,32 @@ export default {
     AppFooter,
     ServicePopup
   },
-  async asyncData({ context, params }) {
+  async asyncData({ $axios, params }) {
+    let pageContent = {};
+
+    try {
+      const requestParams = { slug: "servicos" };
+      const { data } = await $axios.get("", { params: requestParams });
+
+      const splitRendered = data[0].content.rendered.split(/\n\n\n\n/);
+
+      const firstTextBlock = splitRendered[0];
+      const pageSlogan = splitRendered[1];
+      const footerTextBlock = splitRendered[2];
+      const buttonText = splitRendered[3].split("buttonText:")[1].trim();
+      const buttonLink = splitRendered[4].split("buttonLink:")[1].trim();
+
+      pageContent = Object.assign(pageContent, {
+        firstTextBlock,
+        pageSlogan,
+        footerTextBlock,
+        buttonText,
+        buttonLink
+      });
+    } catch (e) {
+      console.log({ e });
+    }
+
     const servicesList = [
       {
         id: 1,
@@ -188,15 +208,27 @@ export default {
       openModal = openedService.hasOwnProperty("id");
     }
 
-    return {
+    pageContent = Object.assign(pageContent, {
       servicesList,
       openModal,
       openedService
-    };
+    });
+
+    return pageContent;
   },
   data() {
     return {
-      showResponsiveImg: true
+      state: {
+        showResponsiveImg: true
+      },
+      firstTextBlock: "",
+      pageSlogan: "",
+      footerTextBlock: "",
+      buttonText: "",
+      buttonLink: "",
+      servicesList: "",
+      openModal: "",
+      openedService: ""
     };
   },
   computed: {
@@ -206,10 +238,10 @@ export default {
   },
   mounted() {
     window.addEventListener("resize", () => {
-      this.showResponsiveImg = false;
+      this.state.showResponsiveImg = false;
 
       setTimeout(() => {
-        this.showResponsiveImg = true;
+        this.state.showResponsiveImg = true;
       }, 100);
     });
   },

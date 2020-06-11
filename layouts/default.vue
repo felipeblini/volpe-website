@@ -22,7 +22,7 @@
             </li>
             <li class="nav-item">
               <nuxt-link
-                to="/quemsomos/volpe-ambiental"
+                to="/quemsomos/construção-civil-reforma-demolição-coleta-de-residuos"
                 class="nav-link"
                 target="_self"
               >

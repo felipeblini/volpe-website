@@ -7,7 +7,7 @@
         <b-row>
           <b-col class="content-center">
             <p class="text-center highlight-text">
-              {{ firtTextBlock }}
+              {{ firstTextBlock }}
             </p>
           </b-col>
         </b-row>
@@ -43,19 +43,19 @@
           <li class="col-lg-4">
             <div class="p-4">
               <img src="~assets/img/index/atividade-1.svg" alt="" />
-              <h3 class="--bold mt-3">Atividades Ambientais</h3>
+              <h3 class="--bold mt-3">{{ activity1 }}</h3>
             </div>
           </li>
           <li class="col-lg-4">
             <div class="p-4">
               <img src="~/assets/img/index/atividade-2.svg" alt="" />
-              <h3 class="--bold mt-3">Atividades Comerciais</h3>
+              <h3 class="--bold mt-3">{{ activity2 }}</h3>
             </div>
           </li>
           <li class="col-lg-4">
             <div class="p-4">
               <img src="~/assets/img/index/atividade-3.svg" alt="" />
-              <h3 class="--bold mt-3">Atividades Socioambientais</h3>
+              <h3 class="--bold mt-3">{{ activity3 }}</h3>
             </div>
           </li>
         </ul>
@@ -83,8 +83,8 @@
           <b-container class="mt-4">
             <div class="icon-gap"></div>
             <p>
-              <nuxt-link class="volpe-btn" to="/quemsomos/volpe-ambiental">
-                Saiba Mais
+              <nuxt-link class="volpe-btn" :to="buttonLink">
+                {{ buttonText }}
               </nuxt-link>
             </p>
           </b-container>
@@ -115,26 +115,41 @@ export default {
     AppFooter
   },
   async asyncData({ $axios }) {
-    const {
-      data: {
-        content: { rendered }
-      }
-    } = await $axios.get("27");
+    try {
+      const params = { slug: "home" };
+      const { data } = await $axios.get("", { params });
 
-    const splitRendered = rendered.split(/\n\n\n\n/);
+      const splitRendered = data[0].content.rendered.split(/\n\n\n\n/);
 
-    return {
-      firtTextBlock: splitRendered[0],
-      secondTextBlock: splitRendered[1],
-      pageSlogan: splitRendered[2],
-      footerTextBlock: splitRendered[3]
-    };
+      return {
+        firstTextBlock: splitRendered[0],
+        secondTextBlock: splitRendered[1],
+        activity1: splitRendered[2],
+        activity2: splitRendered[3],
+        activity3: splitRendered[4],
+        pageSlogan: splitRendered[5],
+        footerTextBlock: splitRendered[6],
+        buttonText: splitRendered[7].split("buttonText:")[1].trim(),
+        buttonLink: splitRendered[8].split("buttonLink:")[1].trim()
+      };
+    } catch (e) {
+      return {};
+    }
   },
   data() {
     return {
       state: {
         showResponsiveImg: true
-      }
+      },
+      firstTextBlock: "",
+      secondTextBlock: "",
+      activity1: "",
+      activity2: "",
+      activity3: "",
+      pageSlogan: "",
+      footerTextBlock: "",
+      buttonText: "",
+      buttonLink: ""
     };
   },
   computed: {
