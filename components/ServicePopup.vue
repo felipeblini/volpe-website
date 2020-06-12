@@ -9,10 +9,10 @@
 
     <b-row class="service-content-wrapper content-theme --dark">
       <b-col class="col-service-text p-0">
-        <div class="service-text">
+        <perfect-scrollbar class="service-text">
           <h2>{{ service.title }}</h2>
-          <p v-html="service.desc"></p>
-        </div>
+          <p v-html="service.content"></p>
+        </perfect-scrollbar>
       </b-col>
 
       <b-col class="col-service-photos">
@@ -21,13 +21,16 @@
             <img :src="service.icon" :alt="service.title" />
           </div>
 
-          <div class="service-img-1">
-            <img class="service-photo" v-lazy="service.img1" />
+          <div class="service-img-1" v-lazy-container="{ selector: 'img' }">
+            <img class="service-photo" :data-src="service.img1" />
           </div>
         </div>
 
-        <div class="row-service-photos --line2">
-          <img class="service-photo" v-lazy="service.img2" />
+        <div
+          class="row-service-photos --line2"
+          v-lazy-container="{ selector: 'img' }"
+        >
+          <img class="service-photo" :data-src="service.img2" />
         </div>
       </b-col>
     </b-row>
@@ -35,7 +38,12 @@
 </template>
 
 <script>
+import { PerfectScrollbar } from "vue2-perfect-scrollbar";
+
 export default {
+  components: {
+    PerfectScrollbar
+  },
   props: {
     show: {
       type: Boolean,
@@ -80,6 +88,8 @@ export default {
 };
 </script>
 
+<style src="vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css"/>
+
 <style lang="scss" scoped>
 .close-service-modal {
   width: 34px;
@@ -110,6 +120,11 @@ export default {
     flex-direction: row;
   }
 
+  .col-service-photos,
+  .col-service-text > .service-text {
+    min-width: 412px;
+  }
+
   .col-service-photos {
     display: flex;
     flex-direction: column;
@@ -125,7 +140,10 @@ export default {
         width: 100%;
 
         img.service-photo {
+          height: 206px;
           width: 100%;
+          background: url("../assets/img/loading.svg") no-repeat center center;
+          background-size: 30px;
         }
       }
 
@@ -153,8 +171,7 @@ export default {
 
   .col-service-text {
     .service-text {
-      @media (max-width: 600px) {
-      }
+      max-height: 412px;
 
       padding: 38px;
 

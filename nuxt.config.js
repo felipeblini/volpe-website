@@ -1,5 +1,3 @@
-import bodyParser from 'body-parser'
-
 export default {
   mode: 'universal',
   /*
@@ -32,8 +30,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/vue-lazyload', ssr: false },
-    { src: '~/plugins/vue-lazyload', ssr: false },
-    { src: '~/plugins/global-js', ssr: false }
+    { src: '~/plugins/global-scripts', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules

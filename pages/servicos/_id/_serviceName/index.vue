@@ -54,7 +54,7 @@
                 :alt="service.title"
               />
               <h3>{{ service.title }}</h3>
-              <p v-html="service.desc"></p>
+              <p v-html="service.excerpt"></p>
 
               <footer class="d-flex justify-content-end">
                 <a href="#" @click.prevent="openServiceModal(service)">
@@ -149,56 +149,25 @@ export default {
       console.log({ e });
     }
 
-    const servicesList = [
-      {
-        id: 1,
-        title: "Recebimento de Resíduos de Construção Civil",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        icon: "/service-1/icon.svg",
-        img1: "/service-1/img001.jpg",
-        img2: "/service-1/img002.jpg"
-      },
-      {
-        id: 2,
-        title: "Areia e agregados reciclados",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        icon: "/service-2/icon.svg",
-        img1: "/service-2/img001.jpg",
-        img2: "/service-2/img002.jpg"
-      },
-      {
-        id: 3,
-        title: "Coleta de resíduos",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        icon: "/service-3/icon.svg",
-        img1: "/service-3/img001.jpg",
-        img2: "/service-3/img002.jpg"
-      },
-      {
-        id: 4,
-        title: "Fabricação de artefatos de concreto",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        icon: "/service-4/icon.svg",
-        img1: "/service-4/img001.jpg",
-        img2: "/service-4/img002.jpg"
-      },
-      {
-        id: 5,
-        title: "Reforma e Construção",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        icon: "/service-5/icon.svg",
-        img1: "/service-5/img001.jpg",
-        img2: "/service-5/img002.jpg"
-      },
-      {
-        id: 6,
-        title: "Demoliçao",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        icon: "/service-6/icon.svg",
-        img1: "/service-6/img001.jpg",
-        img2: "/service-6/img002.jpg"
-      }
-    ];
+    const servicesRequestParams = { categories: "2" };
+    const { data: servicesData } = await $axios.get("", {
+      params: servicesRequestParams
+    });
+
+    const servicesList = servicesData
+      .filter(x => !x.content.protected)
+      .map(service => {
+        return {
+          id: service.id,
+          title: service.title.rendered.trim(),
+          excerpt: service.excerpt.rendered,
+          content: service.content.rendered,
+          icon: service.acf.icone,
+          img1: service.acf.foto_quadrada,
+          img2: service.acf.foto_paisagem
+        };
+      })
+      .reverse();
 
     let openedService = {},
       openModal = false;
@@ -247,7 +216,6 @@ export default {
   },
   methods: {
     openServiceModal(service) {
-      console.log("open");
       this.openedService = {};
       this.openModal = false;
 
