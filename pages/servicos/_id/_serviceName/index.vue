@@ -1,10 +1,10 @@
 <template>
   <div>
     <PageHero pageTitle="Serviços" />
-    <ServicePopup
-      :show="openModal"
-      :service="openedService"
-      @popup-close="openModal = false"
+    <ServiceModal
+      v-if="openedService.id"
+      :serviceId="openedService.id"
+      @popup-close="openedService = {}"
     />
 
     <div
@@ -112,7 +112,7 @@ import PageSloganParallax from "~/components/PageSloganParallax";
 import PageFooterContentLogo from "~/components/PageFooterContentLogo";
 import ScrollTopButton from "~/components/ScrollTopButton";
 import AppFooter from "~/components/AppFooter";
-import ServicePopup from "~/components/ServicePopup";
+import ServiceModal from "~/components/ServiceModal";
 
 export default {
   components: {
@@ -121,9 +121,9 @@ export default {
     PageFooterContentLogo,
     ScrollTopButton,
     AppFooter,
-    ServicePopup
+    ServiceModal
   },
-  async asyncData({ $axios, params }) {
+  async asyncData({ $axios }) {
     let pageContent = {};
 
     try {
@@ -149,39 +149,33 @@ export default {
       console.log({ e });
     }
 
-    const servicesRequestParams = { categories: "2" };
-    const { data: servicesData } = await $axios.get("", {
-      params: servicesRequestParams
-    });
+    // const servicesRequestParams = { categories: "2" };
+    // const { data: servicesData } = await $axios.get("", {
+    //   params: servicesRequestParams
+    // });
 
-    const servicesList = servicesData
-      .filter(x => !x.content.protected)
-      .map(service => {
-        return {
-          id: service.id,
-          title: service.title.rendered.trim(),
-          excerpt: service.excerpt.rendered,
-          content: service.content.rendered,
-          icon: service.acf.icone,
-          img1: service.acf.foto_quadrada,
-          img2: service.acf.foto_paisagem
-        };
-      })
-      .reverse();
+    // const servicesList = servicesData
+    //   .filter(x => !x.content.protected)
+    //   .map(service => {
+    //     return {
+    //       id: service.id,
+    //       title: service.title.rendered.trim(),
+    //       excerpt: service.excerpt.rendered,
+    //       icon: service.acf.icone
+    //     };
+    //   })
+    //   .reverse();
 
-    let openedService = {},
-      openModal = false;
+    // let openedService = {};
 
-    if (params.id) {
-      openedService = servicesList.filter(x => x.id == params.id)[0] || {};
-      openModal = openedService.hasOwnProperty("id");
-    }
+    // if (params.id) {
+    //   openedService = servicesList.filter(x => x.id == params.id)[0] || {};
+    // }
 
-    pageContent = Object.assign(pageContent, {
-      servicesList,
-      openModal,
-      openedService
-    });
+    // pageContent = Object.assign(pageContent, {
+    //   servicesList,
+    //   openedService
+    // });
 
     return pageContent;
   },
@@ -195,17 +189,35 @@ export default {
       footerTextBlock: "",
       buttonText: "",
       buttonLink: "",
-      servicesList: "",
-      openModal: "",
-      openedService: ""
+      // servicesList: "",
+      openedService: {}
     };
   },
   computed: {
     contentImgSizesSet() {
       return require(`~/assets/img/servicos/britador.png?resize&sizes[]=450&sizes[]=612`);
+    },
+    servicesList() {
+      return this.$store.state.servicesList
+        .filter(x => !x.content.protected)
+        .map(service => {
+          return {
+            id: service.id,
+            title: service.title.rendered.trim(),
+            excerpt: service.excerpt.rendered,
+            icon: service.acf.icone
+          };
+        });
     }
   },
   mounted() {
+    if (this.$route.params.id) {
+      this.openedService =
+        this.$store.state.servicesList.filter(
+          x => x.id == this.$route.params.id
+        )[0] || {};
+    }
+
     window.addEventListener("resize", () => {
       this.state.showResponsiveImg = false;
 
@@ -216,13 +228,8 @@ export default {
   },
   methods: {
     openServiceModal(service) {
-      this.openedService = {};
-      this.openModal = false;
-
-      setTimeout(() => {
-        this.openedService = service;
-        this.openModal = true;
-      }, 200);
+      this.openedService = service;
+      console.log({ openedService: this.openedService.id });
     }
   }
 };

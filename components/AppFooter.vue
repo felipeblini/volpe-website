@@ -6,11 +6,11 @@
           <nuxt-link to="/">Volpe Ambiental</nuxt-link>
           <p class="mt-1">
             {{ $store.state.address }}<br />
-            CEP {{ $store.state.cep }} | {{ $store.state.city }}
+            <span v-if="$store.state.cep">CEP {{ $store.state.cep }} |</span>
+            {{ $store.state.city }}
           </p>
           <p>
-            {{ $store.state.phone1 }} <span v-if="$store.state.phone2">|</span>
-            {{ $store.state.phone2 }}
+            {{ $store.state.phone }}
           </p>
         </b-col>
 
@@ -58,38 +58,20 @@
                     Conheça Nossos<br />Serviços
                   </nuxt-link>
                 </li>
-                <li>
+                <li
+                  v-for="service in $store.state.servicesList"
+                  :key="service.id"
+                >
                   <nuxt-link
-                    to="/servicos/1/recebimento-de-resíduos-de-construção-civil"
+                    :to="
+                      `/servicos/${
+                        service.id
+                      }/${service.title.rendered
+                        .toLowerCase()
+                        .replace(/ /g, '-')}`
+                    "
                   >
-                    Recebimento de resíduos de construção civil
-                  </nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link to="/servicos/2/areia-e-agregados-reciclados">
-                    Areia e agregados reciclados
-                  </nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link to="/servicos/3/coleta-de-resíduos">
-                    Coleta de resíduos
-                  </nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link
-                    to="/servicos/4/fabricacao-de-artefatos-de-concreto"
-                  >
-                    Fabricação de artefatos de concreto
-                  </nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link to="/servicos/5/reforma-e-construcao">
-                    Reforma e Construção
-                  </nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link to="/servicos/6/demolicao">
-                    Demolição
+                    {{ service.title.rendered }}
                   </nuxt-link>
                 </li>
               </ul>

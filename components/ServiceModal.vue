@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="show" :size="modalSize">
+  <b-modal ref="service-modal" hide-footer hide-header :size="modalSize">
     <a
       class="close-service-modal"
       href="#"
@@ -8,31 +8,36 @@
     >
 
     <b-row class="service-content-wrapper content-theme --dark">
-      <b-col class="col-service-text p-0">
-        <perfect-scrollbar class="service-text">
-          <h2>{{ service.title }}</h2>
-          <p v-html="service.content"></p>
-        </perfect-scrollbar>
-      </b-col>
+      <p v-if="$fetchState.pending" class="w-100 p-5 text-center">
+        <img src="~/assets/img/loading.svg" alt="" />
+      </p>
+      <template v-else>
+        <b-col class="col-service-text p-0">
+          <PerfectScrollbar class="service-text">
+            <h2>{{ serviceContent.title }}</h2>
+            <p v-html="serviceContent.content"></p>
+          </PerfectScrollbar>
+        </b-col>
 
-      <b-col class="col-service-photos">
-        <div class="row-service-photos --line1">
-          <div class="service-icon">
-            <img :src="service.icon" :alt="service.title" />
+        <b-col class="col-service-photos">
+          <div class="row-service-photos --line1">
+            <div class="service-icon">
+              <img :src="serviceContent.icon" :alt="serviceContent.title" />
+            </div>
+
+            <div class="service-img-1" v-lazy-container="{ selector: 'img' }">
+              <img class="service-photo" :data-src="serviceContent.img1" />
+            </div>
           </div>
 
-          <div class="service-img-1" v-lazy-container="{ selector: 'img' }">
-            <img class="service-photo" :data-src="service.img1" />
+          <div
+            class="row-service-photos --line2"
+            v-lazy-container="{ selector: 'img' }"
+          >
+            <img class="service-photo" :data-src="serviceContent.img2" />
           </div>
-        </div>
-
-        <div
-          class="row-service-photos --line2"
-          v-lazy-container="{ selector: 'img' }"
-        >
-          <img class="service-photo" :data-src="service.img2" />
-        </div>
-      </b-col>
+        </b-col>
+      </template>
     </b-row>
   </b-modal>
 </template>
@@ -45,27 +50,32 @@ export default {
     PerfectScrollbar
   },
   props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    service: Object
+    serviceId: { type: Number, default: 0 }
   },
   data() {
     return {
-      modalSize: "lg"
+      modalSize: "xl",
+      serviceContent: {}
     };
   },
+  async fetch() {
+    const serviceContent = await this.$axios.get(this.serviceId.toString());
+    this.serviceContent.title = serviceContent.data.title.rendered;
+    this.serviceContent.content = serviceContent.data.content.rendered;
+    this.serviceContent.icon = serviceContent.data.acf.icone;
+    this.serviceContent.img1 = serviceContent.data.acf.foto_quadrada;
+    this.serviceContent.img2 = serviceContent.data.acf.foto_paisagem;
+  },
   mounted() {
+    this.$refs["service-modal"].show();
+
     const windowSize = Math.max(
       document.documentElement.clientWidth || 0,
       window.innerWidth || 0
     );
 
-    if (windowSize >= 1800) {
+    if (windowSize >= 1200) {
       this.modalSize = "xl";
-    } else if (windowSize >= 1200) {
-      this.modalSize = "lg";
     } else {
       this.modalSize = "md";
     }
@@ -76,10 +86,8 @@ export default {
         window.innerWidth || 0
       );
 
-      if (windowSize >= 1800) {
+      if (windowSize >= 1200) {
         this.modalSize = "xl";
-      } else if (windowSize >= 1200) {
-        this.modalSize = "lg";
       } else {
         this.modalSize = "md";
       }
@@ -107,10 +115,6 @@ export default {
 .service-content-wrapper {
   flex-direction: column-reverse;
 
-  @media (max-width: 600px) {
-    height: 100vh;
-  }
-
   @media (min-width: 601px) {
     border: solid $dark-title;
     border-radius: 3px;
@@ -118,11 +122,6 @@ export default {
 
   @media (min-width: 1200px) {
     flex-direction: row;
-  }
-
-  .col-service-photos,
-  .col-service-text > .service-text {
-    min-width: 412px;
   }
 
   .col-service-photos {
@@ -140,9 +139,12 @@ export default {
         width: 100%;
 
         img.service-photo {
-          height: 206px;
+          @media (min-width: 1200px) {
+            height: 290px;
+          }
+
           width: 100%;
-          background: url("../assets/img/loading.svg") no-repeat center center;
+          background: url("~assets/img/loading.svg") no-repeat center center;
           background-size: 30px;
         }
       }
@@ -171,12 +173,11 @@ export default {
 
   .col-service-text {
     .service-text {
-      max-height: 412px;
-
       padding: 38px;
 
       @media (min-width: 1200px) {
-        padding: 71px;
+        padding: 81px;
+        max-height: 580px;
       }
 
       p {
@@ -189,36 +190,33 @@ export default {
 
 <style lang="scss">
 @media (max-width: 600px) {
-  .modal {
-    padding-left: 0 !important;
-    margin-top: -1px;
-  }
-
   .modal-dialog {
-    width: 100%;
-    max-width: 100%;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    margin: 0 !important;
+    max-width: 100vw;
+    margin: 0;
   }
+  // .modal {
+  //   padding-left: 0 !important;
+  //   margin-top: -1px;
+  // }
 
-  .modal-content {
-    height: 100vh;
-  }
+  // .modal-dialog {
+  //   width: 100%;
+  //   max-width: 100%;
+  //   top: 0;
+  //   left: 0;
+  //   height: 100vh;
+  //   margin: 0 !important;
+  // }
+
+  // .modal-content {
+  //   height: 100vh;
+  // }
 }
 .modal-content {
   background: $dark-background;
 
-  .modal-header {
-    display: none !important;
-  }
   .modal-body {
     padding: 0;
-  }
-
-  .modal-footer {
-    display: none !important;
   }
 }
 </style>

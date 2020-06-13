@@ -125,7 +125,7 @@ body {
     .page-footer-highlight-content {
       width: 100%;
       @media (min-width: 992px) {
-        padding: 0 3rem 80px;
+        padding: 0 3rem 80px !important;
       }
 
       .container {

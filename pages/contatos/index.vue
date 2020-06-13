@@ -8,7 +8,7 @@
       <b-container>
         <b-row
           class="unity-row mt-4"
-          v-for="unity in state.unitiesList"
+          v-for="unity in unitiesList"
           :key="unity.id"
         >
           <b-col class="unity-pin">
@@ -158,23 +158,31 @@ import AppFooter from "~/components/AppFooter";
 
 export default {
   components: { PageHero, ScrollTopButton, AppFooter },
+  async asyncData({ $axios }) {
+    const params = { categories: "4" };
+    const { data: unitiesList } = await $axios.get("", {
+      params
+    });
+
+    try {
+      return {
+        unitiesList: unitiesList.map(unity => {
+          return {
+            id: unity.id,
+            name: unity.title.rendered,
+            address: unity.acf.endereco,
+            city: unity.acf.cidade,
+            phone: unity.acf.telefone
+          };
+        })
+      };
+    } catch (e) {
+      return {};
+    }
+  },
   data() {
     return {
       state: {
-        unitiesList: [
-          {
-            name: "Unidade Osasco",
-            address: "Rua São Bento, 555",
-            city: "Osasco - SP",
-            phone: "11 3607-4071"
-          },
-          {
-            name: "Unidade Osasco",
-            address: "Rua São Bento, 555",
-            city: "Osasco - SP",
-            phone: "11 3607-4071"
-          }
-        ],
         form: {
           name: "",
           phone: "",
@@ -187,7 +195,8 @@ export default {
         resultMessage: "",
         showResponsiveImg: true,
         mapHeight: 300
-      }
+      },
+      unitiesList: []
     };
   },
   computed: {
