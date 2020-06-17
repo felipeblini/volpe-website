@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 export default {
   mode: 'universal',
   /*
@@ -8,7 +10,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { name: 'robots', content: 'index, follow' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -47,13 +49,54 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
+    '@nuxtjs/sitemap',
+    'nuxt-webfontloader',
+    '@nuxtjs/google-analytics',
+    '@nuxtjs/robots',
+    '@nuxtjs/device',
+    '@nuxt/http',
   ],
+
+  sitemap: {
+    hostname: "https://volpeambiental.com.br",
+    routes: async () => {
+      const { data: servicesData } = await axios.get("https://volpeambiental.com.br/wp-json/wp/v2/posts?categories=2");
+
+      console.log({ servicesData });
+
+      return servicesData.map(service => {
+        console.log({ service });
+        return {
+          url: `/servicos/${service.id}/${service.title.rendered
+            .toLowerCase()
+            .replace(/ /g, '-')}`,
+          priority: 0.9,
+          lastmod: service.date
+        }
+      });
+    }
+  },
+
+  webfontloader: {
+    google: {
+      families: ["Raleway:400,900"]
+    }
+  },
+
+  googleAnalytics: {
+    id: "UA-169431629-1"
+  },
+
+  robots: {
+    UserAgent: "*",
+    Allow: "/",
+    Sitemap: "http://volpeambiental.com.br/sitemap.xml"
+  },
+
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -67,10 +110,14 @@ export default {
   serverMiddleware: [
     '~/api/contact',
   ],
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/site/'
+    : '/',
   /*
   ** Build configuration
   */
   build: {
+    // publicPath: 'http://volpeambiental.com.br/site',
     babel: {
       presets({ isServer }) {
         return [

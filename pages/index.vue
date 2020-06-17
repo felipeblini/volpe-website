@@ -120,6 +120,7 @@ export default {
       const { data } = await $axios.get("", { params });
 
       const splitRendered = data[0].content.rendered.split(/\n\n\n\n/);
+      const pageSEO = data[0].acf;
 
       return {
         firstTextBlock: splitRendered[0],
@@ -130,7 +131,9 @@ export default {
         pageSlogan: splitRendered[5],
         footerTextBlock: splitRendered[6],
         buttonText: splitRendered[7].split("buttonText:")[1].trim(),
-        buttonLink: splitRendered[8].split("buttonLink:")[1].trim()
+        buttonLink: splitRendered[8].split("buttonLink:")[1].trim(),
+        pageTitle: pageSEO.page_title,
+        pageDescription: pageSEO.page_description
       };
     } catch (e) {
       return {};
@@ -149,7 +152,24 @@ export default {
       pageSlogan: "",
       footerTextBlock: "",
       buttonText: "",
-      buttonLink: ""
+      buttonLink: "",
+      pageTitle: "",
+      pageDescription: ""
+    };
+  },
+  /*
+   ** Headers of the page
+   */
+  head() {
+    return {
+      title: this.pageTitle,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.pageDescription
+        }
+      ]
     };
   },
   computed: {

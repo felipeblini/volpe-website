@@ -99,8 +99,10 @@
           </b-row>
         </b-col>
       </b-row>
-      <b-row class="justify-content-end my-4">
-        <small>Copyright | {{ new Date().getFullYear() }}</small>
+      <b-row class="my-4">
+        <b-col class="text-right">
+          <small>Copyright | {{ new Date().getFullYear() }}</small>
+        </b-col>
       </b-row>
     </b-container>
   </div>

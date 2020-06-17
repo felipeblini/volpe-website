@@ -68,7 +68,7 @@
   }
 
   a.navbar-brand {
-    @include nav-brand-link(91px, 35px, 220px, 85px);
+    @include nav-brand-link(126px, 52px, 220px, 85px);
     filter: grayscale(100%);
     @media (min-width: 768px) {
       margin-top: 40px;

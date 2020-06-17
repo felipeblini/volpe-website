@@ -60,6 +60,7 @@ export default {
   },
   async fetch() {
     const serviceContent = await this.$axios.get(this.serviceId.toString());
+
     this.serviceContent.title = serviceContent.data.title.rendered;
     this.serviceContent.content = serviceContent.data.content.rendered;
     this.serviceContent.icon = serviceContent.data.acf.icone;
@@ -194,23 +195,6 @@ export default {
     max-width: 100vw;
     margin: 0;
   }
-  // .modal {
-  //   padding-left: 0 !important;
-  //   margin-top: -1px;
-  // }
-
-  // .modal-dialog {
-  //   width: 100%;
-  //   max-width: 100%;
-  //   top: 0;
-  //   left: 0;
-  //   height: 100vh;
-  //   margin: 0 !important;
-  // }
-
-  // .modal-content {
-  //   height: 100vh;
-  // }
 }
 .modal-content {
   background: $dark-background;

@@ -4,10 +4,10 @@
 
     <div
       id="sobre"
-      class="page-main-content --quemsomos content-theme --light py-5"
+      class="page-main-content --quemsomos content-theme --light py-2"
     >
       <b-container>
-        <b-row class="mt-5">
+        <b-row class="mt-4">
           <b-col class="content-center">
             <p class="text-left --bigger">
               {{ firstTextBlock }}
@@ -122,6 +122,7 @@ export default {
       const { data } = await $axios.get("", { params });
 
       const splitRendered = data[0].content.rendered.split(/\n\n\n\n/);
+      const pageSEO = data[0].acf;
 
       return {
         firstTextBlock: splitRendered[0],
@@ -131,7 +132,9 @@ export default {
         pageSlogan: splitRendered[4],
         footerTextBlock: splitRendered[5],
         buttonText: splitRendered[6].split("buttonText:")[1].trim(),
-        buttonLink: splitRendered[7].split("buttonLink:")[1].trim()
+        buttonLink: splitRendered[7].split("buttonLink:")[1].trim(),
+        pageTitle: pageSEO.page_title,
+        pageDescription: pageSEO.page_description
       };
     } catch (e) {
       return {};
@@ -149,13 +152,31 @@ export default {
       pageSlogan: "",
       footerTextBlock: "",
       buttonText: "",
-      buttonLink: ""
+      buttonLink: "",
+      pageTitle: "",
+      pageDescription: ""
     };
   },
   computed: {
     contentImgSizesSet() {
       return require(`~/assets/img/quemsomos/capacete.png?resize&sizes[]=450&sizes[]=680&sizes[]=979`);
     }
+  },
+
+  /*
+   ** Headers of the page
+   */
+  head() {
+    return {
+      title: this.pageTitle,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.pageDescription
+        }
+      ]
+    };
   },
   mounted() {
     window.addEventListener("resize", () => {
@@ -180,6 +201,11 @@ export default {
 
   .content-box-container {
     max-width: 370px;
+    padding-left: 30px;
+
+    @media (min-width: 411px) {
+      padding-left: 15px;
+    }
 
     @media (min-width: 768px) {
       max-width: 504px;

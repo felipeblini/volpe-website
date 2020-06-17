@@ -4,7 +4,7 @@
     <ServiceModal
       v-if="openedService.id"
       :serviceId="openedService.id"
-      @popup-close="openedService = {}"
+      @popup-close="openServiceModal({})"
     />
 
     <div
@@ -12,9 +12,10 @@
       class="page-main-content --servicos content-theme --dark py-5"
     >
       <b-container>
-        <b-row class="mt-5 align-items-center">
+        <b-row class="align-items-center">
           <b-col lg="6">
             <p class="text-left --bigger">
+              {{ $device.isMobileOrTablet }}
               {{ firstTextBlock }}
             </p>
           </b-col>
@@ -46,6 +47,7 @@
             v-for="service in servicesList"
             :key="service.id"
             :id="`service-${service.id}`"
+            @click="openedService = service"
           >
             <div class="p-4">
               <img
@@ -123,59 +125,45 @@ export default {
     AppFooter,
     ServiceModal
   },
-  async asyncData({ $axios }) {
-    let pageContent = {};
+  async asyncData({ $axios, params }) {
+    let pageContent;
 
     try {
       const requestParams = { slug: "servicos" };
       const { data } = await $axios.get("", { params: requestParams });
 
       const splitRendered = data[0].content.rendered.split(/\n\n\n\n/);
+      const pageSEO = data[0].acf;
 
       const firstTextBlock = splitRendered[0];
       const pageSlogan = splitRendered[1];
       const footerTextBlock = splitRendered[2];
       const buttonText = splitRendered[3].split("buttonText:")[1].trim();
       const buttonLink = splitRendered[4].split("buttonLink:")[1].trim();
+      const pageTitle = pageSEO.page_title;
+      const pageDescription = pageSEO.page_description;
 
-      pageContent = Object.assign(pageContent, {
+      pageContent = {
         firstTextBlock,
         pageSlogan,
         footerTextBlock,
         buttonText,
-        buttonLink
-      });
+        buttonLink,
+        pageTitle,
+        pageDescription
+      };
     } catch (e) {
-      console.log({ e });
+      pageContent = {};
     }
 
-    // const servicesRequestParams = { categories: "2" };
-    // const { data: servicesData } = await $axios.get("", {
-    //   params: servicesRequestParams
-    // });
+    if (params.id) {
+      const serviceContent = await $axios.get(params.id);
 
-    // const servicesList = servicesData
-    //   .filter(x => !x.content.protected)
-    //   .map(service => {
-    //     return {
-    //       id: service.id,
-    //       title: service.title.rendered.trim(),
-    //       excerpt: service.excerpt.rendered,
-    //       icon: service.acf.icone
-    //     };
-    //   })
-    //   .reverse();
-
-    // let openedService = {};
-
-    // if (params.id) {
-    //   openedService = servicesList.filter(x => x.id == params.id)[0] || {};
-    // }
-
-    // pageContent = Object.assign(pageContent, {
-    //   servicesList,
-    //   openedService
-    // });
+      pageContent = Object.assign(pageContent, {
+        pageTitle: serviceContent.data.title.rendered,
+        pageDescription: serviceContent.data.acf.page_description
+      });
+    }
 
     return pageContent;
   },
@@ -189,8 +177,9 @@ export default {
       footerTextBlock: "",
       buttonText: "",
       buttonLink: "",
-      // servicesList: "",
-      openedService: {}
+      openedService: {},
+      pageTitle: "",
+      pageDescription: ""
     };
   },
   computed: {
@@ -208,6 +197,38 @@ export default {
             icon: service.acf.icone
           };
         });
+    }
+  },
+
+  /*
+   ** Headers of the page
+   */
+  head() {
+    return {
+      title: this.pageTitle,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.pageDescription
+        }
+      ]
+    };
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (this.$device.isMobileOrTablet && this.openedService.id != undefined) {
+      this.openedService = {};
+      next(false);
+    } else {
+      next();
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.$device.isMobileOrTablet && this.openedService.id != undefined) {
+      this.openedService = {};
+      next(false);
+    } else {
+      next();
     }
   },
   mounted() {
@@ -229,7 +250,6 @@ export default {
   methods: {
     openServiceModal(service) {
       this.openedService = service;
-      console.log({ openedService: this.openedService.id });
     }
   }
 };

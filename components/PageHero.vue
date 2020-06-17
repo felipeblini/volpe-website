@@ -127,11 +127,13 @@ $parallax-mobile-height: 70vh;
         background-size: contain;
         background-repeat: no-repeat;
         background-image: url("~assets/img/volpe_logotipo.png");
+        background-position-y: center;
 
         max-width: 879px;
 
         width: 80%;
         height: 225px;
+        align-items: center;
 
         @media (min-width: 768px) {
           width: 70%;

@@ -39,9 +39,11 @@
             />
           </b-col>
         </b-row>
-        <b-row class="mt-5">
+
+        <b-row>
           <b-col>
             <b-alert
+              class="mt-5"
               v-model="state.resultDone"
               :variant="state.resultStatus"
               dismissible
@@ -51,7 +53,7 @@
           </b-col>
         </b-row>
 
-        <b-row class="mt-5 form-row">
+        <b-row class="form-row mt-4">
           <b-col cols="4" class="contact-logo-wrapper">
             <img src="" alt="" />
           </b-col>
@@ -60,37 +62,43 @@
             <h1 class="--bigger --bold mb-5">Fale com a Volpe</h1>
 
             <form @submit="onSubmit">
-              <b-form-group
-                id="input-group-name"
-                label="Nome:"
-                label-for="input-name"
-              >
-                <b-form-input
-                  id="input-name"
-                  ref="name"
-                  v-model="state.form.name"
-                  required
-                  placeholder="Nome"
-                  oninvalid="this.setCustomValidity('Por favor informe seu nome')"
-                  oninput="setCustomValidity('')"
-                ></b-form-input>
-              </b-form-group>
+              <b-row>
+                <b-col md="6">
+                  <b-form-group
+                    id="input-group-name"
+                    label="Nome:"
+                    label-for="input-name"
+                  >
+                    <b-form-input
+                      id="input-name"
+                      ref="name"
+                      v-model="state.form.name"
+                      required
+                      placeholder="Nome"
+                      oninvalid="this.setCustomValidity('Por favor informe seu nome')"
+                      oninput="setCustomValidity('')"
+                    ></b-form-input>
+                  </b-form-group>
+                </b-col>
 
-              <b-form-group
-                id="input-group-phone"
-                label="Telefone:"
-                label-for="input-phone"
-              >
-                <b-form-input
-                  id="input-phone"
-                  ref="phone"
-                  v-model="state.form.phone"
-                  required
-                  placeholder="Telefone"
-                  oninvalid="this.setCustomValidity('Por favor informe seu telefone')"
-                  oninput="setCustomValidity('')"
-                ></b-form-input>
-              </b-form-group>
+                <b-col class="pl-md-0">
+                  <b-form-group
+                    id="input-group-phone"
+                    label="Telefone:"
+                    label-for="input-phone"
+                  >
+                    <b-form-input
+                      id="input-phone"
+                      ref="phone"
+                      v-model="state.form.phone"
+                      required
+                      placeholder="Telefone"
+                      oninvalid="this.setCustomValidity('Por favor informe seu telefone')"
+                      oninput="setCustomValidity('')"
+                    ></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-row>
 
               <b-form-group
                 id="input-group-email"
@@ -133,7 +141,7 @@
                   :disabled="!isFormValid()"
                   class="volpe-btn"
                 >
-                  {{ state.sendingEmail ? "Enviando, aguarde..." : "Enviar" }}
+                  {{ state.sendingEmail ? "Enviando..." : "Enviar" }}
                 </button>
 
                 <ScrollTopButton class="d-md-none" />
@@ -159,26 +167,45 @@ import AppFooter from "~/components/AppFooter";
 export default {
   components: { PageHero, ScrollTopButton, AppFooter },
   async asyncData({ $axios }) {
-    const params = { categories: "4" };
-    const { data: unitiesList } = await $axios.get("", {
-      params
-    });
+    let unitiesList, pageTitle, pageDescription;
 
     try {
-      return {
-        unitiesList: unitiesList.map(unity => {
-          return {
-            id: unity.id,
-            name: unity.title.rendered,
-            address: unity.acf.endereco,
-            city: unity.acf.cidade,
-            phone: unity.acf.telefone
-          };
-        })
-      };
+      const params = { categories: "4" };
+      const { data } = await $axios.get("", {
+        params
+      });
+
+      unitiesList = data.map(unity => {
+        return {
+          id: unity.id,
+          name: unity.title.rendered,
+          address: unity.acf.endereco,
+          city: unity.acf.cidade,
+          phone: unity.acf.telefone
+        };
+      });
     } catch (e) {
-      return {};
+      unitiesList = [];
     }
+
+    try {
+      const params = { slug: "contato" };
+      const { data } = await $axios.get("", {
+        params
+      });
+
+      pageTitle = data[0].acf.page_title;
+      pageDescription = data[0].acf.page_description;
+    } catch (e) {
+      pageTitle = "";
+      pageDescription = "";
+    }
+
+    return {
+      unitiesList,
+      pageTitle,
+      pageDescription
+    };
   },
   data() {
     return {
@@ -196,7 +223,24 @@ export default {
         showResponsiveImg: true,
         mapHeight: 300
       },
-      unitiesList: []
+      unitiesList: [],
+      pageTitle: "",
+      pageDescription: ""
+    };
+  },
+  /*
+   ** Headers of the page
+   */
+  head() {
+    return {
+      title: this.pageTitle,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.pageDescription
+        }
+      ]
     };
   },
   computed: {
@@ -264,31 +308,31 @@ export default {
       this.state.sendingEmail = true;
       this.$nuxt.$loading.start();
 
-      this.$axios.post("/api/contact", { ...this.state.form }).then(res => {
+      this.$http.post("/api/contact", { ...this.state.form }).then(res => {
         this.state.resultMessage =
           res.status === 200
             ? "<b>Mensagem enviada com sucesso!</b><br /><small>Logo entraremos em contato. Obrigado</small>"
-            : `<b>Algo deu errado :(</b><small><br>Por favor, entre em contato conosco pelo telefone <b>${this.$store.state.phone}</b></small><br><small>Ou tente novamente</small>`;
+            : `<b>Algo deu errado :(</b><small><br>Por favor, entre em contato conosco pelo telefone <br /><b>${this.$store.state.phone}</b></small><br><small>Ou tente novamente</small>`;
 
-        this.state.resultStatus = res.status === 200 ? "success" : "warning";
+        this.state.resultStatus = res.status === 200 ? "success" : "danger";
 
         if (res.status === 200) {
           this.state.form.name = "";
           this.state.form.phone = "";
           this.state.form.email = "";
           this.state.form.msg = "";
+
+          document.querySelectorAll(".form-control").forEach(formControl => {
+            formControl.classList.remove("dirty");
+            const groupId = `#input-group-${formControl.id.split("-")[1]}`;
+            const inputGroup = document.querySelector(groupId);
+            inputGroup.classList.remove("has-value");
+          });
         }
 
         this.state.sendingEmail = false;
         this.state.resultDone = true;
         this.$nuxt.$loading.finish();
-
-        document.querySelectorAll(".form-control").forEach(formControl => {
-          formControl.classList.remove("dirty");
-          const groupId = `#input-group-${formControl.id.split("-")[1]}`;
-          const inputGroup = document.querySelector(groupId);
-          inputGroup.classList.remove("has-value");
-        });
       });
     }
   }
@@ -296,7 +340,7 @@ export default {
 </script>
 
 <style lang="scss">
-.contact-form {
+.contact-form-wrapper {
   form {
     .form-group {
       position: relative;
@@ -307,6 +351,10 @@ export default {
         top: 12px;
         left: 28px;
         transition: all 0.25;
+      }
+
+      textarea {
+        padding-top: 40px !important;
       }
 
       &:focus-within {
@@ -329,10 +377,6 @@ export default {
             padding-left: 60px;
           }
         }
-
-        textarea {
-          padding-top: 40px;
-        }
       }
 
       &.has-value {
@@ -354,10 +398,6 @@ export default {
           &#input-email {
             padding-left: 60px;
           }
-        }
-
-        textarea:not(:placeholder-shown) {
-          padding-top: 40px;
         }
       }
     }
@@ -569,21 +609,21 @@ export default {
         -ms-overflow-style: none;
       }
 
-      @media (min-width: 992px) {
-        #input-group-name,
-        #input-group-phone {
-          float: left;
-          width: 50%;
-        }
+      // @media (min-width: 992px) {
+      //   #input-group-name,
+      //   #input-group-phone {
+      //     float: left;
+      //     width: 50%;
+      //   }
 
-        #input-group-name {
-          padding-right: 15px;
-        }
+      //   #input-group-name {
+      //     padding-right: 15px;
+      //   }
 
-        #input-group-phone {
-          padding-left: 15px;
-        }
-      }
+      //   #input-group-phone {
+      //     padding-left: 15px;
+      //   }
+      // }
     }
   }
 }
