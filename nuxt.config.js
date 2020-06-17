@@ -32,41 +32,14 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/vue-lazyload', ssr: false },
     { src: '~/plugins/global-scripts', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    '@aceforth/nuxt-optimized-images',
-    // '@nuxt/typescript-build'
   ],
 
-  optimizedImages: {
-    inlineImageLimit: -1,
-    handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
-    optimizeImages: true,
-    optimizeImagesInDev: false,
-    defaultImageLoader: 'img-loader',
-    mozjpeg: {
-      progressive: true,
-      quality: 55
-    },
-    // optipng.enabled: false will disable optipng
-    optipng: false,
-    pngquant: {
-      quality: [0.65, 0.90],
-      speed: 4
-    },
-    gifsicle: {
-      interlaced: false,
-    },
-    // the webp option will enable WEBP
-    webp: {
-      quality: 75
-    }
-  },
   /*
   ** Nuxt.js modules
   */

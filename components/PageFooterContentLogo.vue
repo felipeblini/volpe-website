@@ -1,11 +1,7 @@
 <template>
   <div class="logo-wrapper" v-if="showResponsiveHighlightLogo">
     <b-container>
-      <img
-        :srcSet="footerLogoImgSizesSet.srcSet"
-        :src="footerLogoImgSizesSet.src"
-        alt=""
-      />
+      <img :src="footerLogoImgSizesSet" class="lazyload" alt="" />
     </b-container>
   </div>
 </template>
@@ -21,10 +17,7 @@ export default {
     footerLogoImgSizesSet() {
       return require(`~/assets/img/${this.$route.name
         .split("-")[0]
-        .replace(
-          /\//gm,
-          ""
-        )}/highlight-logo.jpg?resize&sizes[]=450&sizes[]=680&sizes[]=900&sizes[]=1306`);
+        .replace(/\//gm, "")}/highlight-logo.jpg`);
     }
   },
   mounted() {

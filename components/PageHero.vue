@@ -14,14 +14,11 @@
       <h1>{{ pageTitle }}</h1>
     </div>
 
-    <div
-      class="parallax-image"
-      v-if="showParallax"
-      v-lazy-container="{ selector: 'img' }"
-    >
+    <div class="parallax-image" v-if="showParallax">
       <client-only>
         <parallax :speed-factor="0.5">
           <img
+            class="lazyload"
             :data-srcSet="imagesSizesSet.srcSet"
             :data-src="imagesSizesSet.src"
             :data-loading="

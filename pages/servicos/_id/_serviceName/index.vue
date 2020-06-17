@@ -20,16 +20,11 @@
             </p>
           </b-col>
 
-          <b-col
-            lg="6"
-            class="img-responsive-wrapper text-center"
-            v-lazy-container="{ selector: 'img' }"
-          >
+          <b-col lg="6" class="img-responsive-wrapper text-center">
             <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="contentImgSizesSet.srcSet"
-              :data-src="contentImgSizesSet.src"
-              :data-loading="require(`~/assets/img/servicos/britador.png?lqip`)"
+              :data-src="contentImgSizesSet"
+              class="lazyload"
               alt=""
             />
           </b-col>
@@ -184,7 +179,7 @@ export default {
   },
   computed: {
     contentImgSizesSet() {
-      return require(`~/assets/img/servicos/britador.png?resize&sizes[]=450&sizes[]=612`);
+      return require(`~/assets/img/servicos/britador.png`);
     },
     servicesList() {
       return this.$store.state.servicesList

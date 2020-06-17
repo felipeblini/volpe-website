@@ -11,16 +11,11 @@
             </p>
           </b-col>
         </b-row>
-        <b-row
-          class="img-responsive-wrapper"
-          v-lazy-container="{ selector: 'img' }"
-        >
+        <b-row class="img-responsive-wrapper">
           <b-col class="content-center">
             <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="contentImgSizesSet.srcSet"
-              :data-src="contentImgSizesSet.src"
-              :data-loading="require(`~/assets/img/index/cacamba.png?lqip`)"
+              :data-src="contentImgSizesSet"
               alt=""
             />
           </b-col>
@@ -42,7 +37,11 @@
         <ul class="row content-list my-5 justify-content-center">
           <li class="col-lg-4">
             <div class="p-4">
-              <img src="~assets/img/index/atividade-1.svg" alt="" />
+              <img
+                class="lazyload"
+                src="~assets/img/index/atividade-1.svg"
+                alt=""
+              />
               <h3 class="--bold mt-3">{{ activity1 }}</h3>
             </div>
           </li>
@@ -174,7 +173,7 @@ export default {
   },
   computed: {
     contentImgSizesSet() {
-      return require(`~/assets/img/index/cacamba.png?resize&sizes[]=450&sizes[]=680&sizes[]=825`);
+      return require("~/assets/img/index/cacamba.png");
     }
   },
   mounted() {

@@ -1,12 +1,9 @@
 <template>
-  <div
-    v-if="showParallax"
-    class="parallax-container"
-    v-lazy-container="{ selector: 'img' }"
-  >
+  <div v-if="showParallax" class="parallax-container">
     <client-only>
       <parallax :fixed="true" :speed-factor="0.5">
         <img
+          class="lazyload"
           :style="{
             backgroundColor: require(`~/assets/img/${$route.name
               .split('-')[0]
