@@ -26,18 +26,12 @@
             </div>
 
             <div class="service-img-1">
-              <img
-                class="service-photo lazyload"
-                :data-src="serviceContent.img1"
-              />
+              <img class="service-photo lazyload" :src="serviceContent.img1" />
             </div>
           </div>
 
           <div class="row-service-photos --line2">
-            <img
-              class="service-photo lazyload"
-              :data-src="serviceContent.img2"
-            />
+            <img class="service-photo lazyload" :src="serviceContent.img2" />
           </div>
         </b-col>
       </template>

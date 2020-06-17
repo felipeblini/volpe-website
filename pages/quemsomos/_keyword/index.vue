@@ -36,11 +36,16 @@
         </b-container>
 
         <b-row class="img-responsive-wrapper mt-5">
-          <b-col class="content-center">
+          <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
               v-if="state.showResponsiveImg"
-              :data-src="contentImgSizesSet"
-              class="lazyload"
+              :data-srcSet="
+                require('~/assets/img/quemsomos/capacete.png').srcSet
+              "
+              :data-src="require('~/assets/img/quemsomos/capacete.png')"
+              :data-loading="
+                require('~/assets/img/quemsomos/capacete.png').placeholder
+              "
             />
           </b-col>
         </b-row>

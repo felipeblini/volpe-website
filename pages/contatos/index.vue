@@ -26,19 +26,15 @@
         </b-row>
 
         <b-row class="img-responsive-wrapper mt-5">
-          <b-col class="content-center">
+          <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
-              :data-src="require(`~/assets/img/contatos/truck.png`)"
-              class="lazyload"
-              alt=""
-            />
-            <!-- <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="contentImgSizesSet.srcSet"
-              :data-src="contentImgSizesSet.src"
-              :data-loading="require(`~/assets/img/contatos/truck.png?lqip`)"
-              alt=""
-            /> -->
+              :data-srcSet="require('~/assets/img/contatos/truck.png').srcSet"
+              :data-src="require('~/assets/img/contatos/truck.png')"
+              :data-loading="
+                require('~/assets/img/contatos/truck.png').placeholder
+              "
+            />
           </b-col>
         </b-row>
 
@@ -244,11 +240,6 @@ export default {
         }
       ]
     };
-  },
-  computed: {
-    // contentImgSizesSet() {
-    //   return require(`~/assets/img/contatos/truck.png?resize&sizes[]=450&sizes[]=680&sizes[]=876`);
-    // }
   },
   mounted() {
     const windowSize = Math.max(
@@ -561,8 +552,7 @@ export default {
       }
 
       display: block;
-      background: url("~assets/img/contatos/logo-vertical.png?webp") no-repeat
-        center;
+      background: url("~assets/img/contatos/logo-vertical.png") no-repeat center;
       background-size: contain;
     }
   }

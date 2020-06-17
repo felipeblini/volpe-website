@@ -1,21 +1,15 @@
 <template>
-  <div v-if="showParallax" class="parallax-container">
+  <div
+    v-if="showParallax"
+    class="parallax-container"
+    v-lazy-container="{ selector: 'img' }"
+  >
     <client-only>
       <parallax :fixed="true" :speed-factor="0.5">
         <img
-          class="lazyload"
-          :style="{
-            backgroundColor: require(`~/assets/img/${$route.name
-              .split('-')[0]
-              .replace(/\//gm, '')}/slogan-background.jpg?lqip-colors`)[0]
-          }"
-          :data-srcSet="imagesSizesSet.srcSet"
-          :data-src="imagesSizesSet.src"
-          :data-loading="
-            require(`~/assets/img/${$route.name
-              .split('-')[0]
-              .replace(/\//gm, '')}/slogan-background.jpg?lqip`)
-          "
+          :data-src="sloganImage"
+          :data-srcSet="sloganImageSizesSet"
+          :data-loading="sloganPlaceholder"
         />
       </parallax>
     </client-only>
@@ -33,13 +27,20 @@ export default {
     return { showParallax: true };
   },
   computed: {
-    imagesSizesSet() {
+    sloganImage() {
       return require(`~/assets/img/${this.$route.name
         .split("-")[0]
-        .replace(
-          /\//gm,
-          ""
-        )}/slogan-background.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=900&sizes[]=1200&sizes[]=1500&sizes[]=1800&sizes[]=1920`);
+        .replace(/\//gm, "")}/slogan-background.jpg`);
+    },
+    sloganImageSizesSet() {
+      return require(`~/assets/img/${this.$route.name
+        .split("-")[0]
+        .replace(/\//gm, "")}/slogan-background.jpg`).srcSet;
+    },
+    sloganPlaceholder() {
+      return require(`~/assets/img/${this.$route.name
+        .split("-")[0]
+        .replace(/\//gm, "")}/slogan-background.jpg`).placeholder;
     }
   },
   mounted() {

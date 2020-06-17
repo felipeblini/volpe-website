@@ -12,16 +12,19 @@
           </b-col>
         </b-row>
         <b-row class="img-responsive-wrapper">
-          <b-col class="content-center">
+          <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
               v-if="state.showResponsiveImg"
-              :data-src="contentImgSizesSet"
-              alt=""
+              :data-srcSet="require('~/assets/img/index/cacamba.png').srcSet"
+              :data-src="require('~/assets/img/index/cacamba.png')"
+              :data-loading="
+                require('~/assets/img/index/cacamba.png').placeholder
+              "
             />
           </b-col>
         </b-row>
 
-        <b-row class="mt-5">
+        <b-row class="mt-3">
           <b-col class="text-center">
             <h2 class="--bold">Nossa Atuação</h2>
           </b-col>
@@ -36,24 +39,29 @@
 
         <ul class="row content-list my-5 justify-content-center">
           <li class="col-lg-4">
-            <div class="p-4">
+            <div class="p-4" v-lazy-container="{ selector: 'img' }">
               <img
-                class="lazyload"
-                src="~assets/img/index/atividade-1.svg"
-                alt=""
+                :data-src="require('~/assets/img/index/atividade-1.svg')"
+                :alt="activity1"
               />
               <h3 class="--bold mt-3">{{ activity1 }}</h3>
             </div>
           </li>
           <li class="col-lg-4">
-            <div class="p-4">
-              <img src="~/assets/img/index/atividade-2.svg" alt="" />
+            <div class="p-4" v-lazy-container="{ selector: 'img' }">
+              <img
+                :data-src="require('~/assets/img/index/atividade-2.svg')"
+                :alt="activity2"
+              />
               <h3 class="--bold mt-3">{{ activity2 }}</h3>
             </div>
           </li>
           <li class="col-lg-4">
-            <div class="p-4">
-              <img src="~/assets/img/index/atividade-3.svg" alt="" />
+            <div class="p-4" v-lazy-container="{ selector: 'img' }">
+              <img
+                :data-src="require('~/assets/img/index/atividade-2.svg')"
+                :alt="activity3"
+              />
               <h3 class="--bold mt-3">{{ activity3 }}</h3>
             </div>
           </li>
@@ -170,11 +178,6 @@ export default {
         }
       ]
     };
-  },
-  computed: {
-    contentImgSizesSet() {
-      return require("~/assets/img/index/cacamba.png");
-    }
   },
   mounted() {
     window.addEventListener("resize", () => {

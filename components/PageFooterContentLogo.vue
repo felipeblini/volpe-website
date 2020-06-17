@@ -1,7 +1,15 @@
 <template>
-  <div class="logo-wrapper" v-if="showResponsiveHighlightLogo">
+  <div
+    class="logo-wrapper"
+    v-if="showResponsiveHighlightLogo"
+    v-lazy-container="{ selector: 'img' }"
+  >
     <b-container>
-      <img :src="footerLogoImgSizesSet" class="lazyload" alt="" />
+      <img
+        :data-src="footerLogoImg"
+        :data-srcSet="footerLogoImgSizesSet"
+        :data-loading="footerLogoImgPlaceholder"
+      />
     </b-container>
   </div>
 </template>
@@ -14,10 +22,20 @@ export default {
     };
   },
   computed: {
-    footerLogoImgSizesSet() {
+    footerLogoImg() {
       return require(`~/assets/img/${this.$route.name
         .split("-")[0]
         .replace(/\//gm, "")}/highlight-logo.jpg`);
+    },
+    footerLogoImgSizesSet() {
+      return require(`~/assets/img/${this.$route.name
+        .split("-")[0]
+        .replace(/\//gm, "")}/highlight-logo.jpg`).srcSet;
+    },
+    footerLogoImgPlaceholder() {
+      return require(`~/assets/img/${this.$route.name
+        .split("-")[0]
+        .replace(/\//gm, "")}/highlight-logo.jpg`).placeholder;
     }
   },
   mounted() {
@@ -25,7 +43,7 @@ export default {
       this.showResponsiveHighlightLogo = false;
 
       setTimeout(() => {
-        this.showResponsiveFooterLogo = true;
+        this.showResponsiveHighlightLogo = true;
       }, 100);
     });
   }

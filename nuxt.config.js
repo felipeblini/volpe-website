@@ -33,12 +33,14 @@ export default {
   */
   plugins: [
     { src: '~/plugins/global-scripts', ssr: false },
+    '~/plugins/vue-lazyload.client.js',
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
   ],
+
 
   /*
   ** Nuxt.js modules
@@ -54,7 +56,19 @@ export default {
     '@nuxtjs/robots',
     '@nuxtjs/device',
     '@nuxt/http',
+    'nuxt-responsive-loader',
   ],
+
+  responsiveLoader: {
+    name: 'img/[name]-[hash:4]-[width].[ext]',
+    min: 320, // minimum image width generated
+    max: 1920, // maximum image width generated
+    steps: 5, // five sizes per image will be generated
+    placeholder: true,
+    // sizes: [320, 640, 768, 960, 1024, 1280, 1600, 1920],
+    quality: 65,
+    adapter: require('responsive-loader/sharp'),
+  },
 
   sitemap: {
     hostname: "https://volpeambiental.com.br",

@@ -13,19 +13,26 @@
     >
       <b-container>
         <b-row class="align-items-center">
-          <b-col lg="6">
+          <b-col md="6">
             <p class="text-left --bigger">
-              {{ $device.isMobileOrTablet }}
               {{ firstTextBlock }}
             </p>
           </b-col>
 
-          <b-col lg="6" class="img-responsive-wrapper text-center">
+          <b-col
+            md="6"
+            class="img-responsive-wrapper text-center"
+            v-lazy-container="{ selector: 'img' }"
+          >
             <img
               v-if="state.showResponsiveImg"
-              :data-src="contentImgSizesSet"
-              class="lazyload"
-              alt=""
+              :data-srcSet="
+                require('~/assets/img/servicos/britador.png').srcSet
+              "
+              :data-src="require('~/assets/img/servicos/britador.png')"
+              :data-loading="
+                require('~/assets/img/servicos/britador.png').placeholder
+              "
             />
           </b-col>
         </b-row>
@@ -178,9 +185,6 @@ export default {
     };
   },
   computed: {
-    contentImgSizesSet() {
-      return require(`~/assets/img/servicos/britador.png`);
-    },
     servicesList() {
       return this.$store.state.servicesList
         .filter(x => !x.content.protected)
