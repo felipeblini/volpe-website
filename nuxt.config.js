@@ -19,7 +19,7 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#F39E27', throttle: 0, height: '6px' },
+  loading: { color: '#F39E27', throttle: 0, height: '5px' },
   /*
   ** Global CSS
   */
@@ -44,7 +44,28 @@ export default {
   ],
 
   optimizedImages: {
-    optimizeImages: true
+    inlineImageLimit: -1,
+    handleImages: ['jpeg', 'png', 'svg', 'webp', 'gif'],
+    optimizeImages: true,
+    optimizeImagesInDev: false,
+    defaultImageLoader: 'img-loader',
+    mozjpeg: {
+      progressive: true,
+      quality: 55
+    },
+    // optipng.enabled: false will disable optipng
+    optipng: false,
+    pngquant: {
+      quality: [0.65, 0.90],
+      speed: 4
+    },
+    gifsicle: {
+      interlaced: false,
+    },
+    // the webp option will enable WEBP
+    webp: {
+      quality: 75
+    }
   },
   /*
   ** Nuxt.js modules
@@ -67,10 +88,7 @@ export default {
     routes: async () => {
       const { data: servicesData } = await axios.get("https://volpeambiental.com.br/wp-json/wp/v2/posts?categories=2");
 
-      console.log({ servicesData });
-
       return servicesData.map(service => {
-        console.log({ service });
         return {
           url: `/servicos/${service.id}/${service.title.rendered
             .toLowerCase()
