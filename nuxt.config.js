@@ -41,7 +41,6 @@ export default {
   buildModules: [
   ],
 
-
   /*
   ** Nuxt.js modules
   */
