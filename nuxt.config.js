@@ -24,6 +24,7 @@ export default {
   ** Global CSS
   */
   css: ['~/assets/scss/global.scss'],
+
   styleResources: {
     scss: ['~/assets/scss/_colors.scss', '~/assets/scss/_mixins.scss']
   },
