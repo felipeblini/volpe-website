@@ -20,6 +20,7 @@
               :data-loading="
                 require('~/assets/img/index/cacamba.png').placeholder
               "
+              alt="Caçamba"
             />
           </b-col>
         </b-row>

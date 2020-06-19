@@ -29,11 +29,14 @@
           <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="require('~/assets/img/contatos/truck.png').srcSet"
-              :data-src="require('~/assets/img/contatos/truck.png')"
-              :data-loading="
-                require('~/assets/img/contatos/truck.png').placeholder
+              :data-srcSet="
+                require('~/assets/img/contatos/caminhao.png').srcSet
               "
+              :data-src="require('~/assets/img/contatos/caminhao.png')"
+              :data-loading="
+                require('~/assets/img/contatos/caminhao.png').placeholder
+              "
+              alt="caminhão"
             />
           </b-col>
         </b-row>

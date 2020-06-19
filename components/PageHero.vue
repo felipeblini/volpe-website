@@ -26,7 +26,7 @@
       v-lazy-container="{ selector: 'img' }"
     >
       <client-only>
-        <parallax :speed-factor="0.5">
+        <parallax :speed-factor="0.5" breakpoint="(min-width:300px)">
           <img
             :data-src="heroImage"
             :data-srcSet="heroImageSizesSet"

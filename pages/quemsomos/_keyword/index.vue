@@ -46,6 +46,7 @@
               :data-loading="
                 require('~/assets/img/quemsomos/capacete.png').placeholder
               "
+              alt="capacete"
             />
           </b-col>
         </b-row>
