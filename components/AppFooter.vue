@@ -2,8 +2,13 @@
   <div class="footer-wrapper content-theme --dark py-4">
     <b-container>
       <b-row>
-        <b-col class="footer-logo">
-          <nuxt-link to="/">Volpe Ambiental</nuxt-link>
+        <b-col class="footer-logo" v-lazy-container="{ selector: 'img' }">
+          <nuxt-link to="/">
+            <img
+              :data-src="require('~/assets/img/volpe_logotipo.png')"
+              alt="Volpe Ambiental - logo"
+            />
+          </nuxt-link>
           <p class="mt-1">
             {{ $store.state.address }}<br />
             <span v-if="$store.state.cep">CEP {{ $store.state.cep }} |</span>
@@ -141,8 +146,11 @@ export default {};
       max-width: 395px;
     }
 
-    a {
-      @include nav-brand-link(91px, 35px, 164px, 63px);
+    a > img {
+      width: 91px;
+      @media (min-width: 768px) {
+        width: 164px;
+      }
     }
   }
 

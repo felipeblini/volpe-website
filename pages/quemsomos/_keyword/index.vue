@@ -35,19 +35,18 @@
           </b-row>
         </b-container>
 
-        <b-row
-          class="img-responsive-wrapper mt-5"
-          v-lazy-container="{ selector: 'img' }"
-        >
-          <b-col class="content-center">
+        <b-row class="img-responsive-wrapper mt-5">
+          <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="contentImgSizesSet.srcSet"
-              :data-src="contentImgSizesSet.src"
-              :data-loading="
-                require(`~/assets/img/quemsomos/capacete.png?lqip`)
+              :data-srcSet="
+                require('~/assets/img/quemsomos/capacete.png').srcSet
               "
-              alt=""
+              :data-src="require('~/assets/img/quemsomos/capacete.png')"
+              :data-loading="
+                require('~/assets/img/quemsomos/capacete.png').placeholder
+              "
+              alt="capacete"
             />
           </b-col>
         </b-row>
@@ -159,7 +158,7 @@ export default {
   },
   computed: {
     contentImgSizesSet() {
-      return require(`~/assets/img/quemsomos/capacete.png?resize&sizes[]=450&sizes[]=680&sizes[]=979`);
+      return require(`~/assets/img/quemsomos/capacete.png`);
     }
   },
 

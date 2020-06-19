@@ -24,6 +24,7 @@ export default {
   ** Global CSS
   */
   css: ['~/assets/scss/global.scss'],
+
   styleResources: {
     scss: ['~/assets/scss/_colors.scss', '~/assets/scss/_mixins.scss']
   },
@@ -31,20 +32,15 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/vue-lazyload', ssr: false },
     { src: '~/plugins/global-scripts', ssr: false },
+    '~/plugins/vue-lazyload.client.js',
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    '@aceforth/nuxt-optimized-images',
-    // '@nuxt/typescript-build'
   ],
 
-  optimizedImages: {
-    optimizeImages: true
-  },
   /*
   ** Nuxt.js modules
   */
@@ -59,17 +55,26 @@ export default {
     '@nuxtjs/robots',
     '@nuxtjs/device',
     '@nuxt/http',
+    'nuxt-responsive-loader',
   ],
+
+  responsiveLoader: {
+    name: 'img/[name]-[hash:4]-[width].[ext]',
+    min: 320, // minimum image width generated
+    max: 1920, // maximum image width generated
+    steps: 5, // five sizes per image will be generated
+    placeholder: true,
+    // sizes: [320, 640, 768, 960, 1024, 1280, 1600, 1920],
+    quality: 65,
+    adapter: require('responsive-loader/sharp'),
+  },
 
   sitemap: {
     hostname: "https://volpeambiental.com.br",
     routes: async () => {
       const { data: servicesData } = await axios.get("https://volpeambiental.com.br/wp-json/wp/v2/posts?categories=2");
 
-      console.log({ servicesData });
-
       return servicesData.map(service => {
-        console.log({ service });
         return {
           url: `/servicos/${service.id}/${service.title.rendered
             .toLowerCase()

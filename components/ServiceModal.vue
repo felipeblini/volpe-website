@@ -25,16 +25,13 @@
               <img :src="serviceContent.icon" :alt="serviceContent.title" />
             </div>
 
-            <div class="service-img-1" v-lazy-container="{ selector: 'img' }">
-              <img class="service-photo" :data-src="serviceContent.img1" />
+            <div class="service-img-1">
+              <img class="service-photo lazyload" :src="serviceContent.img1" />
             </div>
           </div>
 
-          <div
-            class="row-service-photos --line2"
-            v-lazy-container="{ selector: 'img' }"
-          >
-            <img class="service-photo" :data-src="serviceContent.img2" />
+          <div class="row-service-photos --line2">
+            <img class="service-photo lazyload" :src="serviceContent.img2" />
           </div>
         </b-col>
       </template>

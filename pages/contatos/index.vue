@@ -25,17 +25,18 @@
           </b-col>
         </b-row>
 
-        <b-row
-          class="img-responsive-wrapper mt-5"
-          v-lazy-container="{ selector: 'img' }"
-        >
-          <b-col class="content-center">
+        <b-row class="img-responsive-wrapper mt-5">
+          <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="contentImgSizesSet.srcSet"
-              :data-src="contentImgSizesSet.src"
-              :data-loading="require(`~/assets/img/contatos/truck.png?lqip`)"
-              alt=""
+              :data-srcSet="
+                require('~/assets/img/contatos/caminhao.png').srcSet
+              "
+              :data-src="require('~/assets/img/contatos/caminhao.png')"
+              :data-loading="
+                require('~/assets/img/contatos/caminhao.png').placeholder
+              "
+              alt="caminhão"
             />
           </b-col>
         </b-row>
@@ -242,11 +243,6 @@ export default {
         }
       ]
     };
-  },
-  computed: {
-    contentImgSizesSet() {
-      return require(`~/assets/img/contatos/truck.png?resize&sizes[]=450&sizes[]=680&sizes[]=876`);
-    }
   },
   mounted() {
     const windowSize = Math.max(

@@ -2,16 +2,22 @@
   <div
     class="parallax-container"
     :style="{
-      backgroundColor: require(`~/assets/img/${$route.name
-        .split('-')[0]
-        .replace(/\//gm, '')}/hero-background.jpg?lqip-colors`)[0]
+      backgroundColor: `rgb(${pallete[0]}, ${pallete[1]}, ${pallete[2]})`
     }"
   >
     <div
       class="container parallax-title"
       :class="`--${$route.name.split('-')[0].replace(/\//gm, '')}`"
     >
-      <h1>{{ pageTitle }}</h1>
+      <h1>
+        <span>{{ pageTitle }}</span>
+        <img
+          :srcSet="require('~/assets/img/volpe_logotipo.png').srcSet"
+          :v-lazy="require('~/assets/img/volpe_logotipo.png')"
+          :loading="require('~/assets/img/volpe_logotipo.png').placeholder"
+          alt=""
+        />
+      </h1>
     </div>
 
     <div
@@ -20,15 +26,11 @@
       v-lazy-container="{ selector: 'img' }"
     >
       <client-only>
-        <parallax :speed-factor="0.5">
+        <parallax :speed-factor="0.5" breakpoint="(min-width:300px)">
           <img
-            :data-srcSet="imagesSizesSet.srcSet"
-            :data-src="imagesSizesSet.src"
-            :data-loading="
-              require(`~/assets/img/${$route.name
-                .split('-')[0]
-                .replace(/\//gm, '')}/hero-background.jpg?lqip`)
-            "
+            :data-src="heroImage"
+            :data-srcSet="heroImageSizesSet"
+            :data-loading="heroPlaceholder"
           />
         </parallax>
       </client-only>
@@ -44,22 +46,40 @@ export default {
     Parallax
   },
   data() {
-    return { showParallax: true };
+    return { showParallax: true, pallete: [39, 39, 39] };
   },
   props: {
     pageTitle: String
   },
   computed: {
-    imagesSizesSet() {
+    heroImage() {
       return require(`~/assets/img/${this.$route.name
         .split("-")[0]
-        .replace(
-          /\//gm,
-          ""
-        )}/hero-background.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=900&sizes[]=1200&sizes[]=1500&sizes[]=1800&sizes[]=1920`);
+        .replace(/\//gm, "")}/hero-background.jpg`);
+    },
+    heroImageSizesSet() {
+      return require(`~/assets/img/${this.$route.name
+        .split("-")[0]
+        .replace(/\//gm, "")}/hero-background.jpg`).srcSet;
+    },
+    heroPlaceholder() {
+      return require(`~/assets/img/${this.$route.name
+        .split("-")[0]
+        .replace(/\//gm, "")}/hero-background.jpg`).placeholder;
     }
   },
   mounted() {
+    const imageURL = require(`~/assets/img/${this.$route.name
+      .split("-")[0]
+      .replace(/\//gm, "")}/hero-background.jpg?lqip-colors`);
+
+    const { getColorFromURL } = require("color-thief-node");
+
+    (async () => {
+      const dominantColor = await getColorFromURL(imageURL);
+      this.pallete = dominantColor;
+    })();
+
     window.addEventListener("resize", () => {
       this.showParallax = false;
 
@@ -105,6 +125,10 @@ $parallax-mobile-height: 70vh;
       }
 
       font-weight: 900;
+
+      img {
+        display: none;
+      }
     }
 
     &.--quemsomos {
@@ -121,20 +145,22 @@ $parallax-mobile-height: 70vh;
       justify-content: center;
 
       h1 {
-        text-indent: -9999px;
-        overflow: hidden;
-
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-image: url("~assets/img/volpe_logotipo.png");
-        background-position-y: bottom;
-        background-position-x: center;
+        display: flex;
 
         max-width: 879px;
 
         width: 80%;
-        // height: 225px;
-        align-items: center;
+        height: 225px;
+        align-items: flex-end;
+
+        img {
+          display: block;
+          width: 100%;
+        }
+
+        span {
+          display: none;
+        }
 
         @media (min-width: 768px) {
           width: 70%;
