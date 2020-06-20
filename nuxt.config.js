@@ -20,9 +20,7 @@ export default {
   },
 
   router: {
-    base: process.env.NODE_ENV === 'production'
-      ? '/site/'
-      : '/'
+    base: '/'
   },
   /*
   ** Customize the progress-bar color
