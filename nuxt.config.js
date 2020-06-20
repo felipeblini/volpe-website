@@ -4,7 +4,6 @@ console.log({ ENV: process.env.NODE_ENV })
 
 export default {
   mode: 'universal',
-  target: 'server',
   /*
   ** Headers of the page
   */
