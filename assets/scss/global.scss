@@ -9,6 +9,9 @@ body {
 
 .page-main-content {
   position: relative;
+  @media (orientation: landscape) and (max-width: 828px) {
+    padding-top: 10rem !important;
+  }
 
   .row > .col.content-center {
     display: flex;

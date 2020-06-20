@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+console.log({ ENV: process.env.NODE_ENV })
+
 export default {
   mode: 'universal',
   /*
@@ -15,6 +17,10 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
+  },
+
+  router: {
+    base: '/'
   },
   /*
   ** Customize the progress-bar color
@@ -69,6 +75,11 @@ export default {
     adapter: require('responsive-loader/sharp'),
   },
 
+  http: {
+    // HTTP options here
+    baseURL: '/'
+  },
+
   sitemap: {
     hostname: "https://volpeambiental.com.br",
     routes: async () => {
@@ -115,9 +126,6 @@ export default {
   serverMiddleware: [
     '~/api/contact',
   ],
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/site/'
-    : '/',
   /*
   ** Build configuration
   */

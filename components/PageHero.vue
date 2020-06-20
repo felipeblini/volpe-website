@@ -101,7 +101,7 @@ $parallax-mobile-height: 70vh;
 
   height: $parallax-mobile-height;
 
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     height: $parallax-desktop-height;
   }
 
@@ -111,6 +111,10 @@ $parallax-mobile-height: 70vh;
     justify-content: center;
     height: $parallax-mobile-height;
 
+    @media (orientation: landscape) and (max-width: 828px) {
+      padding-top: 100px;
+    }
+
     @media (min-width: 768px) {
       justify-content: flex-end;
       height: $parallax-desktop-height;
@@ -119,12 +123,11 @@ $parallax-mobile-height: 70vh;
     h1 {
       color: $dark-title;
       font-size: 16vw;
+      font-weight: 900;
 
       @media (min-width: 992px) {
         font-size: 153px;
       }
-
-      font-weight: 900;
 
       img {
         display: none;
@@ -151,6 +154,7 @@ $parallax-mobile-height: 70vh;
 
         width: 80%;
         height: 225px;
+
         align-items: flex-end;
 
         img {
@@ -163,8 +167,8 @@ $parallax-mobile-height: 70vh;
         }
 
         @media (min-width: 768px) {
-          width: 70%;
-          height: 325px;
+          width: 60%;
+          height: 225px;
         }
 
         @media (min-width: 1200px) {

@@ -15,11 +15,7 @@
           <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="require('~/assets/img/index/cacamba.png').srcSet"
-              :data-src="require('~/assets/img/index/cacamba.png')"
-              :data-loading="
-                require('~/assets/img/index/cacamba.png').placeholder
-              "
+              :data-src="require('~/assets/img/index/cacamba.png?webp')"
               alt="Caçamba"
             />
           </b-col>

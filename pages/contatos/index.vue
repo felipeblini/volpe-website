@@ -172,9 +172,7 @@ export default {
 
     try {
       const params = { categories: "4" };
-      const { data } = await $axios.get("", {
-        params
-      });
+      const { data } = await $axios.get("", { params });
 
       unitiesList = data.map(unity => {
         return {
@@ -191,9 +189,7 @@ export default {
 
     try {
       const params = { slug: "contato" };
-      const { data } = await $axios.get("", {
-        params
-      });
+      const { data } = await $axios.get("", { params });
 
       pageTitle = data[0].acf.page_title;
       pageDescription = data[0].acf.page_description;
