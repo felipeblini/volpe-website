@@ -4,7 +4,7 @@ console.log({ ENV: process.env.NODE_ENV })
 
 export default {
   mode: 'universal',
-  target: 'static',
+  target: 'server',
   /*
   ** Headers of the page
   */
@@ -21,7 +21,9 @@ export default {
   },
 
   router: {
-    base: '/'
+    base: process.env.NODE_ENV === 'production'
+      ? '/site/'
+      : '/'
   },
   /*
   ** Customize the progress-bar color
