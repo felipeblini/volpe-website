@@ -112,8 +112,10 @@ export default {
 }
 .service-content-wrapper {
   flex-direction: column-reverse;
+  padding: 0 15px;
 
   @media (min-width: 601px) {
+    padding: 0;
     border: solid $dark-title;
     border-radius: 3px;
   }
@@ -195,6 +197,11 @@ export default {
 }
 .modal-content {
   background: $dark-background;
+  @media (max-width: 600px) {
+    height: 100vh;
+    width: auto;
+    margin-left: -15px;
+  }
 
   .modal-body {
     padding: 0;

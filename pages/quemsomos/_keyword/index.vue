@@ -156,11 +156,6 @@ export default {
       pageDescription: ""
     };
   },
-  computed: {
-    contentImgSizesSet() {
-      return require(`~/assets/img/quemsomos/capacete.png`);
-    }
-  },
 
   /*
    ** Headers of the page
@@ -192,7 +187,7 @@ export default {
 <style lang="scss" scoped>
 .page-main-content.--quemsomos {
   @media (min-width: 768px) {
-    background-image: url("~assets/img/quemsomos/main-content-background.jpg");
+    background-image: url("~assets/img/quemsomos/background.svg");
     background-repeat: no-repeat;
     background-position-x: right;
     background-size: contain;

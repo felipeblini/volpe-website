@@ -15,7 +15,11 @@
           <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
               v-if="state.showResponsiveImg"
-              :data-src="require('~/assets/img/index/cacamba.png?webp')"
+              :data-srcSet="require('~/assets/img/index/cacamba.png').srcSet"
+              :data-src="require('~/assets/img/index/cacamba.png')"
+              :data-loading="
+                require('~/assets/img/index/cacamba.png').placeholder
+              "
               alt="Caçamba"
             />
           </b-col>
@@ -191,7 +195,7 @@ export default {
 <style lang="scss" scoped>
 .page-main-content.--index {
   @media (min-width: 768px) {
-    background-image: url("~assets/img/index/main-content-background.jpg");
+    background-image: url("~assets/img/index/background.svg");
     background-repeat: no-repeat;
     background-position-x: right;
     background-size: contain;
