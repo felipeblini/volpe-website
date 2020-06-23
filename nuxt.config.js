@@ -20,7 +20,7 @@ export default {
   },
 
   router: {
-    base: '/site/'
+    base: '/'
   },
   /*
   ** Customize the progress-bar color
