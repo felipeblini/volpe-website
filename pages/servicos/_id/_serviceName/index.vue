@@ -285,8 +285,17 @@ export default {
           body.classList.remove("modal-open");
 
           let serverModal = document.querySelector(
-            "#__BVID__24___BV_modal_outer_"
+            "#__BVID__22___BV_modal_outer_"
           );
+
+          console.log({ serverModal });
+
+          if (!serverModal) {
+            serverModal = document.querySelector(
+              "#__BVID__24___BV_modal_outer_"
+            );
+          }
+
           serverModal.parentNode.removeChild(serverModal);
         } catch (e) {}
       }
