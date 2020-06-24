@@ -14,6 +14,7 @@
       <template v-else>
         <b-col class="col-service-text p-0">
           <PerfectScrollbar class="service-text">
+            <h1>Service Modal</h1>
             <h2>{{ serviceContent.title }}</h2>
             <p v-html="serviceContent.content"></p>
           </PerfectScrollbar>

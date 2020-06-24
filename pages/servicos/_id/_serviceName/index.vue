@@ -43,31 +43,33 @@
           </b-col>
         </b-row>
 
-        <ul class="row services-list my-5">
-          <li
-            class="col"
-            v-for="service in servicesList"
-            :key="service.id"
-            :id="`service-${service.id}`"
-            @click="openedService = service"
-          >
-            <div class="p-4">
-              <img
-                class="service-icon"
-                :src="service.icon"
-                :alt="service.title"
-              />
-              <h3>{{ service.title }}</h3>
-              <p v-html="service.excerpt"></p>
+        <client-only>
+          <ul class="row services-list my-5">
+            <li
+              class="col"
+              v-for="service in servicesList"
+              :key="service.id"
+              :id="`service-${service.id}`"
+              @click="openedService = service"
+            >
+              <div class="p-4">
+                <img
+                  class="service-icon"
+                  :src="service.icon"
+                  :alt="service.title"
+                />
+                <h3>{{ service.title }}</h3>
+                <p v-html="service.excerpt"></p>
 
-              <footer class="d-flex justify-content-end">
-                <a href="#" @click.prevent="openServiceModal(service)">
-                  <img src="~assets/img/servicos/popup-open-icon.svg" />
-                </a>
-              </footer>
-            </div>
-          </li>
-        </ul>
+                <footer class="d-flex justify-content-end">
+                  <a href="#" @click.prevent="openServiceModal(service)">
+                    <img src="~assets/img/servicos/popup-open-icon.svg" />
+                  </a>
+                </footer>
+              </div>
+            </li>
+          </ul>
+        </client-only>
       </b-container>
     </div>
 
@@ -159,12 +161,22 @@ export default {
     }
 
     if (params.id) {
-      const serviceContent = await $axios.get(params.id);
+      try {
+        const { data: serviceContent } = await $axios.get(params.id);
 
-      pageContent = Object.assign(pageContent, {
-        pageTitle: serviceContent.data.title.rendered,
-        pageDescription: serviceContent.data.acf.page_description
-      });
+        pageContent = Object.assign(pageContent, {
+          openedService: {
+            id: serviceContent.id,
+            title: serviceContent.title.rendered,
+            content: serviceContent.content.rendered,
+            icon: serviceContent.acf.icone,
+            img1: serviceContent.acf.foto_quadrada,
+            img2: serviceContent.acf.foto_paisagem
+          },
+          pageTitle: serviceContent.title.rendered,
+          pageDescription: serviceContent.acf.page_description
+        });
+      } catch (e) {}
     }
 
     return pageContent;
@@ -187,7 +199,7 @@ export default {
   computed: {
     servicesList() {
       return this.$store.state.servicesList
-        .filter(x => !x.content.protected)
+        .filter(x => !x.content.protected && x.id == 70)
         .map(service => {
           return {
             id: service.id,
@@ -231,12 +243,13 @@ export default {
     }
   },
   mounted() {
-    if (this.$route.params.id) {
-      this.openedService =
-        this.$store.state.servicesList.filter(
-          x => x.id == this.$route.params.id
-        )[0] || {};
-    }
+    console.log({ openedService: this.openedService });
+    // if (this.$route.params.id) {
+    //   this.openedService =
+    //     this.$store.state.servicesList.filter(
+    //       x => x.id == this.$route.params.id
+    //     )[0] || {};
+    // }
 
     window.addEventListener("resize", () => {
       this.state.showResponsiveImg = false;
