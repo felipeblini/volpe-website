@@ -281,14 +281,11 @@ export default {
       if (!this.state.openedModal) {
         // force duplicated modal close when comming from server with opened modal
         try {
-          let body = document.querySelector("body");
-          body.classList.remove("modal-open");
+          document.querySelector("body").classList.remove("modal-open");
 
           let serverModal = document.querySelector(
             "#__BVID__22___BV_modal_outer_"
           );
-
-          console.log({ serverModal });
 
           if (!serverModal) {
             serverModal = document.querySelector(
