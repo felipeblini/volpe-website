@@ -101,7 +101,7 @@ $parallax-mobile-height: 70vh;
 
   height: $parallax-mobile-height;
 
-  @media (min-width: 992px) {
+  @media (min-width: 768px) {
     height: $parallax-desktop-height;
   }
 

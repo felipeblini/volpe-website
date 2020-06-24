@@ -1,10 +1,11 @@
 <template>
   <div>
     <PageHero pageTitle="Serviços" />
+
     <ServiceModal
-      v-if="openedService.id"
-      :serviceId="openedService.id"
-      @popup-close="openServiceModal({})"
+      v-if="state.openedModal"
+      :serviceId="state.openedService.id"
+      @modal-closed="toggleServiceModal({})"
     />
 
     <div
@@ -50,7 +51,7 @@
               v-for="service in servicesList"
               :key="service.id"
               :id="`service-${service.id}`"
-              @click="openedService = service"
+              @click.prevent="toggleServiceModal(service)"
             >
               <div class="p-4">
                 <img
@@ -62,7 +63,7 @@
                 <p v-html="service.excerpt"></p>
 
                 <footer class="d-flex justify-content-end">
-                  <a href="#" @click.prevent="openServiceModal(service)">
+                  <a href="#">
                     <img src="~assets/img/servicos/popup-open-icon.svg" />
                   </a>
                 </footer>
@@ -165,13 +166,17 @@ export default {
         const { data: serviceContent } = await $axios.get(params.id);
 
         pageContent = Object.assign(pageContent, {
-          openedService: {
-            id: serviceContent.id,
-            title: serviceContent.title.rendered,
-            content: serviceContent.content.rendered,
-            icon: serviceContent.acf.icone,
-            img1: serviceContent.acf.foto_quadrada,
-            img2: serviceContent.acf.foto_paisagem
+          state: {
+            showResponsiveImg: true,
+            openedModal: true,
+            openedService: {
+              id: serviceContent.id,
+              title: serviceContent.title.rendered,
+              content: serviceContent.content.rendered,
+              icon: serviceContent.acf.icone,
+              img1: serviceContent.acf.foto_quadrada,
+              img2: serviceContent.acf.foto_paisagem
+            }
           },
           pageTitle: serviceContent.title.rendered,
           pageDescription: serviceContent.acf.page_description
@@ -184,14 +189,15 @@ export default {
   data() {
     return {
       state: {
-        showResponsiveImg: true
+        showResponsiveImg: true,
+        openedModal: false,
+        openedService: {}
       },
       firstTextBlock: "",
       pageSlogan: "",
       footerTextBlock: "",
       buttonText: "",
       buttonLink: "",
-      openedService: {},
       pageTitle: "",
       pageDescription: ""
     };
@@ -199,7 +205,7 @@ export default {
   computed: {
     servicesList() {
       return this.$store.state.servicesList
-        .filter(x => !x.content.protected && x.id == 70)
+        .filter(x => !x.content.protected)
         .map(service => {
           return {
             id: service.id,
@@ -227,29 +233,37 @@ export default {
     };
   },
   beforeRouteUpdate(to, from, next) {
-    if (this.$device.isMobileOrTablet && this.openedService.id != undefined) {
-      this.openedService = {};
+    if (
+      this.$device.isMobileOrTablet &&
+      this.state.openedService.id != undefined
+    ) {
+      this.state.openedService = {};
+      this.state.openedModal = false;
       next(false);
     } else {
       next();
     }
   },
   beforeRouteLeave(to, from, next) {
-    if (this.$device.isMobileOrTablet && this.openedService.id != undefined) {
-      this.openedService = {};
+    if (
+      this.$device.isMobileOrTablet &&
+      this.state.openedService.id != undefined
+    ) {
+      this.state.openedService = {};
+      this.state.openedModal = false;
       next(false);
     } else {
       next();
     }
   },
   mounted() {
-    console.log({ openedService: this.openedService });
-    // if (this.$route.params.id) {
-    //   this.openedService =
-    //     this.$store.state.servicesList.filter(
-    //       x => x.id == this.$route.params.id
-    //     )[0] || {};
-    // }
+    // fix scroolbar gap when comming from server with opened modal
+    if (this.state.openedModal) {
+      let body = document.querySelector("body");
+      setTimeout(() => {
+        body.style.paddingRight = "0";
+      }, 1000);
+    }
 
     window.addEventListener("resize", () => {
       this.state.showResponsiveImg = false;
@@ -260,8 +274,22 @@ export default {
     });
   },
   methods: {
-    openServiceModal(service) {
-      this.openedService = service;
+    toggleServiceModal(service) {
+      this.state.openedService = service;
+      this.state.openedModal = Boolean(this.state.openedService.id);
+
+      if (!this.state.openedModal) {
+        // force duplicated modal close when comming from server with opened modal
+        try {
+          let body = document.querySelector("body");
+          console.log({ body });
+          body.classList.remove("modal-open");
+
+          let elem = document.querySelector("#__BVID__24___BV_modal_outer_");
+          console.log({ elem });
+          elem.parentNode.removeChild(elem);
+        } catch (e) {}
+      }
     }
   }
 };

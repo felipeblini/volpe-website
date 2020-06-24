@@ -172,3 +172,8 @@ body {
     }
   }
 }
+
+// modal mounted when comming from the server, avoiding to have duplicated modals
+div[id="__BVID__24___BV_modal_outer_"] {
+  display: none;
+}
