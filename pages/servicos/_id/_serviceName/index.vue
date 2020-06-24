@@ -282,12 +282,12 @@ export default {
         // force duplicated modal close when comming from server with opened modal
         try {
           let body = document.querySelector("body");
-          console.log({ body });
           body.classList.remove("modal-open");
 
-          let elem = document.querySelector("#__BVID__24___BV_modal_outer_");
-          console.log({ elem });
-          elem.parentNode.removeChild(elem);
+          let serverModal = document.querySelector(
+            "#__BVID__24___BV_modal_outer_"
+          );
+          serverModal.parentNode.removeChild(serverModal);
         } catch (e) {}
       }
     }
