@@ -58,7 +58,6 @@ export default {
     '@nuxtjs/sitemap',
     'nuxt-webfontloader',
     '@nuxtjs/google-analytics',
-    '@nuxtjs/robots',
     '@nuxtjs/device',
     '@nuxt/http',
     'nuxt-responsive-loader',
@@ -66,11 +65,11 @@ export default {
 
   responsiveLoader: {
     name: 'img/[name]-[hash:4]-[width].[ext]',
-    min: 320, // minimum image width generated
-    max: 1920, // maximum image width generated
-    steps: 5, // five sizes per image will be generated
+    // min: 320, // minimum image width generated
+    // max: 1920, // maximum image width generated
+    steps: 2, // five sizes per image will be generated
     placeholder: true,
-    // sizes: [320, 640, 768, 960, 1024, 1280, 1600, 1920],
+    sizes: [320, 1920],
     quality: 65,
     adapter: require('responsive-loader/sharp'),
   },
@@ -85,7 +84,7 @@ export default {
     routes: async () => {
       const { data: servicesData } = await axios.get("https://volpeambiental.com.br/wp-json/wp/v2/posts?categories=2");
 
-      return servicesData.map(service => {
+      const routes = servicesData.map(service => {
         return {
           url: `/servicos/${service.id}/${service.title.rendered
             .toLowerCase()
@@ -94,6 +93,10 @@ export default {
           lastmod: service.date
         }
       });
+
+      routes.push('/quemsomos/construção-civil-reforma-demolição-coleta-de-residuos');
+
+      return routes
     }
   },
 
@@ -105,12 +108,6 @@ export default {
 
   googleAnalytics: {
     id: "UA-169431629-1"
-  },
-
-  robots: {
-    UserAgent: "*",
-    Allow: "/",
-    Sitemap: "http://volpeambiental.com.br/sitemap.xml"
   },
 
   /*

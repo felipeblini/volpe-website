@@ -26,7 +26,7 @@
       v-lazy-container="{ selector: 'img' }"
     >
       <client-only>
-        <parallax :speed-factor="0.5" breakpoint="(min-width:300px)">
+        <parallax :speed-factor="0.5">
           <img
             :data-src="heroImage"
             :data-srcSet="heroImageSizesSet"
@@ -105,6 +105,25 @@ $parallax-mobile-height: 70vh;
     height: $parallax-desktop-height;
   }
 
+  .parallax-image {
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    & > .Masthead {
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+    }
+  }
+
   .parallax-title {
     display: flex;
     align-items: center;
@@ -176,12 +195,6 @@ $parallax-mobile-height: 70vh;
         }
       }
     }
-  }
-
-  .parallax-image {
-    position: absolute;
-    top: 0;
-    width: 100%;
   }
 }
 </style>
