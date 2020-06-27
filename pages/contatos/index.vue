@@ -29,14 +29,11 @@
           <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="
-                require('~/assets/img/contatos/caminhao.png').srcSet
-              "
-              :data-src="require('~/assets/img/contatos/caminhao.png')"
-              :data-loading="
-                require('~/assets/img/contatos/caminhao.png').placeholder
-              "
-              alt="caminhão"
+              :data-srcSet="responsiveImg.srcSet"
+              :sizes="responsiveImg.sizes"
+              :data-src="responsiveImg.src"
+              :data-loading="responsiveImg.placeholder"
+              alt="Caminhão"
             />
           </b-col>
         </b-row>
@@ -239,6 +236,16 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    responsiveImg() {
+      return Object.assign(
+        require("~/assets/img/contatos/caminhao.png?sizes[]=200&sizes[]=342&sizes[]=750"),
+        {
+          sizes: "(max-width: 320px) 200px, (max-width: 411px) 342px, 750px"
+        }
+      );
+    }
   },
   mounted() {
     const windowSize = Math.max(

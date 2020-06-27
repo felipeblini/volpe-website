@@ -39,14 +39,10 @@
           <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="
-                require('~/assets/img/quemsomos/capacete.png').srcSet
-              "
-              :data-src="require('~/assets/img/quemsomos/capacete.png')"
-              :data-loading="
-                require('~/assets/img/quemsomos/capacete.png').placeholder
-              "
-              alt="capacete"
+              :data-srcSet="responsiveImg.srcSet"
+              :data-src="responsiveImg.src"
+              :data-loading="responsiveImg.placeholder"
+              alt="Capacete"
             />
           </b-col>
         </b-row>
@@ -171,6 +167,11 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    responsiveImg() {
+      return require("~/assets/img/quemsomos/capacete.png?sizes[]=320&sizes[]=800&sizes[]=1181");
+    }
   },
   mounted() {
     window.addEventListener("resize", () => {

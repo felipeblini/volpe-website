@@ -40,6 +40,7 @@ export default {
   plugins: [
     { src: '~/plugins/global-scripts', ssr: false },
     '~/plugins/vue-lazyload.client.js',
+    '~/plugins/vue-js-modal.client.js'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -60,20 +61,9 @@ export default {
     '@nuxtjs/google-analytics',
     '@nuxtjs/device',
     '@nuxt/http',
-    'nuxt-responsive-loader',
-    'nuxt-purgecss',
+    // 'nuxt-responsive-loader',
+    //'nuxt-purgecss',
   ],
-
-  responsiveLoader: {
-    name: 'img/[name]-[hash:4]-[width].[ext]',
-    // min: 320, // minimum image width generated
-    // max: 1920, // maximum image width generated
-    steps: 2, // five sizes per image will be generated
-    placeholder: true,
-    sizes: [320, 1920],
-    quality: 65,
-    adapter: require('responsive-loader/sharp'),
-  },
 
   http: {
     // HTTP options here
@@ -128,7 +118,7 @@ export default {
   ** Build configuration
   */
   build: {
-    analyze: true,
+    // analyze: true,
     // publicPath: 'http://volpeambiental.com.br/site',
     babel: {
       presets({ isServer }) {
@@ -147,6 +137,30 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) { }
+    extend(config, ctx) {
+      config.module.rules.unshift({
+        test: /\.(png|jpe?g|gif)$/,
+        use: {
+          loader: 'responsive-loader',
+          options: {
+            // disable: isDev,
+            placeholder: true,
+            quality: 65,
+            placeholderSize: 30,
+            name: 'img/[name].[hash:hex:7].[width].[ext]',
+            adapter: require('responsive-loader/sharp')
+          }
+        }
+      })
+      // remove old pattern from the older loader
+      config.module.rules.forEach(value => {
+        if (String(value.test) === String(/\.(png|jpe?g|gif|svg|webp)$/)) {
+          // reduce to svg and webp, as other images are handled above
+          value.test = /\.(svg|webp)$/
+          // keep the configuration from image-webpack-loader here unchanged
+        }
+      })
+
+    }
   }
 }

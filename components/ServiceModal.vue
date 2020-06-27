@@ -57,7 +57,6 @@
 
 <script>
 import { PerfectScrollbar } from "vue2-perfect-scrollbar";
-
 export default {
   components: {
     PerfectScrollbar
@@ -74,7 +73,6 @@ export default {
   },
   async fetch() {
     const serviceContent = await this.$axios.get(this.serviceId.toString());
-
     this.serviceContent.title = serviceContent.data.title.rendered;
     this.serviceContent.content = serviceContent.data.content.rendered;
     this.serviceContent.icon = serviceContent.data.acf.icone;
@@ -83,24 +81,20 @@ export default {
   },
   mounted() {
     this.modalActive = true;
-
     const windowSize = Math.max(
       document.documentElement.clientWidth || 0,
       window.innerWidth || 0
     );
-
     if (windowSize >= 1200) {
       this.modalSize = "xl";
     } else {
       this.modalSize = "md";
     }
-
     window.addEventListener("resize", () => {
       const windowSize = Math.max(
         document.documentElement.clientWidth || 0,
         window.innerWidth || 0
       );
-
       if (windowSize >= 1200) {
         this.modalSize = "xl";
       } else {
@@ -118,6 +112,10 @@ export default {
   position: absolute;
   top: 0;
   width: 200px;
+
+  img {
+    width: 100%;
+  }
 }
 .close-service-modal {
   width: 34px;
@@ -134,55 +132,42 @@ export default {
 }
 .service-content-wrapper {
   flex-direction: column-reverse;
-  padding: 0 15px;
-
-  @media (min-width: 601px) {
-    padding: 0;
-    border: solid $dark-title;
-    border-radius: 3px;
-  }
+  padding: 0;
+  border: solid $dark-title;
+  border-radius: 3px;
 
   @media (min-width: 1200px) {
     flex-direction: row;
   }
-
   .col-service-photos {
     display: flex;
     flex-direction: column;
     padding: 0;
-
     @media (min-width: 1200px) {
       width: 630px;
     }
-
     .row-service-photos {
       &.--line1,
       &.--line2 {
         width: 100%;
-
         img.service-photo {
           @media (min-width: 1200px) {
             height: 290px;
           }
-
           width: 100%;
           background: url("~assets/img/loading.svg") no-repeat center center;
           background-size: 30px;
         }
       }
-
       &.--line1 {
         display: flex;
-
         div {
           width: 50%;
-
           &.service-icon {
             background-color: $dark-title;
             display: flex;
             align-items: center;
             justify-content: center;
-
             img {
               width: 50%;
               max-width: 186px;
@@ -192,16 +177,13 @@ export default {
       }
     }
   }
-
   .col-service-text {
     .service-text {
       padding: 38px;
-
       @media (min-width: 1200px) {
         padding: 81px;
         max-height: 580px;
       }
-
       p {
         font-size: 16px;
       }
@@ -211,22 +193,80 @@ export default {
 </style>
 
 <style lang="scss">
-@media (max-width: 600px) {
-  .modal-dialog {
-    max-width: 100vw;
-    margin: 0;
-  }
-}
 .modal-content {
   background: $dark-background;
-  @media (max-width: 600px) {
-    height: 100vh;
-    width: auto;
-    margin-left: -15px;
-  }
 
   .modal-body {
     padding: 0;
+  }
+}
+
+@media (max-width: 601px) {
+  .close-service-modal {
+    position: fixed !important;
+    right: 20px !important;
+    top: 20px !important;
+  }
+
+  .service-content-wrapper {
+    padding: 0 15px !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+
+  .modal {
+    // background: $dark-background;
+    // position: fixed;
+    // top: 0;
+    // right: 0;
+    // bottom: 0;
+    // left: 0;
+    // overflow: hidden;
+    // padding: 0;
+    // margin: 0;
+    border: solid 4px red;
+  }
+
+  .modal-dialog {
+    max-width: 100vw;
+    margin: 0;
+    // padding: 0;
+    // margin: 0;
+    // position: initial;
+    // top: 0;
+    // right: 0;
+    // bottom: 0;
+    // left: 0;
+    // padding: 0;
+    // border: solid 4px teal;
+  }
+
+  .modal-content {
+    height: 100vh;
+    width: auto;
+    margin-left: -15px;
+    // position: absolute;
+    // top: 0;
+    // right: 0;
+    // bottom: 0;
+    // left: 0;
+    // border-radius: 0;
+    // box-shadow: none;
+    // padding: 0;
+    // margin: 0;
+    // border: solid 4px blue;
+  }
+
+  .modal-body {
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    // right: 0;
+    // min-width: 100vw;
+    // overflow: hidden;
+    // margin: 0 !important;
+    // padding: 0 !important;
+    // border: solid 4px maroon;
   }
 }
 </style>

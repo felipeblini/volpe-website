@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="parallax-container"
-    :style="{
-      backgroundColor: `rgb(${pallete[0]}, ${pallete[1]}, ${pallete[2]})`
-    }"
-  >
+  <div class="parallax-container">
     <div
       class="container parallax-title"
       :class="`--${$route.name.split('-')[0].replace(/\//gm, '')}`"
@@ -26,11 +21,20 @@
       v-lazy-container="{ selector: 'img' }"
     >
       <client-only>
-        <parallax :speed-factor="0.5">
+        <parallax v-if="webpSupport" :speed-factor="0.5">
           <img
-            :data-src="heroImage"
-            :data-srcSet="heroImageSizesSet"
-            :data-loading="heroPlaceholder"
+            :data-src="heroImgWebp"
+            :data-loading="heroImage.placeholder"
+            alt="Volpe Ambiental - Hero Image"
+            type="image/webp"
+          />
+        </parallax>
+        <parallax v-else :speed-factor="0.5">
+          <img
+            :data-src="heroImage.src"
+            :data-srcSet="heroImage.srcSet"
+            :data-loading="heroImage.placeholder"
+            alt="Volpe Ambiental - Hero Image"
           />
         </parallax>
       </client-only>
@@ -46,39 +50,42 @@ export default {
     Parallax
   },
   data() {
-    return { showParallax: true, pallete: [39, 39, 39] };
+    return { showParallax: true, pallete: [39, 39, 39], webpSupport: false };
   },
   props: {
     pageTitle: String
   },
   computed: {
+    heroImgWebp() {
+      return require(`~/assets/img/${this.$route.name
+        .split("-")[0]
+        .replace(/\//gm, "")}/hero-background.webp`);
+    },
     heroImage() {
       return require(`~/assets/img/${this.$route.name
         .split("-")[0]
-        .replace(/\//gm, "")}/hero-background.jpg`);
-    },
-    heroImageSizesSet() {
-      return require(`~/assets/img/${this.$route.name
-        .split("-")[0]
-        .replace(/\//gm, "")}/hero-background.jpg`).srcSet;
-    },
-    heroPlaceholder() {
-      return require(`~/assets/img/${this.$route.name
-        .split("-")[0]
-        .replace(/\//gm, "")}/hero-background.jpg`).placeholder;
+        .replace(
+          /\//gm,
+          ""
+        )}/hero-background.jpg?sizes[]=400&sizes[]=800&sizes[]=1200&sizes[]=1917`);
     }
   },
   mounted() {
-    const imageURL = require(`~/assets/img/${this.$route.name
-      .split("-")[0]
-      .replace(/\//gm, "")}/hero-background.jpg?lqip-colors`);
+    const windowSize = Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0
+    );
 
-    const { getColorFromURL } = require("color-thief-node");
-
-    (async () => {
-      const dominantColor = await getColorFromURL(imageURL);
-      this.pallete = dominantColor;
-    })();
+    const mockCanvas = document.createElement("canvas");
+    if (!!(mockCanvas.getContext && mockCanvas.getContext("2d"))) {
+      // was able or not to get WebP representation
+      if (
+        mockCanvas.toDataURL("image/webp").indexOf("data:image/webp") == 0 &&
+        windowSize >= 1200
+      ) {
+        this.webpSupport = true;
+      }
+    }
 
     window.addEventListener("resize", () => {
       this.showParallax = false;
@@ -96,6 +103,7 @@ $parallax-desktop-height: 100vh;
 $parallax-mobile-height: 70vh;
 
 .parallax-container {
+  background-color: #2a2b2c;
   position: relative;
   z-index: 1;
 

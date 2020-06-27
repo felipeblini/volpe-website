@@ -27,13 +27,10 @@
           >
             <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="
-                require('~/assets/img/servicos/britador.png').srcSet
-              "
-              :data-src="require('~/assets/img/servicos/britador.png')"
-              :data-loading="
-                require('~/assets/img/servicos/britador.png').placeholder
-              "
+              :data-srcSet="responsiveImg.srcSet"
+              :data-src="responsiveImg.src"
+              :data-loading="responsiveImg.placeholder"
+              alt="Britador"
             />
           </b-col>
         </b-row>
@@ -214,6 +211,9 @@ export default {
             icon: service.acf.icone
           };
         });
+    },
+    responsiveImg() {
+      return require("~/assets/img/servicos/britador.png?sizes[]=200&sizes[]=320&sizes[]=612");
     }
   },
 

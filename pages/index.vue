@@ -15,11 +15,9 @@
           <b-col class="content-center" v-lazy-container="{ selector: 'img' }">
             <img
               v-if="state.showResponsiveImg"
-              :data-srcSet="require('~/assets/img/index/cacamba.png').srcSet"
-              :data-src="require('~/assets/img/index/cacamba.png')"
-              :data-loading="
-                require('~/assets/img/index/cacamba.png').placeholder
-              "
+              :data-srcSet="responsiveImg.srcSet"
+              :data-src="responsiveImg.src"
+              :data-loading="responsiveImg.placeholder"
               alt="Caçamba"
             />
           </b-col>
@@ -179,6 +177,11 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    responsiveImg() {
+      return require("~/assets/img/index/cacamba.png?sizes[]=320&sizes[]=849");
+    }
   },
   mounted() {
     window.addEventListener("resize", () => {
