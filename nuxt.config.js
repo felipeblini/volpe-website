@@ -61,6 +61,7 @@ export default {
     '@nuxtjs/device',
     '@nuxt/http',
     'nuxt-responsive-loader',
+    'nuxt-purgecss',
   ],
 
   responsiveLoader: {
@@ -127,6 +128,7 @@ export default {
   ** Build configuration
   */
   build: {
+    analyze: true,
     // publicPath: 'http://volpeambiental.com.br/site',
     babel: {
       presets({ isServer }) {
