@@ -40,13 +40,37 @@
                 <img :src="serviceContent.icon" :alt="serviceContent.title" />
               </div>
 
-              <div class="service-img-1">
-                <img class="service-photo" :src="serviceContent.img1" />
-              </div>
+              <div
+                class="service-photo-loading --img-1"
+                :style="{
+                  height: `${viewportWidth / 2}px`
+                }"
+              ></div>
+
+              <div
+                class="service-photo"
+                :style="{
+                  backgroundImage: `url(${serviceContent.img1})`,
+                  minHeight: `${viewportWidth / 2}px`
+                }"
+              ></div>
             </div>
 
             <div class="row-service-photos --line2">
-              <img class="service-photo" :src="serviceContent.img2" />
+              <div
+                class="service-photo-loading --img-2"
+                :style="{
+                  height: `${viewportWidth / 2}px`
+                }"
+              ></div>
+
+              <div
+                class="service-photo"
+                :style="{
+                  backgroundImage: `url(${serviceContent.img2})`,
+                  minHeight: `${viewportWidth / 2}px`
+                }"
+              ></div>
             </div>
           </b-col>
         </template>
@@ -68,7 +92,8 @@ export default {
     return {
       modalSize: "xl",
       serviceContent: {},
-      modalActive: false
+      modalActive: false,
+      viewportWidth: 0
     };
   },
   async fetch() {
@@ -81,25 +106,34 @@ export default {
   },
   mounted() {
     this.modalActive = true;
+
     const windowSize = Math.max(
       document.documentElement.clientWidth || 0,
       window.innerWidth || 0
     );
+
+    this.viewportWidth = windowSize;
+
     if (windowSize >= 1200) {
       this.modalSize = "xl";
     } else {
       this.modalSize = "md";
     }
     window.addEventListener("resize", () => {
-      const windowSize = Math.max(
-        document.documentElement.clientWidth || 0,
-        window.innerWidth || 0
-      );
-      if (windowSize >= 1200) {
-        this.modalSize = "xl";
-      } else {
-        this.modalSize = "md";
-      }
+      setTimeout(() => {
+        const windowSize = Math.max(
+          document.documentElement.clientWidth || 0,
+          window.innerWidth || 0
+        );
+
+        this.viewportWidth = windowSize;
+
+        if (windowSize >= 1200) {
+          this.modalSize = "xl";
+        } else {
+          this.modalSize = "md";
+        }
+      }, 300);
     });
   }
 };
@@ -146,27 +180,57 @@ export default {
     @media (min-width: 1200px) {
       width: 630px;
     }
+
     .row-service-photos {
-      &.--line1,
-      &.--line2 {
-        width: 100%;
-        img.service-photo {
-          @media (min-width: 1200px) {
-            height: 290px;
-          }
-          width: 100%;
-          background: url("~assets/img/loading.svg") no-repeat center center;
-          background-size: 30px;
+      width: 100%;
+
+      .service-photo-loading {
+        width: 100% !important;
+        position: absolute;
+        z-index: 0;
+        background-image: url("~assets/img/loading.svg");
+        background-repeat: no-repeat;
+
+        @media (min-width: 600px) {
+          height: 258px !important;
+        }
+
+        @media (min-width: 1200px) {
+          height: 284px !important;
+        }
+
+        &.--img-1 {
+          background-position: 75% center;
+        }
+
+        &.--img-2 {
+          background-position: center center;
         }
       }
+
+      .service-photo {
+        background-size: cover;
+        position: relative;
+        z-index: 1;
+
+        @media (min-width: 600px) {
+          min-height: 258px !important;
+        }
+
+        @media (min-width: 1200px) {
+          min-height: 284px !important;
+        }
+      }
+
       &.--line1 {
         display: flex;
         div {
           width: 50%;
+
           &.service-icon {
             background-color: $dark-title;
             display: flex;
-            align-items: center;
+            align-content: center;
             justify-content: center;
             img {
               width: 50%;
@@ -177,6 +241,7 @@ export default {
       }
     }
   }
+
   .col-service-text {
     .service-text {
       padding: 38px;
@@ -201,7 +266,7 @@ export default {
   }
 }
 
-@media (max-width: 601px) {
+@media (max-width: 600px) {
   .close-service-modal {
     position: fixed !important;
     right: 20px !important;
@@ -214,59 +279,15 @@ export default {
     border: none !important;
   }
 
-  .modal {
-    // background: $dark-background;
-    // position: fixed;
-    // top: 0;
-    // right: 0;
-    // bottom: 0;
-    // left: 0;
-    // overflow: hidden;
-    // padding: 0;
-    // margin: 0;
-    border: solid 4px red;
-  }
-
   .modal-dialog {
     max-width: 100vw;
     margin: 0;
-    // padding: 0;
-    // margin: 0;
-    // position: initial;
-    // top: 0;
-    // right: 0;
-    // bottom: 0;
-    // left: 0;
-    // padding: 0;
-    // border: solid 4px teal;
   }
 
   .modal-content {
     height: 100vh;
     width: auto;
     margin-left: -15px;
-    // position: absolute;
-    // top: 0;
-    // right: 0;
-    // bottom: 0;
-    // left: 0;
-    // border-radius: 0;
-    // box-shadow: none;
-    // padding: 0;
-    // margin: 0;
-    // border: solid 4px blue;
-  }
-
-  .modal-body {
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    // right: 0;
-    // min-width: 100vw;
-    // overflow: hidden;
-    // margin: 0 !important;
-    // padding: 0 !important;
-    // border: solid 4px maroon;
   }
 }
 </style>

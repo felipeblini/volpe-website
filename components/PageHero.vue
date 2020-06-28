@@ -50,7 +50,7 @@ export default {
     Parallax
   },
   data() {
-    return { showParallax: true, pallete: [39, 39, 39], webpSupport: false };
+    return { showParallax: true, webpSupport: false };
   },
   props: {
     pageTitle: String
