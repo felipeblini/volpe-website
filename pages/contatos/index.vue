@@ -38,19 +38,6 @@
           </b-col>
         </b-row>
 
-        <b-row>
-          <b-col>
-            <b-alert
-              class="mt-5"
-              v-model="state.resultDone"
-              :variant="state.resultStatus"
-              dismissible
-            >
-              <span v-html="state.resultMessage"></span>
-            </b-alert>
-          </b-col>
-        </b-row>
-
         <b-row class="form-row mt-4">
           <b-col cols="4" class="contact-logo-wrapper">
             <img src="" alt="" />
@@ -144,9 +131,19 @@
 
                 <ScrollTopButton class="d-md-none" />
               </div>
+
+              <b-alert
+                class="mt-5"
+                v-model="state.resultDone"
+                :variant="state.resultStatus"
+                dismissible
+              >
+                <span v-html="state.resultMessage"></span>
+              </b-alert>
             </form>
           </b-col>
         </b-row>
+
         <a href="#" id="mapa"></a>
       </b-container>
     </div>
