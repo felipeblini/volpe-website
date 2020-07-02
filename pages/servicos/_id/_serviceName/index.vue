@@ -45,10 +45,13 @@
           <ul class="row services-list my-5">
             <li
               class="col"
-              v-for="service in servicesList"
+              v-for="(service, index) in servicesList"
               :key="service.id"
               :id="`service-${service.id}`"
               @click.prevent="toggleServiceModal(service)"
+              data-aos="fade-up"
+              :data-aos-offset="(100 * index).toString()"
+              data-aos-duration="1000"
             >
               <div class="p-4">
                 <img
@@ -78,10 +81,22 @@
 
       <PageSloganParallax />
 
-      <div class="page-footer-content content-theme --light pt-3">
+      <div
+        class="page-footer-content content-theme --light pt-3"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        data-aos-delay="200"
+      >
         <PageFooterContentLogo />
 
-        <div class="page-footer-highlight-content pb-5">
+        <div
+          class="page-footer-highlight-content pb-5"
+          data-aos="fade-up"
+          data-aos-offset="0"
+          data-aos-duration="1000"
+          data-aos-delay="1000"
+          data-aos-easing="ease-in-out"
+        >
           <b-container class="mt-4">
             <div class="page-footer-icon">
               <img src="~/assets/img/servicos/shield.svg" alt="" />

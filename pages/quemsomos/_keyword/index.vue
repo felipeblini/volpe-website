@@ -16,7 +16,12 @@
         </b-row>
 
         <b-container class="content-box-container">
-          <b-row id="missao">
+          <b-row
+            id="missao"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="200"
+          >
             <b-col class="content-box mt-5">
               <h2 class="--bold">Missão</h2>
               <p>
@@ -25,7 +30,12 @@
             </b-col>
           </b-row>
 
-          <b-row id="visao">
+          <b-row
+            id="visao"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            data-aos-delay="200"
+          >
             <b-col class="content-box mt-5">
               <h2 class="--bold">Visão</h2>
               <p>
@@ -64,10 +74,22 @@
 
       <PageSloganParallax />
 
-      <div class="page-footer-content content-theme --dark pt-3">
+      <div
+        class="page-footer-content content-theme --dark pt-3"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        data-aos-delay="200"
+      >
         <PageFooterContentLogo />
 
-        <div class="page-footer-highlight-content">
+        <div
+          class="page-footer-highlight-content"
+          data-aos="fade-up"
+          data-aos-offset="0"
+          data-aos-duration="1000"
+          data-aos-delay="1000"
+          data-aos-easing="ease-in-out"
+        >
           <b-container class="mt-4">
             <div class="page-footer-icon">
               <img src="~/assets/img/quemsomos/footer-icon.svg" alt="" />

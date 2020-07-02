@@ -29,7 +29,7 @@ export default {
   /*
   ** Global CSS
   */
-  css: ['~/assets/scss/global.scss'],
+  css: ['~/assets/scss/global.scss', 'aos/dist/aos.css'],
 
   styleResources: {
     scss: ['~/assets/scss/_colors.scss', '~/assets/scss/_mixins.scss']
@@ -40,7 +40,7 @@ export default {
   plugins: [
     { src: '~/plugins/global-scripts', ssr: false },
     '~/plugins/vue-lazyload.client.js',
-    '~/plugins/vue-js-modal.client.js'
+    '~/plugins/aos.client.js'
   ],
   /*
   ** Nuxt.js dev-modules

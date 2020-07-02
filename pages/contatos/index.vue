@@ -10,6 +10,9 @@
           class="unity-row mt-4"
           v-for="unity in unitiesList"
           :key="unity.id"
+          data-aos="fade-up"
+          :data-aos-offset="(100 * index).toString()"
+          data-aos-duration="1000"
         >
           <b-col class="unity-pin">
             <div class="pin-icon"></div>

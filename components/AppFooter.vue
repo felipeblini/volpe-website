@@ -1,7 +1,7 @@
 <template>
   <div class="footer-wrapper content-theme --dark py-4">
     <b-container>
-      <b-row>
+      <b-row data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
         <b-col class="footer-logo" v-lazy-container="{ selector: 'img' }">
           <nuxt-link to="/">
             <img

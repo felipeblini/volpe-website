@@ -38,7 +38,13 @@
 
         <ul class="row content-list my-5 justify-content-center">
           <li class="col-lg-4">
-            <div class="p-4" v-lazy-container="{ selector: 'img' }">
+            <div
+              class="p-4"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="500"
+              v-lazy-container="{ selector: 'img' }"
+            >
               <img
                 :data-src="require('~/assets/img/index/atividade-1.svg')"
                 :alt="activity1"
@@ -47,7 +53,13 @@
             </div>
           </li>
           <li class="col-lg-4">
-            <div class="p-4" v-lazy-container="{ selector: 'img' }">
+            <div
+              class="p-4"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="800"
+              v-lazy-container="{ selector: 'img' }"
+            >
               <img
                 :data-src="require('~/assets/img/index/atividade-2.svg')"
                 :alt="activity2"
@@ -56,11 +68,18 @@
             </div>
           </li>
           <li class="col-lg-4">
-            <div class="p-4" v-lazy-container="{ selector: 'img' }">
+            <div
+              class="p-4"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="1100"
+              v-lazy-container="{ selector: 'img' }"
+            >
               <img
-                :data-src="require('~/assets/img/index/atividade-2.svg')"
+                :data-src="require('~/assets/img/index/atividade-3.svg')"
                 :alt="activity3"
               />
+
               <h3 class="--bold mt-3">{{ activity3 }}</h3>
             </div>
           </li>
@@ -75,10 +94,22 @@
 
       <PageSloganParallax />
 
-      <div class="page-footer-content content-theme --light pt-3">
+      <div
+        class="page-footer-content content-theme --light pt-3"
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        data-aos-delay="200"
+      >
         <PageFooterContentLogo />
 
-        <div class="page-footer-highlight-content">
+        <div
+          class="page-footer-highlight-content"
+          data-aos="fade-up"
+          data-aos-offset="0"
+          data-aos-duration="1000"
+          data-aos-delay="1000"
+          data-aos-easing="ease-in-out"
+        >
           <b-container class="mt-4">
             <div class="page-footer-icon">
               <img src="~/assets/img/index/footer-icon.svg" alt="" />
