@@ -11,7 +11,6 @@
           v-for="unity in unitiesList"
           :key="unity.id"
           data-aos="fade-up"
-          :data-aos-offset="(100 * index).toString()"
           data-aos-duration="1000"
         >
           <b-col class="unity-pin">
@@ -171,15 +170,17 @@ export default {
       const params = { categories: "4" };
       const { data } = await $axios.get("", { params });
 
-      unitiesList = data.map(unity => {
-        return {
-          id: unity.id,
-          name: unity.title.rendered,
-          address: unity.acf.endereco,
-          city: unity.acf.cidade,
-          phone: unity.acf.telefone
-        };
-      });
+      unitiesList = data
+        .filter(x => !x.content.protected)
+        .map(unity => {
+          return {
+            id: unity.id,
+            name: unity.title.rendered,
+            address: unity.acf.endereco,
+            city: unity.acf.cidade,
+            phone: unity.acf.telefone
+          };
+        });
     } catch (e) {
       unitiesList = [];
     }
