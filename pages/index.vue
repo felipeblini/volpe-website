@@ -151,17 +151,13 @@ export default {
     ScrollTopButton,
     AppFooter
   },
-  async asyncData({ res, $axios }) {
+  async asyncData({ $axios }) {
     try {
       const params = { slug: "home" };
       const { data } = await $axios.get("", { params });
 
       const splitRendered = data[0].content.rendered.split(/\n\n\n\n/);
       const pageSEO = data[0].acf;
-
-      console.log({ res });
-      if (res)
-        res.setHeader("Cache-Control", "s-maxage=1, stale-while-revalidate");
 
       return {
         firstTextBlock: splitRendered[0],

@@ -52,9 +52,10 @@ const sendMail = async (mailContent) => {
   })
 }
 
-app.get('/', (req, res) => {
-  res.status(200).json({ ok: 'ok' })
-})
+// app.get('/', (req, res) => {
+//   console.log('ok');
+//   res.status(200).json({ ok: 'ok' })
+// })
 
 app.post('/', async (req, res) => {
   // Validate, sanitize and send
