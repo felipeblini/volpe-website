@@ -113,6 +113,7 @@ export default {
   */
   serverMiddleware: [
     '~/api/contact',
+    '~/api/cache'
   ],
   /*
   ** Build configuration
