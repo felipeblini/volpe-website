@@ -3,7 +3,9 @@
     <div class="service-outside-content">
       <h1>{{ serviceContent.title }}</h1>
       <p v-html="serviceContent.content"></p>
-      <img :src="serviceContent.img1" />
+      <!-- <img
+        :src="require(`@/assets/img/servicos/list/${serviceContent.icon}`)"
+      /> -->
       <img :src="serviceContent.img2" />
     </div>
 
@@ -37,7 +39,12 @@
           <b-col class="col-service-photos">
             <div class="row-service-photos --line1">
               <div class="service-icon">
-                <img :src="serviceContent.icon" :alt="serviceContent.title" />
+                <img
+                  :src="
+                    require(`@/assets/img/servicos/list/${serviceContent.icon}-w.svg`)
+                  "
+                  :alt="serviceContent.title"
+                />
               </div>
 
               <div
@@ -50,7 +57,8 @@
               <div
                 class="service-photo"
                 :style="{
-                  backgroundImage: `url(${serviceContent.img1})`,
+                  backgroundImage: `url(${require('@/assets/img/servicos/list/' +
+                    serviceContent.img1)})`,
                   minHeight: `${viewportWidth / 2}px`
                 }"
               ></div>
@@ -67,7 +75,8 @@
               <div
                 class="service-photo"
                 :style="{
-                  backgroundImage: `url(${serviceContent.img2})`,
+                  backgroundImage: `url(${require('@/assets/img/servicos/list/' +
+                    serviceContent.img2)})`,
                   minHeight: `${viewportWidth / 2}px`
                 }"
               ></div>
@@ -97,12 +106,24 @@ export default {
     };
   },
   async fetch() {
-    const serviceContent = await this.$axios.get(this.serviceId.toString());
-    this.serviceContent.title = serviceContent.data.title.rendered;
-    this.serviceContent.content = serviceContent.data.content.rendered;
-    this.serviceContent.icon = serviceContent.data.acf.icone;
-    this.serviceContent.img1 = serviceContent.data.acf.foto_quadrada;
-    this.serviceContent.img2 = serviceContent.data.acf.foto_paisagem;
+    const getService = async () =>
+      new Promise((res, rej) => {
+        setTimeout(() => {
+          res(
+            this.$store.state.servicesList.filter(
+              x => x.id === this.serviceId
+            )[0]
+          );
+        }, 500);
+      });
+
+    const serviceContent = await getService();
+
+    this.serviceContent.title = serviceContent.title;
+    this.serviceContent.content = serviceContent.content;
+    this.serviceContent.icon = serviceContent.icon;
+    this.serviceContent.img1 = serviceContent.img1;
+    this.serviceContent.img2 = serviceContent.img2;
   },
   mounted() {
     this.modalActive = true;
@@ -228,7 +249,8 @@ export default {
           width: 50%;
 
           &.service-icon {
-            background-color: $dark-title;
+            border: solid 3px $dark-title;
+            background: $dark-title;
             display: flex;
             align-content: center;
             justify-content: center;

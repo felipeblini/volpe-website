@@ -56,7 +56,9 @@
               <div class="p-4">
                 <img
                   class="service-icon"
-                  :src="service.icon"
+                  :src="
+                    require(`@/assets/img/servicos/list/${service.icon}.svg`)
+                  "
                   :alt="service.title"
                 />
                 <h3>{{ service.title }}</h3>
@@ -142,17 +144,19 @@ export default {
     AppFooter,
     ServiceModal
   },
-  async asyncData({ params }) {
-    const firstTextBlock = "";
-    const pageSlogan = "";
-    const footerTextBlock = "";
-    const buttonText = "Saiba mais";
+  async asyncData({ params, store }) {
+    const firstTextBlock =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum.";
+    const pageSlogan = "Frase sobre a empresa";
+    const footerTextBlock =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.";
+    const buttonText = "Contate-nos";
     const buttonLink = "/contatos";
     const pageTitle = "Serviços";
     const pageDescription =
       "Lorem ipsumnm dolor sit amet, consectetur adipiscing elit, do eiusmod tempor incididunt ut labore et dolore";
 
-    const pageContent = {
+    let pageContent = {
       firstTextBlock,
       pageSlogan,
       footerTextBlock,
@@ -164,7 +168,7 @@ export default {
 
     if (params.id) {
       try {
-        const { data: serviceContent } = await $axios.get(params.id);
+        const serviceContent = store.state.servicesList[params.id - 1];
 
         pageContent = Object.assign(pageContent, {
           state: {
@@ -172,17 +176,19 @@ export default {
             openedModal: true,
             openedService: {
               id: serviceContent.id,
-              title: serviceContent.title.rendered,
-              content: serviceContent.content.rendered,
-              icon: serviceContent.acf.icone,
-              img1: serviceContent.acf.foto_quadrada,
-              img2: serviceContent.acf.foto_paisagem
+              title: serviceContent.title,
+              content: serviceContent.content,
+              icon: serviceContent.icone,
+              img1: serviceContent.img1,
+              img2: serviceContent.img2
             }
           },
-          pageTitle: serviceContent.title.rendered,
-          pageDescription: serviceContent.acf.page_description
+          pageTitle: serviceContent.title,
+          pageDescription: serviceContent.excerpt
         });
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
     }
 
     return pageContent;
@@ -205,16 +211,14 @@ export default {
   },
   computed: {
     servicesList() {
-      return this.$store.state.servicesList
-        .filter(x => !x.content.protected)
-        .map(service => {
-          return {
-            id: service.id,
-            title: service.title.rendered.trim(),
-            excerpt: service.excerpt.rendered,
-            icon: service.acf.icone
-          };
-        });
+      return this.$store.state.servicesList.map(service => {
+        return {
+          id: service.id,
+          title: service.title,
+          excerpt: service.excerpt,
+          icon: service.icon
+        };
+      });
     },
     responsiveImg() {
       return require("~/assets/img/servicos/britador.png?sizes[]=200&sizes[]=320&sizes[]=612");
@@ -360,8 +364,10 @@ export default {
         width: 100%;
 
         img.service-icon {
-          width: 74px;
-          height: 74px;
+          width: 107px;
+          border-radius: 6px;
+          padding: 15px;
+          filter: grayscale(100%);
         }
 
         h3 {

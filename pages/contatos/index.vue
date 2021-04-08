@@ -42,7 +42,7 @@
 
         <b-row class="form-row mt-4">
           <b-col cols="4" class="contact-logo-wrapper">
-            <img src="" alt="" />
+            <div></div>
           </b-col>
 
           <b-col id="fale-conosco" class="contact-form-wrapper">
@@ -163,43 +163,22 @@ import AppFooter from "~/components/AppFooter";
 
 export default {
   components: { PageHero, ScrollTopButton, AppFooter },
-  async asyncData({ $axios }) {
-    let unitiesList, pageTitle, pageDescription;
-
-    try {
-      const params = { categories: "4" };
-      const { data } = await $axios.get("", { params });
-
-      unitiesList = data
-        .filter(x => !x.content.protected)
-        .map(unity => {
-          return {
-            id: unity.id,
-            name: unity.title.rendered,
-            address: unity.acf.endereco,
-            city: unity.acf.cidade,
-            phone: unity.acf.telefone
-          };
-        });
-    } catch (e) {
-      unitiesList = [];
-    }
-
-    try {
-      const params = { slug: "contato" };
-      const { data } = await $axios.get("", { params });
-
-      pageTitle = data[0].acf.page_title;
-      pageDescription = data[0].acf.page_description;
-    } catch (e) {
-      pageTitle = "";
-      pageDescription = "";
-    }
+  async asyncData() {
+    const unitiesList = [
+      {
+        id: 1,
+        name: "Unidade Osasco",
+        address: "Rua São Bento, 555",
+        city: "Osasco - SP",
+        phone: "11 3607-4071"
+      }
+    ];
 
     return {
       unitiesList,
-      pageTitle,
-      pageDescription
+      pageTitle: "Contato",
+      pageDescription:
+        "Lorem ipsumnm dolor sit amet, consectetur adipiscing elit, do eiusmod tempor incididunt ut labore et dolore"
     };
   },
   data() {
@@ -544,7 +523,7 @@ export default {
       justify-content: center;
     }
 
-    img {
+    div {
       width: 110px;
       height: 108px;
 

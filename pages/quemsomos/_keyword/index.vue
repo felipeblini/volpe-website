@@ -133,7 +133,7 @@ export default {
     ScrollTopButton,
     AppFooter
   },
-  async asyncData({ $axios }) {
+  async asyncData() {
     try {
       return {
         firstTextBlock:

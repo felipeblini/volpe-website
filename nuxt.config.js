@@ -66,9 +66,10 @@ export default {
   },
 
   sitemap: {
-    hostname: "localhost:3000/",
+    hostname: "https://volpe-website.netlify.app/",
     routes: async () => {
-      routes.push('/quemsomos/construção-civil-reforma-demolição-coleta-de-residuos');
+      const routes = [];
+      routes.push('quemsomos/construção-civil-reforma-demolição-coleta-de-residuos');
       return routes
     }
   },

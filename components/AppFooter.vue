@@ -71,12 +71,10 @@
                     :to="
                       `/servicos/${
                         service.id
-                      }/${service.title.rendered
-                        .toLowerCase()
-                        .replace(/ /g, '-')}`
+                      }/${service.title.toLowerCase().replace(/ /g, '-')}`
                     "
                   >
-                    {{ service.title.rendered }}
+                    {{ service.title }}
                   </nuxt-link>
                 </li>
               </ul>
