@@ -153,24 +153,23 @@ export default {
   },
   async asyncData({ $axios }) {
     try {
-      const params = { slug: "home" };
-      const { data } = await $axios.get("", { params });
-
-      const splitRendered = data[0].content.rendered.split(/\n\n\n\n/);
-      const pageSEO = data[0].acf;
-
       return {
-        firstTextBlock: splitRendered[0],
-        secondTextBlock: splitRendered[1],
-        activity1: splitRendered[2],
-        activity2: splitRendered[3],
-        activity3: splitRendered[4],
-        pageSlogan: splitRendered[5],
-        footerTextBlock: splitRendered[6],
-        buttonText: splitRendered[7].split("buttonText:")[1].trim(),
-        buttonLink: splitRendered[8].split("buttonLink:")[1].trim(),
-        pageTitle: pageSEO.page_title,
-        pageDescription: pageSEO.page_description
+        firstTextBlock:
+          "Lorem ipsumnm dolor sit amet, consectetur adipiscing elit, do eiusmod tempor incididunt ut labore et dolore",
+        secondTextBlock:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor incididunt ut labore et dolore, lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor incididunt ut labore et dolore",
+        activity1: "Atividades Ambientais",
+        activity2: "Atividades Comerciais",
+        activity3: "Atividades Socioambientais",
+        pageSlogan: "Frase com slogan ambiental",
+        footerTextBlock:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor incididunt ut labore et dolore, lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor incididunt ut labore et dolore",
+        buttonText: "Saiba mais",
+        buttonLink:
+          "/quemsomos/construção-civil-reforma-demolição-coleta-de-residuos",
+        pageTitle: "Home",
+        pageDescription:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor incididunt"
       };
     } catch (e) {
       return {};

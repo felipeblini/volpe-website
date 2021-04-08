@@ -5,7 +5,7 @@
   "author": "felipeblini",
   "private": true,
   "scripts": {
-    "dev": "nuxt --port 9000",
+    "dev": "nuxt --port 3000",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",

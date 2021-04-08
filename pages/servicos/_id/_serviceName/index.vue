@@ -142,36 +142,25 @@ export default {
     AppFooter,
     ServiceModal
   },
-  async asyncData({ $axios, params }) {
-    let pageContent;
+  async asyncData({ params }) {
+    const firstTextBlock = "";
+    const pageSlogan = "";
+    const footerTextBlock = "";
+    const buttonText = "Saiba mais";
+    const buttonLink = "/contatos";
+    const pageTitle = "Serviços";
+    const pageDescription =
+      "Lorem ipsumnm dolor sit amet, consectetur adipiscing elit, do eiusmod tempor incididunt ut labore et dolore";
 
-    try {
-      const requestParams = { slug: "servicos" };
-      const { data } = await $axios.get("", { params: requestParams });
-
-      const splitRendered = data[0].content.rendered.split(/\n\n\n\n/);
-      const pageSEO = data[0].acf;
-
-      const firstTextBlock = splitRendered[0];
-      const pageSlogan = splitRendered[1];
-      const footerTextBlock = splitRendered[2];
-      const buttonText = splitRendered[3].split("buttonText:")[1].trim();
-      const buttonLink = splitRendered[4].split("buttonLink:")[1].trim();
-      const pageTitle = pageSEO.page_title;
-      const pageDescription = pageSEO.page_description;
-
-      pageContent = {
-        firstTextBlock,
-        pageSlogan,
-        footerTextBlock,
-        buttonText,
-        buttonLink,
-        pageTitle,
-        pageDescription
-      };
-    } catch (e) {
-      pageContent = {};
-    }
+    const pageContent = {
+      firstTextBlock,
+      pageSlogan,
+      footerTextBlock,
+      buttonText,
+      buttonLink,
+      pageTitle,
+      pageDescription
+    };
 
     if (params.id) {
       try {

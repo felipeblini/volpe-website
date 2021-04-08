@@ -135,23 +135,23 @@ export default {
   },
   async asyncData({ $axios }) {
     try {
-      const params = { slug: "quem-somos" };
-      const { data } = await $axios.get("", { params });
-
-      const splitRendered = data[0].content.rendered.split(/\n\n\n\n/);
-      const pageSEO = data[0].acf;
-
       return {
-        firstTextBlock: splitRendered[0],
-        mission: splitRendered[1].split("missao:")[1].trim(),
-        vision: splitRendered[2].split("visao:")[1].trim(),
-        bottomParagraph: splitRendered[3],
-        pageSlogan: splitRendered[4],
-        footerTextBlock: splitRendered[5],
-        buttonText: splitRendered[6].split("buttonText:")[1].trim(),
-        buttonLink: splitRendered[7].split("buttonLink:")[1].trim(),
-        pageTitle: pageSEO.page_title,
-        pageDescription: pageSEO.page_description
+        firstTextBlock:
+          "Lorem quem-somoss ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+        mission:
+          "Server ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut sis. sit amet, consectetur adipiscing elit",
+        vision:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut sis. sit amet, consectetur adipiscing elit",
+        bottomParagraph:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius.",
+        pageSlogan: "Frase sobre a empresa",
+        footerTextBlock:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+        buttonText: "Saiba mais",
+        buttonLink: "/servicos",
+        pageTitle: "Quem Somos",
+        pageDescription:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
       };
     } catch (e) {
       return {};

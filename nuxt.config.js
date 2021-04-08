@@ -1,9 +1,4 @@
-const axios = require('axios');
-
-console.log({ ENV: process.env.NODE_ENV })
-
 export default {
-  mode: 'universal',
   /*
   ** Headers of the page
   */
@@ -71,22 +66,9 @@ export default {
   },
 
   sitemap: {
-    hostname: "https://volpeambiental.com.br",
+    hostname: "localhost:3000/",
     routes: async () => {
-      const { data: servicesData } = await axios.get("https://volpeambiental.com.br/wp-json/wp/v2/posts?categories=2");
-
-      const routes = servicesData.map(service => {
-        return {
-          url: `/servicos/${service.id}/${service.title.rendered
-            .toLowerCase()
-            .replace(/ /g, '-')}`,
-          priority: 0.9,
-          lastmod: service.date
-        }
-      });
-
       routes.push('/quemsomos/construção-civil-reforma-demolição-coleta-de-residuos');
-
       return routes
     }
   },
@@ -105,9 +87,7 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
-    baseURL: 'https://volpeambiental.com.br/wp-json/wp/v2/posts'
-  },
+  axios: {},
   /*
   ** Server Middleware endpoints
   */
@@ -118,8 +98,6 @@ export default {
   ** Build configuration
   */
   build: {
-    // analyze: true,
-    // publicPath: 'http://volpeambiental.com.br/site',
     babel: {
       presets({ isServer }) {
         return [

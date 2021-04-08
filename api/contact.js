@@ -19,36 +19,10 @@ const validateAndSanitize = (key, value) => {
 }
 
 const sendMail = async (mailContent) => {
-  const transporter = nodemailer.createTransport({
-    host: "mail.volpeambiental.com.br",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: "contato@volpeambiental.com.br",
-      pass: "RLi^#Igtpmcm1"
-    },
-    tls: { rejectUnauthorized: false }
-  });
-
-  const mailOptions = {
-    from: 'contato@volpeambiental.com.br',
-    to: 'contato@volpeambiental.com.br',
-    subject: 'Novo contato enviado pelo site',
-    html: `<h1>Nova mensagem:</h1>
-            <p><b>Nome:</b> ${mailContent.name}</p>
-            <p><b>Telefone:</b> ${mailContent.phone}</p>
-            <p><b>Email:</b> ${mailContent.email}</p>
-            <p><b>Mensagem:</b> ${mailContent.msg}</p>`
-  };
-
   return new Promise((resolve, reject) => {
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve('Email sent: ' + info.response);
-      }
-    });
+    setTimeout(() => {
+      resolve('Email sent: ');
+    }, 3000);
   })
 }
 
